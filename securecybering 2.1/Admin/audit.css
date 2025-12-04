@@ -183,3 +183,96 @@ h2 {
     font-size: 16px;
     color: #333;
 }
+
+
+/* ------------------------------
+   TOP HEADER
+------------------------------ */
+
+.top-header {
+    height: 70px;
+    background: #ffffff;
+    border-bottom: 2px solid #e0e6f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px;
+    position: fixed;
+    top: 0;
+    left: 250px;
+    /* aligns with sidebar width */
+    width: calc(100% - 250px);
+    z-index: 9000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+
+/* Header Left (Logo + Page Title) */
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-logo {
+    height: 40px;
+    width: 40px;
+    border-radius: 6px;
+}
+
+
+/* Header title */
+
+.top-header h1 {
+    font-size: 20px;
+    color: #2c3e50;
+    margin: 0;
+}
+
+
+/* Header Right (Search + User Icon) */
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.search-bar {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 14px;
+    width: 180px;
+    transition: 0.3s ease;
+}
+
+.search-bar:focus {
+    border-color: #4070f4;
+    box-shadow: 0 0 6px rgba(64, 112, 244, 0.4);
+}
+
+
+/* User Profile Circle */
+
+.user-profile {
+    width: 38px;
+    height: 38px;
+    background: #4070f4;
+    color: white;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Move page content down */
+
+.container {
+    margin-top: 110px;
+    /* push content below the header */
+}
