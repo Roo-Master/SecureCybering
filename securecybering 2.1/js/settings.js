@@ -212,18 +212,20 @@ function loadDashboard() {
     }, 1200);
 }
 document.getElementById("sb-dashboard").addEventListener("click", loadDashboard);
-      const themeToggle = document.getElementById("themeSwitcher");
-        themeToggle.addEventListener("change", () => {
-            document.documentElement.setAttribute(
-                "data-theme",
-                themeToggle.checked ? "dark" : "light"
-            );
-            localStorage.setItem("theme", themeToggle.checked ? "dark" : "light");
-        });
+const themeToggle = document.getElementById("themeSwitcher");
+themeToggle.addEventListener("change", () => {
+    document.documentElement.setAttribute(
+        "data-theme",
+        themeToggle.checked ? "dark" : "light"
+    );
+    localStorage.setItem("theme", themeToggle.checked ? "dark" : "light");
+});
 
-        // Load saved theme
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme) {
-            document.documentElement.setAttribute("data-theme", savedTheme);
-            themeToggle.checked = savedTheme === "dark";
-        }
+// Load saved theme
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme) {
+    document.documentElement.setAttribute("data-theme", savedTheme);
+    themeToggle.checked = savedTheme === "dark";
+}
+Toggle.checked = savedTheme === "dark";
+}
