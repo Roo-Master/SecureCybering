@@ -1,0 +1,987 @@
+<!-- Save as gossip.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Gossip — Peer Interaction & Reputation</title>
+    <style>
+         :root {
+            --bg: #f6f8fa;
+            --card: #fff;
+            --muted: #666;
+            --accent: #2563eb;
+            --good: #10b981;
+            --bad: #ef4444;
+            --neutral: #f59e0b;
+        }
+        
+        body {
+            font-family: Inter, Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            margin: 0;
+            padding: 20px;
+            color: #111
+        }
+        
+        .wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 320px 1fr 360px;
+            gap: 18px
+        }
+        
+        .card {
+            background: var(--card);
+            border-radius: 10px;
+            padding: 14px;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06)
+        }
+        
+        h1 {
+            margin: 0 0 10px;
+            font-size: 20px
+        }
+        
+        h2 {
+            margin: 0 0 10px;
+            font-size: 16px
+        }
+        
+        label {
+            font-size: 13px;
+            color: var(--muted)
+        }
+        
+        input,
+        select,
+        textarea,
+        button {
+            font-family: inherit
+        }
+        
+        input[type=text],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #e6e9ee;
+            border-radius: 6px;
+            margin-top: 6px
+        }
+        
+        button {
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: none;
+            background: var(--accent);
+            color: white;
+            cursor: pointer
+        }
+        
+        .muted {
+            color: var(--muted);
+            font-size: 13px
+        }
+        
+        .peer-list {
+            max-height: 420px;
+            overflow: auto;
+            margin-top: 10px
+        }
+        
+        .peer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #f1f3f5;
+            margin-bottom: 8px
+        }
+        
+        .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700
+        }
+        
+        .badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 12px
+        }
+        
+        .badge.red {
+            background: var(--bad);
+            color: white
+        }
+        
+        .badge.green {
+            background: var(--good);
+            color: white
+        }
+        
+        .badge.gold {
+            background: gold;
+            color: #111
+        }
+        
+        .friend-actions {
+            margin-left: auto;
+            display: flex;
+            gap: 6px
+        }
+        
+        .small {
+            font-size: 12px;
+            padding: 6px 8px
+        }
+        
+        .chat-area {
+            display: flex;
+            flex-direction: column;
+            height: 520px
+        }
+        
+        .messages {
+            flex: 1;
+            overflow: auto;
+            padding: 8px;
+            border: 1px dashed #eef2ff;
+            border-radius: 8px;
+            background: #fff
+        }
+        
+        .msg {
+            margin-bottom: 10px;
+            max-width: 75%;
+        }
+        
+        .msg.me {
+            align-self: flex-end;
+            background: #eef2ff;
+            padding: 8px;
+            border-radius: 8px
+        }
+        
+        .msg.them {
+            align-self: flex-start;
+            background: #f3f4f6;
+            padding: 8px;
+            border-radius: 8px
+        }
+        
+        .controls {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px
+        }
+        
+        .reports-list {
+            max-height: 280px;
+            overflow: auto;
+            margin-top: 8px
+        }
+        
+        .report {
+            border: 1px solid #f3f4f6;
+            padding: 8px;
+            border-radius: 8px;
+            margin-bottom: 8px
+        }
+        
+        .vote-btn {
+            background: #eef2ff;
+            border: 1px solid #dbeafe;
+            color: #1d4ed8;
+            padding: 6px 8px;
+            border-radius: 6px
+        }
+        
+        .pill {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid #eee;
+            background: #fafafa
+        }
+        
+        .events {
+            max-height: 220px;
+            overflow: auto;
+            margin-top: 8px;
+            font-size: 13px
+        }
+        
+        .info-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 8px
+        }
+        
+        .note {
+            font-size: 12px;
+            color: var(--muted)
+        }
+        
+        .danger {
+            color: var(--bad)
+        }
+    </style>
+</head>
+
+<body>
+    <div style="max-width:1100px;margin:0 auto 18px;">
+        <h1>Gossip Hub </h1>
+
+    </div>
+
+    <div class="wrap">
+        <!-- LEFT: Peers / Create / Active Peer -->
+        <div class="card">
+            <h2>Peers & Active User</h2>
+
+            <div class="info-row">
+                <label for="activePeer">Active Peer</label>
+                <select id="activePeer" style="width:100%;margin-top:6px"></select>
+            </div>
+
+            <div style="display:flex;gap:8px;margin-top:10px">
+                <input id="newPeerName" type="text" placeholder="New peer name" />
+                <button id="createPeerBtn">Create</button>
+            </div>
+            <div class="note">When simulating, create multiple peers then switch <strong>Active Peer</strong> to play as that user.</div>
+
+            <h2 style="margin-top:12px">Peer List</h2>
+            <div class="peer-list" id="peerList"></div>
+
+            <h2 style="margin-top:12px">Friend Requests</h2>
+            <div id="requestsBox" class="muted">No requests</div>
+        </div>
+
+        <!-- CENTER: Chat, Messaging, Reports -->
+        <div class="card">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+                <h2>Chat & Reports</h2>
+                <div class="pill" id="reputationDisplay">Reputation: --</div>
+            </div>
+
+            <div style="display:flex;gap:12px;margin-top:8px">
+                <div style="flex:1">
+                    <label>Friends</label>
+                    <select id="chatFriend" style="margin-top:6px"></select>
+                </div>
+                <div style="width:160px">
+                    <label>Quick Actions</label>
+                    <div style="display:flex;gap:6px;margin-top:6px">
+                        <button id="sendTestMsg" class="small">Send SMS (stub)</button>
+                        <button id="syncBtn" class="small">Sync (stub)</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-area" style="margin-top:8px">
+                <div class="messages" id="messages"></div>
+
+                <div class="controls">
+                    <input id="messageText" type="text" placeholder="Type a message..." />
+                    <button id="sendMsgBtn">Send</button>
+                </div>
+            </div>
+
+            <h2 style="margin-top:12px">Report a Peer</h2>
+            <div style="display:flex;gap:8px">
+                <select id="reportTarget" style="flex:1"></select>
+                <button id="createReportBtn" class="small">Create Report</button>
+            </div>
+            <textarea id="reportDesc" rows="2" placeholder="Describe what happened (scam details)..." style="margin-top:8px"></textarea>
+
+            <h2 style="margin-top:12px">Open Reports</h2>
+            <div class="reports-list" id="reportsList"></div>
+        </div>
+
+        <!-- RIGHT: Peer Details & Events -->
+        <div class="card">
+            <h2>Active Peer Details</h2>
+            <div id="activeDetails"></div>
+
+            <h2 style="margin-top:12px">Events & Ledger</h2>
+            <div class="events" id="eventsList"></div>
+
+            <h2 style="margin-top:12px">Rules & Thresholds</h2>
+            <div class="note">
+                <ul>
+                    <li>Default reputation: <strong>50</strong></li>
+                    <li>Majority "Fraud" vote → accused -10, reporter +5</li>
+                    <li>Majority "Not Fraud" vote → accused +5, reporter -5</li>
+                    <li>Below <strong>+5</strong> → <span class="danger">Marked RED (Fraud)</span></li>
+                    <li>70 and above → <span style="color:gold">Most Loyal (Loyalty Card)</span></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        /*
+                                                                                                                                                                                                                                                                                                Hybrid Gossip Frontend
+                                                                                                                                                                                                                                                                                                - Uses localStorage as primary store (simulate multiple peers via Active Peer select)
+                                                                                                                                                                                                                                                                                                - Provides stubbed API functions (api.sendSMS, api.sync) that call fetch to /api/... if available
+                                                                                                                                                                                                                                                                                                - Core data structures are:
+                                                                                                                                                                                                                                                                                                  peers: {id,name,color,reputation,loyalty}
+                                                                                                                                                                                                                                                                                                  friendships: { requesterId, targetId, status } status: pending/accepted/rejected
+                                                                                                                                                                                                                                                                                                  messages: {id,from,to,text,time}
+                                                                                                                                                                                                                                                                                                  reports: {id,reporterId, targetId, description, createdAt, votes: { voterId: vote('fraud'|'not') } }
+                                                                                                                                                                                                                                                                                                  events: ledger array for audit trail
+                                                                                                                                                                                                                                                                                                */
+
+        // -------------------- Utility --------------------
+        function uid(prefix = 'id') {
+            return prefix + '_' + Math.random().toString(36).slice(2, 9)
+        }
+
+        function nowISO() {
+            return new Date().toISOString()
+        }
+
+        function save(key, val) {
+            localStorage.setItem(key, JSON.stringify(val))
+        }
+
+        function load(key, fallback) {
+            return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback))
+        }
+
+        // -------------------- API stubs (hybrid) --------------------
+        const api = {
+            async sendSMS(toNumber, text) {
+                // try to call a backend if available
+                try {
+                    await fetch('/api/send-sms', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            to: toNumber,
+                            text
+                        })
+                    });
+                    console.log('SMS stub called');
+                } catch (e) {
+                    console.log('SMS API not available (stubbed).');
+                }
+            },
+            async sync(payload) {
+                // placeholder for server sync (send local state)
+                try {
+                    await fetch('/api/sync', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(payload)
+                    });
+                    console.log('Sync stub success');
+                } catch (e) {
+                    console.log('Sync endpoint not available (stubbed)');
+                }
+            }
+        }
+
+        // -------------------- App state --------------------
+        let peers = load('peers', {});
+        let friendships = load('friendships', []); // list of {id, requesterId, targetId, status}
+        let messages = load('messages', []); // messages array
+        let reports = load('reports', []); // reports array
+        let events = load('events', []); // ledger
+        let activePeerId = load('activePeerId', null);
+
+        // Default configuration
+        const CONF = {
+            startReputation: 50,
+            fraudPenalty: 10,
+            reporterReward: 5,
+            falseReportPenalty: 5,
+            trueReportAccusedReward: 5,
+            fraudThreshold: 5, // below this -> red/fraud
+            loyaltyThreshold: 70
+        };
+
+        // -------------------- Initialization helpers --------------------
+        function ensureDemoData() {
+            if (Object.keys(peers).length === 0) {
+                // create sample peers
+                createPeer('Reagan');
+                createPeer('Bruce');
+                createPeer('Cherise');
+                createPeer('Brian');
+                createPeer('Victor');
+                saveAll();
+            }
+            if (!activePeerId) {
+                activePeerId = Object.keys(peers)[0];
+                save('activePeerId', activePeerId);
+            }
+        }
+
+        function saveAll() {
+            save('peers', peers);
+            save('friendships', friendships);
+            save('messages', messages);
+            save('reports', reports);
+            save('events', events);
+        }
+
+        // -------------------- Peer management --------------------
+        function createPeer(name) {
+            const id = uid('peer');
+            const color = randomColorFromName(name);
+            peers[id] = {
+                id,
+                name,
+                color,
+                reputation: CONF.startReputation,
+                loyaltyCard: false
+            };
+            logEvent({
+                type: 'peer_created',
+                by: id,
+                name
+            });
+            saveAll();
+            renderUI();
+            return id;
+        }
+
+        function updatePeerReputation(peerId, delta) {
+            const p = peers[peerId];
+            if (!p) return;
+            p.reputation = Math.round((p.reputation || 0) + delta);
+            // enforce bounds (optional)
+            if (p.reputation < -100) p.reputation = -100;
+            if (p.reputation > 999) p.reputation = 999;
+            // loyalty check
+            if (p.reputation >= CONF.loyaltyThreshold && !p.loyaltyCard) {
+                p.loyaltyCard = true;
+                logEvent({
+                    type: 'loyalty_awarded',
+                    peerId,
+                    at: nowISO()
+                });
+            }
+            // flagged check
+            if (p.reputation < CONF.fraudThreshold) {
+                // flagged as fraud; event logged
+                logEvent({
+                    type: 'flagged_fraud',
+                    peerId,
+                    reputation: p.reputation,
+                    at: nowISO()
+                });
+            }
+            saveAll();
+            renderUI();
+        }
+
+        // -------------------- Friendship --------------------
+        function sendFriendRequest(fromId, toId) {
+            if (!fromId || !toId || fromId === toId) return;
+            // check existing
+            const exists = friendships.find(f => (f.requesterId === fromId && f.targetId === toId) || (f.requesterId === toId && f.targetId === fromId));
+            if (exists) return alert('Friend request or friendship already exists.');
+            const req = {
+                id: uid('req'),
+                requesterId: fromId,
+                targetId: toId,
+                status: 'pending',
+                createdAt: nowISO()
+            };
+            friendships.push(req);
+            logEvent({
+                type: 'friend_request',
+                from: fromId,
+                to: toId,
+                at: nowISO()
+            });
+            saveAll();
+            renderUI();
+        }
+
+        function acceptFriendRequest(reqId) {
+            const req = friendships.find(r => r.id === reqId);
+            if (!req) return;
+            req.status = 'accepted';
+            logEvent({
+                type: 'friend_accept',
+                reqId,
+                at: nowISO()
+            });
+            saveAll();
+            renderUI();
+        }
+
+        function rejectFriendRequest(reqId) {
+            const req = friendships.find(r => r.id === reqId);
+            if (!req) return;
+            req.status = 'rejected';
+            logEvent({
+                type: 'friend_reject',
+                reqId,
+                at: nowISO()
+            });
+            saveAll();
+            renderUI();
+        }
+
+        function areFriends(a, b) {
+            return friendships.some(f => ((f.requesterId === a && f.targetId === b) || (f.requesterId === b && f.targetId === a)) && f.status === 'accepted');
+        }
+
+        // -------------------- Messaging --------------------
+        function sendMessage(fromId, toId, text) {
+            if (!text || !fromId || !toId) return;
+            const msg = {
+                id: uid('m'),
+                fromId,
+                toId,
+                text,
+                createdAt: nowISO()
+            };
+            messages.push(msg);
+            logEvent({
+                type: 'message',
+                from: fromId,
+                to: toId,
+                text,
+                at: nowISO()
+            });
+            saveAll();
+            renderUI();
+
+            // Attempt backend SMS (stub)
+            api.sendSMS(toId, text).catch(e => console.log(e));
+        }
+
+        // -------------------- Reporting & Voting --------------------
+        function createReport(reporterId, targetId, description) {
+            if (!reporterId || !targetId) return alert('Select a target to report.');
+            if (reporterId === targetId) return alert('You cannot report yourself.');
+            const rpt = {
+                id: uid('rpt'),
+                reporterId,
+                targetId,
+                description: description || '',
+                createdAt: nowISO(),
+                votes: {}, // voterId -> 'fraud' | 'not'
+                resolved: false,
+                result: null // 'fraud'|'not'|null
+            };
+            reports.push(rpt);
+            logEvent({
+                type: 'report_created',
+                rptId: rpt.id,
+                reporterId,
+                targetId,
+                at: nowISO(),
+                description
+            });
+            saveAll();
+            renderUI();
+        }
+
+        function castVote(reportId, voterId, vote) {
+            const rpt = reports.find(r => r.id === reportId);
+            if (!rpt) return;
+            if (rpt.reporterId === voterId) return alert('Reporter cannot vote on their own report.');
+            if (rpt.votes[voterId]) return alert('You have already voted on this report.');
+
+            rpt.votes[voterId] = vote; // 'fraud' or 'not'
+            logEvent({
+                type: 'vote_cast',
+                reportId,
+                voterId,
+                vote,
+                at: nowISO()
+            });
+            saveAll();
+            evaluateReportIfReady(rpt);
+            renderUI();
+        }
+
+        function evaluateReportIfReady(rpt) {
+            // implement simple majority rule once at least 3 votes or all friends of target have voted.
+            const votes = Object.values(rpt.votes);
+            if (votes.length < 1) return; // keep open until votes come in
+            // Determine majority
+            const fraudCount = votes.filter(v => v === 'fraud').length;
+            const notCount = votes.filter(v => v === 'not').length;
+            // For simplicity: evaluate when >=3 votes OR when votes > 50% of peers (or you can decide)
+            const peersCount = Object.keys(peers).length;
+            const ready = (votes.length >= 3) || (votes.length > Math.max(1, Math.floor(peersCount / 2)));
+            if (!ready) return;
+
+            // Resolve
+            rpt.resolved = true;
+            if (fraudCount > notCount) {
+                rpt.result = 'fraud';
+                // apply reputation changes
+                updatePeerReputation(rpt.targetId, -CONF.fraudPenalty);
+                updatePeerReputation(rpt.reporterId, CONF.reporterReward);
+                logEvent({
+                    type: 'report_resolved',
+                    reportId: rpt.id,
+                    result: 'fraud',
+                    at: nowISO()
+                });
+            } else {
+                rpt.result = 'not';
+                // false report penalty
+                updatePeerReputation(rpt.targetId, CONF.trueReportAccusedReward);
+                updatePeerReputation(rpt.reporterId, -CONF.falseReportPenalty);
+                logEvent({
+                    type: 'report_resolved',
+                    reportId: rpt.id,
+                    result: 'not',
+                    at: nowISO()
+                });
+            }
+            saveAll();
+            renderUI();
+        }
+
+        // -------------------- Events Ledger --------------------
+        function logEvent(obj) {
+            const e = Object.assign({
+                id: uid('ev'),
+                at: nowISO()
+            }, obj);
+            events.unshift(e);
+            // keep limited length
+            if (events.length > 1000) events.pop();
+            saveAll();
+            // optionally attempt to sync to remote
+            api.sync({
+                event: e
+            }).catch(() => {});
+        }
+
+        // -------------------- Helpers --------------------
+        function randomColorFromName(name) {
+            const colors = ['#ef4444', '#f97316', '#f59e0b', '#10b981', '#06b6d4', '#3b82f6', '#7c3aed', '#ec4899'];
+            let s = 0;
+            for (let ch of name) s += ch.charCodeAt(0);
+            return colors[s % colors.length];
+        }
+
+        function peerBadge(peer) {
+            if (peer.reputation < CONF.fraudThreshold) return {
+                label: 'FRAUD',
+                cls: 'red'
+            };
+            if (peer.reputation >= CONF.loyaltyThreshold) return {
+                label: 'LOYAL',
+                cls: 'gold'
+            };
+            if (peer.reputation >= 55) return {
+                label: 'TRUSTED',
+                cls: 'green'
+            };
+            return {
+                label: 'NORMAL',
+                cls: ''
+            };
+        }
+
+        // -------------------- Render UI --------------------
+        function renderUI() {
+            // Active peer select
+            const sel = document.getElementById('activePeer');
+            sel.innerHTML = '';
+            Object.values(peers).forEach(p => {
+                const o = document.createElement('option');
+                o.value = p.id;
+                o.textContent = p.name;
+                if (p.id === activePeerId) o.selected = true;
+                sel.appendChild(o);
+            });
+
+            // Peer list
+            const pl = document.getElementById('peerList');
+            pl.innerHTML = '';
+            Object.values(peers).forEach(p => {
+                const div = document.createElement('div');
+                div.className = 'peer';
+                const av = document.createElement('div');
+                av.className = 'avatar';
+                av.style.background = p.color;
+                av.textContent = p.name.slice(0, 2).toUpperCase();
+                const body = document.createElement('div');
+                body.style.flex = '1';
+                const name = document.createElement('div');
+                name.innerHTML = `<strong>${p.name}</strong> <span class="muted">(${p.id})</span>`;
+                const rep = peerBadge(p);
+                const repLine = document.createElement('div');
+                repLine.style.marginTop = '6px';
+                repLine.innerHTML = `<span class="muted">Rep: ${p.reputation}</span> &nbsp; <span class="badge ${rep.cls}">${rep.label}</span>`;
+                body.appendChild(name);
+                body.appendChild(repLine);
+
+                const actions = document.createElement('div');
+                actions.className = 'friend-actions';
+                // Friend / request button
+                const frBtn = document.createElement('button');
+                frBtn.className = 'small';
+                if (areFriends(activePeerId, p.id)) {
+                    frBtn.textContent = 'Friend';
+                    frBtn.disabled = true;
+                } else {
+                    const existing = friendships.find(f => (f.requesterId === activePeerId && f.targetId === p.id) || (f.requesterId === p.id && f.targetId === activePeerId));
+                    if (existing && existing.status === 'pending') {
+                        if (existing.targetId === activePeerId) {
+                            frBtn.textContent = 'Accept';
+                            frBtn.onclick = () => acceptFriendRequest(existing.id);
+                        } else {
+                            frBtn.textContent = 'Pending';
+                            frBtn.disabled = true;
+                        }
+                    } else {
+                        frBtn.textContent = 'Add';
+                        frBtn.onclick = () => {
+                            sendFriendRequest(activePeerId, p.id);
+                        };
+                    }
+                }
+                actions.appendChild(frBtn);
+
+                // Message button (only if friends)
+                const msgBtn = document.createElement('button');
+                msgBtn.className = 'small';
+                msgBtn.textContent = 'Msg';
+                if (!areFriends(activePeerId, p.id)) msgBtn.disabled = true;
+                msgBtn.onclick = () => {
+                    document.getElementById('chatFriend').value = p.id;
+                    selectChatFriend(p.id);
+                };
+                actions.appendChild(msgBtn);
+
+                div.appendChild(av);
+                div.appendChild(body);
+                div.appendChild(actions);
+                pl.appendChild(div);
+            });
+
+            // Friend select for chat
+            const chatSel = document.getElementById('chatFriend');
+            chatSel.innerHTML = '';
+            const frs = Object.values(peers).filter(p => areFriends(activePeerId, p.id) && p.id !== activePeerId);
+            if (frs.length === 0) {
+                const o = document.createElement('option');
+                o.textContent = 'No friends yet';
+                o.value = '';
+                chatSel.appendChild(o);
+            } else {
+                frs.forEach(f => {
+                    const o = document.createElement('option');
+                    o.value = f.id;
+                    o.textContent = f.name;
+                    chatSel.appendChild(o);
+                });
+            }
+
+            // report target select
+            const rSel = document.getElementById('reportTarget');
+            rSel.innerHTML = '';
+            Object.values(peers).filter(p => p.id !== activePeerId).forEach(p => {
+                const o = document.createElement('option');
+                o.value = p.id;
+                o.textContent = p.name + ' (' + p.reputation + ')';
+                rSel.appendChild(o);
+            });
+
+            // reports list
+            const rbox = document.getElementById('reportsList');
+            rbox.innerHTML = '';
+            reports.forEach(r => {
+                const el = document.createElement('div');
+                el.className = 'report';
+                const reporter = peers[r.reporterId] ? peers[r.reporterId].name : r.reporterId;
+                const target = peers[r.targetId] ? peers[r.targetId].name : r.targetId;
+                const votes = Object.entries(r.votes).map(([voter, v]) => `${peers[voter] ? peers[voter].name : voter}:${v}`).join(', ');
+                el.innerHTML = `
+      <div><strong>${reporter}</strong> reported <strong>${target}</strong> • <span class="muted">${new Date(r.createdAt).toLocaleString()}</span></div>
+      <div style="margin-top:6px">${escapeHtml(r.description || '')}</div>
+      <div style="margin-top:8px" class="muted">Votes: ${votes || 'none'}</div>
+      <div style="margin-top:8px">${r.resolved ? '<strong>Result:</strong> '+r.result : ''}</div>
+    `;
+                if (!r.resolved && activePeerId !== r.reporterId) {
+                    const btnF = document.createElement('button');
+                    btnF.textContent = 'Vote Fraud';
+                    btnF.className = 'vote-btn';
+                    btnF.onclick = () => castVote(r.id, activePeerId, 'fraud');
+                    const btnN = document.createElement('button');
+                    btnN.textContent = 'Vote Not';
+                    btnN.className = 'vote-btn';
+                    btnN.style.marginLeft = '8px';
+                    btnN.onclick = () => castVote(r.id, activePeerId, 'not');
+                    el.appendChild(btnF);
+                    el.appendChild(btnN);
+                }
+                rbox.appendChild(el);
+            });
+
+            // messages
+            const msgBox = document.getElementById('messages');
+            msgBox.innerHTML = '';
+            const partnerId = document.getElementById('chatFriend').value;
+            const convo = messages.filter(m => (m.fromId === activePeerId && m.toId === partnerId) || (m.fromId === partnerId && m.toId === activePeerId)).sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+            convo.forEach(m => {
+                const d = document.createElement('div');
+                d.className = 'msg ' + (m.fromId === activePeerId ? 'me' : 'them');
+                const who = peers[m.fromId] ? peers[m.fromId].name : m.fromId;
+                d.innerHTML = `<div style="font-size:12px;color:var(--muted)">${who} • ${new Date(m.createdAt).toLocaleTimeString()}</div><div style="margin-top:6px">${escapeHtml(m.text)}</div>`;
+                msgBox.appendChild(d);
+            });
+
+            // active peer details
+            const ad = document.getElementById('activeDetails');
+            const ap = peers[activePeerId];
+            ad.innerHTML = '';
+            if (ap) {
+                const av = document.createElement('div');
+                av.style.display = 'flex';
+                av.style.gap = '10px';
+                av.style.alignItems = 'center';
+                const a = document.createElement('div');
+                a.className = 'avatar';
+                a.style.background = ap.color;
+                a.textContent = ap.name.slice(0, 2).toUpperCase();
+                const meta = document.createElement('div');
+                meta.innerHTML = `<div><strong>${ap.name}</strong></div>
+      <div class="muted">ID: ${ap.id}</div>
+      <div style="margin-top:6px">Reputation: <strong>${ap.reputation}</strong> ${ap.loyaltyCard ? '<span class="badge gold">LOYALTY CARD</span>' : ''}</div>`;
+                av.appendChild(a);
+                av.appendChild(meta);
+                ad.appendChild(av);
+            }
+
+            // events ledger
+            const evBox = document.getElementById('eventsList');
+            evBox.innerHTML = '';
+            events.slice(0, 60).forEach(e => {
+                const div = document.createElement('div');
+                div.style.borderBottom = '1px dashed #eef2ff';
+                div.style.padding = '6px 0';
+                div.innerHTML = `<div style="font-size:12px;color:var(--muted)">${new Date(e.at).toLocaleString()}</div><div>${escapeHtml(JSON.stringify(e))}</div>`;
+                evBox.appendChild(div);
+            });
+
+            // reputation display
+            const repDisp = document.getElementById('reputationDisplay');
+            repDisp.textContent = 'Reputation: ' + (ap ? ap.reputation : '--');
+        }
+
+        // -------------------- UI wiring --------------------
+        document.getElementById('createPeerBtn').addEventListener('click', () => {
+            const name = document.getElementById('newPeerName').value.trim();
+            if (!name) return alert('Peer name required');
+            createPeer(name);
+            document.getElementById('newPeerName').value = '';
+        });
+
+        document.getElementById('activePeer').addEventListener('change', (e) => {
+            activePeerId = e.target.value;
+            save('activePeerId', activePeerId);
+            renderUI();
+        });
+
+        document.getElementById('chatFriend').addEventListener('change', (e) => {
+            renderUI();
+        });
+
+        document.getElementById('sendMsgBtn').addEventListener('click', () => {
+            const text = document.getElementById('messageText').value.trim();
+            const toId = document.getElementById('chatFriend').value;
+            if (!toId) return alert('Select a friend to send to');
+            if (!text) return alert('Enter a message');
+            sendMessage(activePeerId, toId, text);
+            document.getElementById('messageText').value = '';
+        });
+
+        document.getElementById('sendTestMsg').addEventListener('click', () => {
+            // example: call api.sendSMS stub
+            api.sendSMS('simulated-phone', 'Test SMS from ' + (peers[activePeerId] ? peers[activePeerId].name : 'unknown'));
+            alert('SMS stub called (check console)');
+        });
+
+        document.getElementById('createReportBtn').addEventListener('click', () => {
+            const target = document.getElementById('reportTarget').value;
+            const desc = document.getElementById('reportDesc').value.trim();
+            createReport(activePeerId, target, desc);
+            document.getElementById('reportDesc').value = '';
+        });
+
+        document.getElementById('syncBtn').addEventListener('click', () => {
+            api.sync({
+                peers,
+                friendships,
+                messages,
+                reports,
+                events
+            }).then(() => alert('Sync attempted (stub)')).catch(() => alert('Sync failed (stub)'));
+        });
+
+        // helper to pre-select friend
+        function selectChatFriend(id) {
+            document.getElementById('chatFriend').value = id;
+            renderUI();
+        }
+
+        // XSS helper
+        function escapeHtml(s) {
+            return String(s || '').replace(/[&<>"']/g, (m) => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            })[m]);
+        }
+
+        // -------------------- Boot --------------------
+        ensureDemoData();
+        renderUI();
+
+        // Expose some functions to window for console debugging
+        window._app = {
+            peers,
+            messages,
+            reports,
+            friendships,
+            events,
+            createPeer,
+            sendFriendRequest,
+            acceptFriendRequest,
+            sendMessage,
+            createReport,
+            castVote,
+            updatePeerReputation
+        };
+    </script>
+
+
+    <script src="/js/script.js"></script>
+    <script src="/js/intergrator.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GossipHub — Decentralized Fraud Detection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+/* ===== BODY & BACKGROUND ===== */
+body {
+    margin: 0;
+    font-family: 'Inter', Arial, sans-serif;
+    background: #0a0a0a; /* deep dark */
+    color: #fff;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Animated gradient background */
+.bg-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(270deg, #0a0a0a, #1f1f2e, #0a0a0a);
+    background-size: 600% 600%;
+    z-index: -2;
+    animation: gradientShift 30s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Floating translucent orbs */
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.3;
+    animation: float 15s infinite alternate ease-in-out;
+}
+
+.circle:nth-child(1) {
+    width: 400px;
+    height: 400px;
+    top: 10%;
+    left: 10%;
+    background: rgba(0, 255, 255, 0.3);
+}
+
+.circle:nth-child(2) {
+    width: 500px;
+    height: 500px;
+    bottom: 10%;
+    right: 15%;
+    background: rgba(255, 0, 255, 0.25);
+    animation-duration: 20s;
+}
+
+.circle:nth-child(3) {
+    width: 350px;
+    height: 350px;
+    top: 50%;
+    left: 60%;
+    background: rgba(0, 255, 0, 0.2);
+    animation-duration: 18s;
+}
+
+@keyframes float {
+    0%   { transform: translate(0, 0); }
+    50%  { transform: translate(100px, -100px); }
+    100% { transform: translate(0, 0); }
+}
+
+/* ===== HEADER ===== */
+header {
+    padding: 50px 20px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+    border-bottom: 2px solid rgba(0,255,255,0.5);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 3rem;
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff, 0 0 25px #00ffff;
+}
+
+header p {
+    font-size: 1.2rem;
+    color: #b2ffff;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+    display: inline-block;
+    margin: 15px;
+    padding: 14px 28px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 1px;
+    background: rgba(0,0,0,0.4);
+    border: 2px solid #00ffff;
+    box-shadow: 0 0 15px #00ffff, inset 0 0 15px #00ffff;
+    transition: 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover {
+    box-shadow: 0 0 25px #00ffff, inset 0 0 25px #00ffff;
+    transform: scale(1.05) rotate(-1deg);
+}
+
+/* ===== MAIN ===== */
+main {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 0 20px;
+    text-align: center;
+    transform: translateZ(0);
+}
+
+main h2 {
+    font-size: 2.2rem;
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+/* ===== FEATURE CARDS ===== */
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+    perspective: 1000px;
+}
+
+.feature-card {
+    background: rgba(20,20,20,0.75);
+    padding: 25px;
+    border-radius: 15px;
+    border: 2px solid rgba(0,255,255,0.5);
+    box-shadow: 0 0 20px rgba(0,255,255,0.3), inset 0 0 25px rgba(0,255,255,0.2);
+    color: #fff;
+    transition: 0.3s transform, 0.3s box-shadow;
+    transform-style: preserve-3d;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+    box-shadow: 0 0 35px rgba(0,255,255,0.6), inset 0 0 40px rgba(0,255,255,0.4);
+}
+
+.feature-card h3 {
+    color: #00ffff;
+    text-shadow: 0 0 8px #00ffff;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    margin-top: 80px;
+    padding: 25px;
+    text-align: center;
+    color: #b2ffff;
+    border-top: 2px solid rgba(0,255,255,0.5);
+}
+
+footer a {
+    color: #00ffff;
+    text-shadow: 0 0 8px #00ffff;
+}
+
+.social-icons a {
+    margin-right: 20px;
+    transition: 0.3s;
+}
+
+.social-icons a:hover {
+    color: #b2ffff;
+    text-shadow: 0 0 12px #b2ffff;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+    header h1 { font-size: 2.2rem; }
+    .btn { width: 100%; padding: 16px; }
+    .features { gap: 20px; }
+}
+
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Animated Background Layer -->
+    <div class="bg-animation">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+
+    <header>
+        <h1>GossipHub</h1>
+        <p>Decentralized Fraud Detection & Peer Interaction System</p>
+        <a href="gosip.html" class="btn">Login / Register</a>
+    </header>
+
+    <main>
+        <h2>Welcome to GossipHub</h2>
+        <p>Connect with peers, share alerts, report fraudulent activities, and maintain trust in a decentralized system. Your actions help build a safer digital community.</p>
+
+        <div class="features">
+            <div class="feature-card">
+                <h3>Peer Interaction</h3>
+                <p>Chat with peers, make friends, and exchange messages securely.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Reputation System</h3>
+                <p>Report fraudulent behavior. Peers vote to determine trustworthiness.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Fraud Detection</h3>
+                <p>Identify potential scams, track patterns, and prevent digital fraud.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Loyalty & Recognition</h3>
+                <p>High-reputation users earn loyalty badges, while fraudulent users are flagged.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2025 GossipHub. All rights reserved.
+        <menu>
+            <h4>Contact us</h4>
+            <a href="mailto:info@gossiphub.com">info@gossiphub.com</a><br>
+            <a href="tell:+254759090440">+254759090440</a>
+
+            <div class="social-icons">
+                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook fa-2x"></i></a>
+                <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter fa-2x"></i></a>
+                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram fa-2x"></i></a>
+            </div>
+        </menu>
+    </footer>
+
+</body>
+
+</html>
