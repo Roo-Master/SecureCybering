@@ -1,34 +1,179 @@
+/* Sidebar Layout */
+
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background: #e2e5ec;
+    display: flex;
     margin: 0;
-    padding: 0;
+    font-family: Arial, sans-serif;
 }
 
-#alertsContainer {
-    max-width: 800px;
-    margin: 50px auto;
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+/* Sidebar container */
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #1a1a1a;
+    color: #fff;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding-top: 20px;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Sidebar header */
+
+.sidebar-header {
+    text-align: center;
+    padding: 10px;
+}
+
+.sidebar-header img {
+    width: 60px;
+    margin-bottom: 10px;
+}
+
+.sidebar-header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+
+/* Sidebar navigation */
+
+.sidebar-nav {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-nav a {
+    padding: 15px 20px;
+    color: #ccc;
+    text-decoration: none;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+    background: #333;
+    color: #fff;
+}
+
+
+/* Main content pushes right of sidebar */
+
+.content {
+    margin-left: 250px;
+    /* equal to sidebar width */
+    width: calc(100% - 250px);
+    padding: 20px;
+}
+
+
+/* Dark Mode adjustments */
+
+.dark .sidebar {
+    background: #111;
+}
+
+
+/* Main container background */
+
+.content {
+    margin-left: 250px;
+    /* if using sidebar */
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #e3f2fd, #fce4ec);
+    min-height: 100vh;
+    transition: 0.3s ease-in-out;
+    align-items: center;
     text-align: center;
 }
+
+
+/* Dark mode */
+
+.dark .content {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+}
+
+
+/* Inner card */
+
+.content .max-w-3xl {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border: 1px solid #dce3eb;
+    transition: 0.3s;
+}
+
+
+/* Dark mode card */
+
+.dark .content .max-w-3xl {
+    background: linear-gradient(135deg, #1f2937, #111827);
+    border: 1px solid #374151;
+}
+
+
+/* Title styling */
 
 #h2 {
-    color: #e74c3c;
-    text-align: center;
+    color: #1e88e5;
+    /* Blue theme */
+    letter-spacing: 0.5px;
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-#alertsList {
-    list-style: none;
-    padding: 0;
+.dark #h2 {
+    color: #90caf9;
+    /* Lighter blue for dark mode */
 }
 
-#alertsList li {
-    padding: 12px;
-    margin-top: 8px;
-    background: #fff3cd;
-    border-left: 4px solid #ffcc00;
-    border-radius: 8px;
+
+/* Alert items spacing */
+
+#alertsContainer .alert-item {
+    background: #e3f2fd;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    transition: 0.3s;
+}
+
+
+/* Hover effect */
+
+#alertsContainer .alert-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Dark mode alert card */
+
+.dark #alertsContainer .alert-item {
+    background: #1e293b;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+
+/* Hover effect */
+
+#alertsContainer .alert-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Dark mode alert card */
+
+.dark #alertsContainer .alert-item {
+    background: #1e293b;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
