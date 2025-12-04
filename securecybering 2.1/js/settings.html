@@ -253,21 +253,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Theme Toggle Script -->
     <script>
-        const themeToggle = document.getElementById("themeSwitcher");
-        themeToggle.addEventListener("change", () => {
-            document.documentElement.setAttribute(
-                "data-theme",
-                themeToggle.checked ? "dark" : "light"
-            );
-            localStorage.setItem("theme", themeToggle.checked ? "dark" : "light");
-        });
-
-        // Load saved theme
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme) {
-            document.documentElement.setAttribute("data-theme", savedTheme);
-            themeToggle.checked = savedTheme === "dark";
-        }
         const ctx = document.getElementById("fraudChart");
 
         new Chart(ctx, {
@@ -298,7 +283,5 @@
     </script>
 
 </body>
-
-
 
 </html>

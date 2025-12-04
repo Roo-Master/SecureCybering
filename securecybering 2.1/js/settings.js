@@ -227,5 +227,3 @@ if (savedTheme) {
     document.documentElement.setAttribute("data-theme", savedTheme);
     themeToggle.checked = savedTheme === "dark";
 }
-Toggle.checked = savedTheme === "dark";
-}
