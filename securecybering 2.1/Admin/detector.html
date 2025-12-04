@@ -7,6 +7,7 @@
     <title>Advanced Fraud Detection System</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="detector.css" />
     <script>
         tailwind.config = {
             theme: {
@@ -23,30 +24,7 @@
             darkMode: 'class'
         }
     </script>
-    <style>
-        .glow {
-            box-shadow: 0 0 20px rgba(93, 92, 222, 0.3);
-        }
-        
-        .pulse-slow {
-            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        
-        .slide-in {
-            animation: slideIn 0.5s ease-out;
-        }
-        
-        @keyframes slideIn {
-            from {
-                transform: translateX(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-    </style>
+
 </head>
 
 <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white h-full">
@@ -58,7 +36,7 @@
                 <div>
                     <label class="block text-sm font-medium mb-2">Role</label>
                     <select id="roleSelect" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-base">
-                        <option value="user">User - Basic Monitoring</option>
+                       
                         <option value="admin">Admin - System Configuration</option>
                         <option value="manager">Manager - Fraud Oversight</option>
                         <option value="ceo">CEO - Strategic Overview</option>
@@ -73,6 +51,21 @@
 
     <!-- Main Dashboard -->
     <div id="dashboard" class="hidden min-h-screen">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="securechain.png" alt="Logo">
+                <h2>SecureChain</h2>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="decentralized.html"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="alerts.html" class="active"><i class="fas fa-bell"></i> Alerts</a>
+                <a href="analytics.html"><i class="fas fa-chart-line"></i> Analytics</a>
+                <a href="/securecybering 2.1/js/settings.html" about="_blank" id="settingsTab" class="nav-tab"><i class="fas fa-cog"></i> Settings</a>
+            </nav>
+        </aside>
         <!-- Header -->
         <header class="bg-white dark:bg-gray-800 shadow-lg border-b border-gray-200 dark:border-gray-700">
             <div class="px-6 py-4 flex justify-between items-center">

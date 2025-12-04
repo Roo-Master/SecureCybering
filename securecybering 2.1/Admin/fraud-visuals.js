@@ -36,7 +36,7 @@ function initFraudLineGraph() {
         options: {
             responsive: true,
             scales: {
-                x: { title: { display: true, text: "Time" }},
+                x: { title: { display: true, text: "Time" } },
                 y: { title: { display: true, text: "Number of Fraud Detections" }, beginAtZero: true }
             },
             plugins: {

@@ -348,3 +348,30 @@ document.addEventListener('DOMContentLoaded', () => {
         firstTab.classList.remove('text-gray-600', 'dark:text-gray-400');
     }
 });
+
+function showTab(tabName) {
+    // Normalize IDs (remove accidental extra spaces)
+    tabName = tabName.trim();
+
+    // Hide all tabs
+    const allTabs = document.querySelectorAll(".tab-content");
+    allTabs.forEach(tab => tab.classList.add("hidden"));
+
+    // Remove "active" class from all nav-tab buttons
+    const allButtons = document.querySelectorAll(".nav-tab");
+    allButtons.forEach(btn => btn.classList.remove("active"));
+
+    // Show selected tab
+    const selectedTab = document.getElementById(`${tabName}-tab`.trim());
+    if (selectedTab) {
+        selectedTab.classList.remove("hidden");
+    } else {
+        console.error("Tab not found:", `${tabName}-tab`);
+    }
+
+    // Activate selected button
+    const btn = [...allButtons].find(b => b.textContent.trim().toLowerCase().includes(tabName.replace("-", " ")));
+    if (btn) {
+        btn.classList.add("active");
+    }
+}

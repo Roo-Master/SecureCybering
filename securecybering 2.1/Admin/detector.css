@@ -1,0 +1,312 @@
+/* ===========================================================
+   SECURECHAIN — ADVANCED FRAUD DETECTION SYSTEM UI STYLES
+   Compatible with TailwindCSS & Dark Mode
+   Author: ChatGPT UI Suite
+=========================================================== */
+
+
+/* ------------------------------
+   GLOBAL
+------------------------------ */
+
+body,
+html {
+    scroll-behavior: smooth;
+}
+
+.glow {
+    box-shadow: 0 0 25px rgba(93, 92, 222, 0.35);
+}
+
+.pulse-slow {
+    animation: pulseSlow 2s infinite ease-in-out;
+}
+
+@keyframes pulseSlow {
+    0%,
+    100% {
+        opacity: 0.4;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+
+/* -----------------------------------
+   SECURECHAIN SIDEBAR THEME
+----------------------------------- */
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: linear-gradient(180deg, #0f0f11, #1a1a22);
+    color: #ffffff;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding-top: 25px;
+    display: flex;
+    flex-direction: column;
+    z-index: 9999;
+}
+
+
+/* ----- Sidebar Header ----- */
+
+.sidebar-header {
+    text-align: center;
+    padding: 0 10px;
+}
+
+.sidebar-header img {
+    width: 70px;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.sidebar-header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.7px;
+    color: #e5e5e5;
+}
+
+
+/* ----- Navigation Menu ----- */
+
+.sidebar-nav {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: darkblue;
+}
+
+.sidebar-nav a {
+    padding: 14px 22px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: #e8f5e9;
+    text-decoration: none;
+    font-size: 0.95rem;
+    border-left: 4px solid transparent;
+    transition: 0.25s ease-in-out;
+}
+
+.sidebar-nav a i {
+    font-size: 1.1rem;
+    width: 22px;
+}
+
+
+/* Hover animation */
+
+.sidebar-nav a:hover {
+    background: rgba(93, 92, 222, 0.18);
+    color: #ffffff;
+    border-left-color: #5D5CDE;
+}
+
+
+/* Active link */
+
+.sidebar-nav a.active {
+    background: rgba(93, 92, 222, 0.30);
+    color: #ffffff;
+    border-left-color: #5D5CDE;
+    font-weight: 600;
+}
+
+
+/* Subtle scroll styling (optional) */
+
+.sidebar-nav {
+    overflow-y: auto;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 3px;
+}
+
+
+/* ---- Push main content to the right ---- */
+
+main,
+.container,
+header,
+nav {
+    margin-left: 250px !important;
+}
+
+
+/* ------------------------------
+   HEADER
+------------------------------ */
+
+header {
+    margin-left: 250px;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    backdrop-filter: blur(6px);
+}
+
+header .text-xl {
+    letter-spacing: 0.5px;
+}
+
+header .rounded-lg {
+    transition: 0.25s;
+}
+
+header .rounded-lg:hover {
+    transform: translateY(-2px);
+}
+
+
+/* ------------------------------
+   NAVIGATION TABS
+------------------------------ */
+
+.nav-tab {
+    background: transparent;
+    transition: 0.25s;
+}
+
+.nav-tab.active {
+    background: #5D5CDE;
+    color: white !important;
+    font-weight: 600;
+    box-shadow: 0 3px 12px rgba(93, 92, 222, 0.4);
+}
+
+.nav-tab:hover:not(.active) {
+    background: rgba(93, 92, 222, 0.15);
+}
+
+
+/* ------------------------------
+   TABLES & PANELS
+------------------------------ */
+
+.tab-content {
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ------------------------------
+   CHART CARDS
+------------------------------ */
+
+.card-chart {
+    transition: 0.25s ease;
+}
+
+.card-chart:hover {
+    transform: scale(1.01);
+    box-shadow: 0 0 20px rgba(93, 92, 222, 0.2);
+}
+
+
+/* ------------------------------
+   SCROLL AREAS (Feeds)
+------------------------------ */
+
+#transactionFeed,
+#alertsFeed,
+#blockchainLog {
+    scrollbar-width: thin;
+    scrollbar-color: #5D5CDE #2a2a2a;
+}
+
+#transactionFeed::-webkit-scrollbar,
+#alertsFeed::-webkit-scrollbar,
+#blockchainLog::-webkit-scrollbar {
+    width: 6px;
+}
+
+#transactionFeed::-webkit-scrollbar-thumb,
+#alertsFeed::-webkit-scrollbar-thumb,
+#blockchainLog::-webkit-scrollbar-thumb {
+    background: #5D5CDE;
+    border-radius: 6px;
+}
+
+
+/* ------------------------------
+   BUTTONS
+------------------------------ */
+
+button,
+.nav-tab {
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+
+/* ------------------------------
+   DARK MODE OVERRIDES
+------------------------------ */
+
+.dark .sidebar {
+    background: linear-gradient(180deg, #0a0a0d, #14141a);
+}
+
+.dark .sidebar-nav a:hover,
+.dark .sidebar-nav a.active {
+    background: rgba(93, 92, 222, 0.35);
+}
+
+.dark header {
+    background: rgba(20, 20, 25, 0.8);
+}
+
+
+/* ------------------------------
+   DASHBOARD CONTENT ALIGNMENT
+------------------------------ */
+
+main,
+header,
+nav {
+    margin-left: 250px;
+}
+
+.nav-tab {
+    transition: 0.25s ease;
+    color: #6b7280;
+    /* gray-500 */
+}
+
+.nav-tab:hover {
+    background: rgba(93, 92, 222, 0.15);
+    color: #5D5CDE;
+}
+
+.nav-tab.active {
+    background: rgba(93, 92, 222, 0.25);
+    color: #5D5CDE;
+    font-weight: 600;
+}
