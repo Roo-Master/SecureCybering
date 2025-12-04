@@ -137,3 +137,93 @@ function updateSettings() {
 function viewLogs() {
     window.location.href = "http://127.0.0.1:5500/audit-logs.html";
 }
+//sidebar collapse
+const sidebar = document.querySelector(".sidebar");
+const collapseBtn = document.getElementById("collapseSidebar");
+
+collapseBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("collapsed");
+    document.querySelector("main").style.marginLeft = sidebar.classList.contains("collapsed") ? "90px" : "260px";
+    document.querySelector(".container").style.marginLeft = sidebar.classList.contains("collapsed") ? "90px" : "260px";
+});
+const menuButtons = document.querySelectorAll(".sidebar-item");
+const dashboardSection = document.getElementById("dashboard");
+const settingsSection = document.getElementById("settingsPanel");
+
+menuButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+
+        // Remove active class from all
+        menuButtons.forEach(b => b.classList.remove("active"));
+
+        // Highlight clicked button
+        btn.classList.add("active");
+
+        // Navigation logic
+        if (btn.id === "sb-dashboard") {
+            dashboardSection.classList.remove("hidden");
+            settingsSection.classList.add("hidden");
+        }
+
+        if (btn.id === "sb-settings") {
+            dashboardSection.classList.add("hidden");
+            settingsSection.classList.remove("hidden");
+        }
+
+        if (btn.id === "sb-logs") {
+            alert("Logs page can be added here!");
+        }
+    });
+});
+
+const notifBell = document.getElementById("notifBell");
+const notifDropdown = document.getElementById("notifDropdown");
+
+notifBell.addEventListener("click", () => {
+    notifDropdown.classList.toggle("hidden");
+});
+const userBox = document.getElementById("userBox");
+const userDropdown = document.getElementById("userDropdown");
+
+userBox.addEventListener("click", () => {
+    userDropdown.classList.toggle("hidden");
+});
+
+function showSection(section) {
+    document.querySelectorAll(".fade").forEach(el => el.classList.remove("show"));
+
+    setTimeout(() => {
+        section.classList.add("show");
+    }, 50);
+}
+if (btn.id === "sb-dashboard") {
+    showSection(dashboardSection);
+}
+
+
+
+function loadDashboard() {
+    skeletonLoader.classList.remove("hidden");
+    dashboardSection.classList.add("hidden");
+
+    setTimeout(() => {
+        skeletonLoader.classList.add("hidden");
+        dashboardSection.classList.remove("hidden");
+    }, 1200);
+}
+document.getElementById("sb-dashboard").addEventListener("click", loadDashboard);
+      const themeToggle = document.getElementById("themeSwitcher");
+        themeToggle.addEventListener("change", () => {
+            document.documentElement.setAttribute(
+                "data-theme",
+                themeToggle.checked ? "dark" : "light"
+            );
+            localStorage.setItem("theme", themeToggle.checked ? "dark" : "light");
+        });
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme) {
+            document.documentElement.setAttribute("data-theme", savedTheme);
+            themeToggle.checked = savedTheme === "dark";
+        }
