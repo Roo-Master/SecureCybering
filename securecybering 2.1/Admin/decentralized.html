@@ -496,70 +496,70 @@
 
             </div>
 
-    </div>
-
-    <div>
-        <button id="logoutBtn">Logout</button>
 
 
-        <script>
-            document.getElementById("logoutBtn").addEventListener("click", () => {
-                localStorage.removeItem("loggedInUser");
-                window.location.href = "login.html";
-            });
-        </script>
-    </div>
+            <div>
+                <button id="logoutBtn">Logout</button>
 
 
-    <div class="user-info">
-        <div class="user-avatar">BG</div>
-        <div class="user-details">
-            <h3 id="userName">BRUCE GITENYA</h3>
-            <p id="userRole">Administrator</p>
-        </div>
-    </div>
+                <script>
+                    document.getElementById("logoutBtn").addEventListener("click", () => {
+                        localStorage.removeItem("loggedInUser");
+                        window.location.href = "login.html";
+                    });
+                </script>
+            </div>
 
-    <ul class="nav-menu">
-        <li class="nav-item">
-            <a href="#dashboard" class="nav-link active">
-                <i class="fas fa-home"></i>
-                <span>Dashboard</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="#analytics" class="nav-link">
-                <i class="fas fa-chart-line"></i>
-                <span>Analytics</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="alerts/alerts.html" about="_blank" id="alertsLink" class="nav-link">
-                <i class="fas fa-exclamation-triangle"></i>
-                <span>Alerts</span>
-            </a>
-            <script>
-                // ====== Alerts Page Loader Script ======
 
-                document.addEventListener("DOMContentLoaded", () => {
-                    const alertsLink = document.getElementById("alertsLink");
+            <div class="user-info">
+                <div class="user-avatar">BG</div>
+                <div class="user-details">
+                    <h3 id="userName">BRUCE GITENYA</h3>
+                    <p id="userRole">Administrator</p>
+                </div>
+            </div>
 
-                    if (!alertsLink) return;
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#dashboard" class="nav-link active">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#analytics" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="alerts/alerts.html" about="_blank" id="alertsLink" class="nav-link">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Alerts</span>
+                    </a>
+                    <script>
+                        // ====== Alerts Page Loader Script ======
 
-                    alertsLink.addEventListener("click", function(e) {
-                        e.preventDefault(); // Stop normal redirect
+                        document.addEventListener("DOMContentLoaded", () => {
+                            const alertsLink = document.getElementById("alertsLink");
 
-                        // Create and show loader overlay
-                        const loader = document.createElement("div");
-                        loader.id = "loaderOverlay";
-                        loader.innerHTML = `
-      <div class="spinner"></div>
-      <p>Loading Alerts Dashboard...</p>
-    `;
-                        document.body.appendChild(loader);
+                            if (!alertsLink) return;
 
-                        // Add dynamic CSS for loader
-                        const style = document.createElement("style");
-                        style.textContent = `
+                            alertsLink.addEventListener("click", function(e) {
+                                e.preventDefault(); // Stop normal redirect
+
+                                // Create and show loader overlay
+                                const loader = document.createElement("div");
+                                loader.id = "loaderOverlay";
+                                loader.innerHTML = `
+               <div class="spinner"></div>
+              <p>Loading Alerts Dashboard...</p>
+                `;
+                                document.body.appendChild(loader);
+
+                                // Add dynamic CSS for loader
+                                const style = document.createElement("style");
+                                style.textContent = `
       #loaderOverlay {
         position: fixed;
         top: 0; left: 0;
@@ -598,50 +598,50 @@
         to { opacity: 1; }
       }
     `;
-                        document.head.appendChild(style);
+                                document.head.appendChild(style);
 
-                        // Simulate a short delay before redirecting
-                        setTimeout(() => {
-                            window.location.href = "alerts/alerts.html";
-                        }, 2000); // 2 seconds
-                    });
-                });
-            </script>
+                                // Simulate a short delay before redirecting
+                                setTimeout(() => {
+                                    window.location.href = "alerts/alerts.html";
+                                }, 2000); // 2 seconds
+                            });
+                        });
+                    </script>
 
 
-        </li>
-        <li class="nav-item">
-            <a href="#data-nodes" class="nav-link">
-                <i class="fas fa-database"></i>
-                <span>Data Nodes</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="js/settings.html" about="_blank" id="settingsTab" class="nav-link">
-                <i class="fas fa-cog"></i>
-                <span>Settings</span>
-            </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#data-nodes" class="nav-link">
+                        <i class="fas fa-database"></i>
+                        <span>Data Nodes</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="js/settings.html" about="_blank" id="settingsTab" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
 
-            <script>
-                document.getElementById('settingsTab').addEventListener('click', function(e) {
-                    e.preventDefault(); // Stop immediate redirect
+                    <script>
+                        document.getElementById('settingsTab').addEventListener('click', function(e) {
+                            e.preventDefault(); // Stop immediate redirect
 
-                    // Alert message
-                    alert("Redirecting to System Settings...");
+                            // Alert message
+                            alert("Redirecting to System Settings...");
 
-                    // Create loader overlay
-                    const loader = document.createElement('div');
-                    loader.innerHTML = `
+                            // Create loader overlay
+                            const loader = document.createElement('div');
+                            loader.innerHTML = `
         <div id="loaderOverlaySettings">
             <div class="spinner"></div>
             <p>Loading System Settings...</p>
         </div>
     `;
-                    document.body.appendChild(loader);
+                            document.body.appendChild(loader);
 
-                    // Add CSS styles dynamically for the loader
-                    const style = document.createElement('style');
-                    style.textContent = `
+                            // Add CSS styles dynamically for the loader
+                            const style = document.createElement('style');
+                            style.textContent = `
         #loaderOverlaySettings {
             position: fixed;
             top: 0; left: 0;
@@ -671,43 +671,43 @@
             color: #333;
         }
     `;
-                    document.head.appendChild(style);
+                            document.head.appendChild(style);
 
-                    // Delay before redirect
-                    setTimeout(() => {
-                        window.location.href = 'js/settings.html';
-                    }, 2000); // 2 seconds delay
-                });
-            </script>
+                            // Delay before redirect
+                            setTimeout(() => {
+                                window.location.href = 'js/settings.html';
+                            }, 2000); // 2 seconds delay
+                        });
+                    </script>
 
-        </li>
-        <li class="nav-item">
-            <a href="index1.html" id="authTab" class="nav-link" about="_blank">
-                <i class="fas fa-user-shield"></i>
-                <span>Authentication</span>
+                </li>
+                <li class="nav-item">
+                    <a href="index1.html" id="authTab" class="nav-link" about="_blank">
+                        <i class="fas fa-user-shield"></i>
+                        <span>Authentication</span>
 
-            </a>
+                    </a>
 
-            <script>
-                document.getElementById('authTab').addEventListener('click', function(e) {
-                    e.preventDefault(); // stop instant redirect
+                    <script>
+                        document.getElementById('authTab').addEventListener('click', function(e) {
+                            e.preventDefault(); // stop instant redirect
 
-                    // Show redirect alert
-                    alert("Redirecting to Authentication Page...");
+                            // Show redirect alert
+                            alert("Redirecting to Authentication Page...");
 
-                    // Create loader overlay
-                    const loader = document.createElement('div');
-                    loader.innerHTML = `
+                            // Create loader overlay
+                            const loader = document.createElement('div');
+                            loader.innerHTML = `
         <div id="loaderOverlayAuth">
             <div class="spinner"></div>
             <p>Loading Authentication Page...</p>
         </div>
     `;
-                    document.body.appendChild(loader);
+                            document.body.appendChild(loader);
 
-                    // Loader styling
-                    const style = document.createElement('style');
-                    style.textContent = `
+                            // Loader styling
+                            const style = document.createElement('style');
+                            style.textContent = `
         #loaderOverlayAuth {
             position: fixed;
             top: 0; left: 0;
@@ -737,41 +737,41 @@
             color: #333;
         }
     `;
-                    document.head.appendChild(style);
+                            document.head.appendChild(style);
 
-                    // Simulated loading time before redirect
-                    setTimeout(() => {
-                        window.location.href = 'index1.html';
-                    }, 2000);
-                });
-            </script>
+                            // Simulated loading time before redirect
+                            setTimeout(() => {
+                                window.location.href = 'index1.html';
+                            }, 2000);
+                        });
+                    </script>
 
-        </li>
-        <li class="nav-item">
-            <a href="audit-logs.html" id="audit-logs" about="_blank" class="nav-link">
-                <i class="fas fa-history"></i>
-                <span>Audit Logs</span>
-            </a>
-            <script>
-                document.getElementById('audit-logs').addEventListener('click', function(e) {
-                    e.preventDefault(); // stop instant redirect
+                </li>
+                <li class="nav-item">
+                    <a href="audit-logs.html" id="audit-logs" about="_blank" class="nav-link">
+                        <i class="fas fa-history"></i>
+                        <span>Audit Logs</span>
+                    </a>
+                    <script>
+                        document.getElementById('audit-logs').addEventListener('click', function(e) {
+                            e.preventDefault(); // stop instant redirect
 
-                    // Show redirect alert
-                    alert("Redirecting to Authentication Page...");
+                            // Show redirect alert
+                            alert("Redirecting to Authentication Page...");
 
-                    // Create loader overlay
-                    const loader = document.createElement('div');
-                    loader.innerHTML = `
+                            // Create loader overlay
+                            const loader = document.createElement('div');
+                            loader.innerHTML = `
         <div id="loaderOverlayAuth">
             <div class="spinner"></div>
             <p>Loading Authentication Page...</p>
         </div>
     `;
-                    document.body.appendChild(loader);
+                            document.body.appendChild(loader);
 
-                    // Loader styling
-                    const style = document.createElement('style');
-                    style.textContent = `
+                            // Loader styling
+                            const style = document.createElement('style');
+                            style.textContent = `
         #loaderOverlayAuth {
             position: fixed;
             top: 0; left: 0;
@@ -801,208 +801,208 @@
             color: #333;
         }
     `;
-                    document.head.appendChild(style);
+                            document.head.appendChild(style);
 
-                    // Simulated loading time before redirect
-                    setTimeout(() => {
-                        window.location.href = 'audit-logs.html';
-                    }, 2000);
-                });
-            </script>
-        </li>
+                            // Simulated loading time before redirect
+                            setTimeout(() => {
+                                window.location.href = 'audit-logs.html';
+                            }, 2000);
+                        });
+                    </script>
+                </li>
 
-        <li class="nav-item">
-            <a href="gosips/fraud_gosips.html" id="gosips" about="_blank" class="nav-link">
-                <i class="fas fa-history"></i>
-                <span>Gosips</span>
-            </a>
-        </li>
-    </ul>
-    </aside>
+                <li class="nav-item">
+                    <a href="gosips/fraud_gosips.html" id="gosips" about="_blank" class="nav-link">
+                        <i class="fas fa-history"></i>
+                        <span>Gosips</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="header">
-            <div class="page-title">
-                <h2>Fraud Detection Dashboard</h2>
-                <p>Monitor and prevent fraudulent activities in real-time</p>
-            </div>
-            <div class="header-actions">
-                <button class="btn btn-outline">
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header">
+                <div class="page-title">
+                    <h2>Fraud Detection Dashboard</h2>
+                    <p>Monitor and prevent fraudulent activities in real-time</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-outline">
                         <i class="fas fa-bell"></i>
                         <span>Alerts</span>
                     </button>
-                <button class="btn btn-primary">
+                    <button class="btn btn-primary">
                         <i class="fas fa-plus"></i>
                         <span>New Rule</span>
                     </button>
+                </div>
             </div>
-        </div>
 
 
-        <div class="search-bar">
-            <input type="text" placeholder="Search for alerts...">
-            <button class="btn btn-outline"><i class="fas fa-search"></i>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for alerts...">
+                <button class="btn btn-outline"><i class="fas fa-search"></i>
                 </button>
-        </div>
+            </div>
 
-        <!-- Role Selector -->
-        <div class="role-selector ">
-            <button class="role-btn " onclick="switchRole( 'user') ">User View</button>
-            <button class="role-btn active " onclick="switchRole( 'admin') ">Admin View</button>
-            <button class="role-btn " onclick="switchRole( 'manager') ">Manager View</button>
-            <button class="role-btn " onclick="switchRole( 'ceo') ">CEO View</button>
-            <button class="Admin_panel" onclick="ShowAdminpanel"> View Admin Panel</button>
+            <!-- Role Selector -->
+            <div class="role-selector ">
+                <button class="role-btn " onclick="switchRole( 'user') ">User View</button>
+                <button class="role-btn active " onclick="switchRole( 'admin') ">Admin View</button>
+                <button class="role-btn " onclick="switchRole( 'manager') ">Manager View</button>
+                <button class="role-btn " onclick="switchRole( 'ceo') ">CEO View</button>
+                <button class="Admin_panel" onclick="ShowAdminpanel"> View Admin Panel</button>
 
-        </div>
+            </div>
 
-        <!-- Stats Dashboard -->
-        <div class="dashboard-grid ">
+            <!-- Stats Dashboard -->
+            <div class="dashboard-grid ">
+                <div class="card ">
+                    <div class="card-header ">
+                        <h3 class="card-title ">Transactions Monitored</h3>
+                        <div class="card-icon ">
+                            <i class="fas fa-exchange-alt "></i>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+                        <div class="stat-value ">12,459</div>
+                        <div class="stat-label ">Today</div>
+                        <div class="trend up ">
+                            <i class="fas fa-arrow-up "></i>
+                            <span>12.5% from yesterday</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card ">
+                    <div class="card-header ">
+                        <h3 class="card-title ">Fraud Detected</h3>
+                        <div class="card-icon ">
+                            <i class="fas fa-skull-crossbones "></i>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+                        <div class="stat-value ">47</div>
+                        <div class="stat-label ">This week</div>
+                        <div class="trend down ">
+                            <i class="fas fa-arrow-down "></i>
+                            <span>5.2% from last week</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card ">
+                    <div class="card-header ">
+                        <h3 class="card-title ">Prevented Loss</h3>
+                        <div class="card-icon ">
+                            <i class="fas fa-dollar-sign "></i>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+                        <div class="stat-value ">$242K</div>
+                        <div class="stat-label ">This month</div>
+                        <div class="trend up ">
+                            <i class="fas fa-arrow-up "></i>
+                            <span>8.7% from last month</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card ">
+                    <div class="card-header ">
+                        <h3 class="card-title ">System Health</h3>
+                        <div class="card-icon ">
+                            <i class="fas fa-heartbeat "></i>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+                        <div class="stat-value ">99.8%</div>
+                        <div class="stat-label ">Uptime</div>
+                        <div class="trend up ">
+                            <i class="fas fa-check-circle "></i>
+                            <span>All nodes operational</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="chart-container ">
+                <div class="chart-card ">
+                    <div class="card-header ">
+                        <h3 class="card-title ">Fraud Detection Trends</h3>
+                    </div>
+                    <div class="chart-placeholder ">
+                        <i class="fas fa-chart-bar "></i>
+                        <span>Interactive Fraud Detection Chart</span>
+                    </div>
+                </div>
+
+                <div class="chart-card ">
+                    <div class="card-header ">
+                        <h3 class="card-title ">Authentication Methods</h3>
+                    </div>
+                    <div class="chart-placeholder ">
+                        <i class="fas fa-chart-pie "></i>
+                        <span>Authentication Methods Distribution</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
             <div class="card ">
                 <div class="card-header ">
-                    <h3 class="card-title ">Transactions Monitored</h3>
-                    <div class="card-icon ">
-                        <i class="fas fa-exchange-alt "></i>
-                    </div>
-                </div>
-                <div class="card-body ">
-                    <div class="stat-value ">12,459</div>
-                    <div class="stat-label ">Today</div>
-                    <div class="trend up ">
-                        <i class="fas fa-arrow-up "></i>
-                        <span>12.5% from yesterday</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card ">
-                <div class="card-header ">
-                    <h3 class="card-title ">Fraud Detected</h3>
-                    <div class="card-icon ">
-                        <i class="fas fa-skull-crossbones "></i>
-                    </div>
-                </div>
-                <div class="card-body ">
-                    <div class="stat-value ">47</div>
-                    <div class="stat-label ">This week</div>
-                    <div class="trend down ">
-                        <i class="fas fa-arrow-down "></i>
-                        <span>5.2% from last week</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card ">
-                <div class="card-header ">
-                    <h3 class="card-title ">Prevented Loss</h3>
-                    <div class="card-icon ">
-                        <i class="fas fa-dollar-sign "></i>
-                    </div>
-                </div>
-                <div class="card-body ">
-                    <div class="stat-value ">$242K</div>
-                    <div class="stat-label ">This month</div>
-                    <div class="trend up ">
-                        <i class="fas fa-arrow-up "></i>
-                        <span>8.7% from last month</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card ">
-                <div class="card-header ">
-                    <h3 class="card-title ">System Health</h3>
-                    <div class="card-icon ">
-                        <i class="fas fa-heartbeat "></i>
-                    </div>
-                </div>
-                <div class="card-body ">
-                    <div class="stat-value ">99.8%</div>
-                    <div class="stat-label ">Uptime</div>
-                    <div class="trend up ">
-                        <i class="fas fa-check-circle "></i>
-                        <span>All nodes operational</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Charts Section -->
-        <div class="chart-container ">
-            <div class="chart-card ">
-                <div class="card-header ">
-                    <h3 class="card-title ">Fraud Detection Trends</h3>
-                </div>
-                <div class="chart-placeholder ">
-                    <i class="fas fa-chart-bar "></i>
-                    <span>Interactive Fraud Detection Chart</span>
-                </div>
-            </div>
-
-            <div class="chart-card ">
-                <div class="card-header ">
-                    <h3 class="card-title ">Authentication Methods</h3>
-                </div>
-                <div class="chart-placeholder ">
-                    <i class="fas fa-chart-pie "></i>
-                    <span>Authentication Methods Distribution</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Recent Activity -->
-        <div class="card ">
-            <div class="card-header ">
-                <h3 class="card-title ">Recent Security Events</h3>
-                <button class="btn btn-outline ">
+                    <h3 class="card-title ">Recent Security Events</h3>
+                    <button class="btn btn-outline ">
                         <i class="fas fa-sync-alt "></i>
                         <span>Refresh</span>
                     </button>
+                </div>
+                <ul class="activity-list ">
+                    <li class="activity-item ">
+                        <div class="activity-icon danger ">
+                            <i class="fas fa-exclamation-triangle "></i>
+                        </div>
+                        <div class="activity-content ">
+                            <h4>High-risk transaction blocked</h4>
+                            <p>Transaction ID: TX-78945 from account 4587***3214 was flagged and blocked</p>
+                            <div class="activity-time ">2 minutes ago</div>
+                        </div>
+                    </li>
+                    <li class="activity-item ">
+                        <div class="activity-icon warning ">
+                            <i class="fas fa-user-clock "></i>
+                        </div>
+                        <div class="activity-content ">
+                            <h4>Multi-factor authentication required</h4>
+                            <p>User login from new device requires additional verification</p>
+                            <div class="activity-time ">15 minutes ago</div>
+                        </div>
+                    </li>
+                    <li class="activity-item ">
+                        <div class="activity-icon success ">
+                            <i class="fas fa-check-circle "></i>
+                        </div>
+                        <div class="activity-content ">
+                            <h4>Behavioral analysis completed</h4>
+                            <p>AI model has completed analysis of transaction patterns for Q3</p>
+                            <div class="activity-time ">1 hour ago</div>
+                        </div>
+                    </li>
+                    <li class="activity-item ">
+                        <div class="activity-icon warning ">
+                            <i class="fas fa-server "></i>
+                        </div>
+                        <div class="activity-content ">
+                            <h4>Node synchronization in progress</h4>
+                            <p>Data nodes are synchronizing blockchain records</p>
+                            <div class="activity-time ">3 hours ago</div>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <ul class="activity-list ">
-                <li class="activity-item ">
-                    <div class="activity-icon danger ">
-                        <i class="fas fa-exclamation-triangle "></i>
-                    </div>
-                    <div class="activity-content ">
-                        <h4>High-risk transaction blocked</h4>
-                        <p>Transaction ID: TX-78945 from account 4587***3214 was flagged and blocked</p>
-                        <div class="activity-time ">2 minutes ago</div>
-                    </div>
-                </li>
-                <li class="activity-item ">
-                    <div class="activity-icon warning ">
-                        <i class="fas fa-user-clock "></i>
-                    </div>
-                    <div class="activity-content ">
-                        <h4>Multi-factor authentication required</h4>
-                        <p>User login from new device requires additional verification</p>
-                        <div class="activity-time ">15 minutes ago</div>
-                    </div>
-                </li>
-                <li class="activity-item ">
-                    <div class="activity-icon success ">
-                        <i class="fas fa-check-circle "></i>
-                    </div>
-                    <div class="activity-content ">
-                        <h4>Behavioral analysis completed</h4>
-                        <p>AI model has completed analysis of transaction patterns for Q3</p>
-                        <div class="activity-time ">1 hour ago</div>
-                    </div>
-                </li>
-                <li class="activity-item ">
-                    <div class="activity-icon warning ">
-                        <i class="fas fa-server "></i>
-                    </div>
-                    <div class="activity-content ">
-                        <h4>Node synchronization in progress</h4>
-                        <p>Data nodes are synchronizing blockchain records</p>
-                        <div class="activity-time ">3 hours ago</div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </main>
+        </main>
     </div>
     <script src="dashboard.js"></script>
     <script src="js/event.js"></script>
