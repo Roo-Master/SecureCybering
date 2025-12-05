@@ -1,0 +1,25 @@
+{
+  "visualLayout": {
+    "sections": [
+      {
+        "name": "Network Overview",
+        "items": [
+          { "visual": "LineChart", "metric": "Latency", "x": 0, "y": 0 },
+          { "visual": "LineChart", "metric": "TPS", "x": 400, "y": 0 }
+        ]
+      },
+      {
+        "name": "Consensus",
+        "items": [
+          { "visual": "Gauge", "metric": "FinalityTime", "x": 0, "y": 300 }
+        ]
+      },
+      {
+        "name": "Security",
+        "items": [
+          { "visual": "Table", "metric": "AnomalyScore", "x": 400, "y": 300 }
+        ]
+      }
+    ]
+  }
+}

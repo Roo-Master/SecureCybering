@@ -1,0 +1,17 @@
+{
+  "name": "securecybering",
+  "version": "1.0.0",
+  "description": "A peer-to-peer based fraud detection system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "ws": "^8.18.3"
+  }
+}
