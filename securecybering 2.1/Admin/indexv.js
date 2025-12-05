@@ -60,26 +60,6 @@ function updateUIForRole() {
     }
 }
 
-// Tab switching
-function showTab(tabName) {
-    // Hide all tabs
-    document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.classList.add('hidden');
-    });
-
-    // Show selected tab
-    document.getElementById(tabName + '-tab').classList.remove('hidden');
-
-    // Update nav tab styles
-    document.querySelectorAll('.nav-tab').forEach(tab => {
-        tab.classList.remove('active', 'bg-primary', 'text-white');
-        tab.classList.add('text-gray-600', 'dark:text-gray-400');
-    });
-
-    event.target.classList.add('active', 'bg-primary', 'text-white');
-    event.target.classList.remove('text-gray-600', 'dark:text-gray-400');
-}
-
 // Initialize charts
 function initializeCharts() {
     // Transaction chart

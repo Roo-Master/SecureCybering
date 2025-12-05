@@ -1,38 +1,4 @@
-// detector.js
 
-// ----- LOGIN -----
-function login() {
-    const role = document.getElementById('roleSelect').value;
-    document.getElementById('loginModal').classList.add('hidden');
-    document.getElementById('dashboard').classList.remove('hidden');
-    document.getElementById('userRole').innerText = role.charAt(0).toUpperCase() + role.slice(1);
-    initDashboard();
-    initNodes(); // Initialize nodes after login
-}
-
-function logout() {
-    document.getElementById('dashboard').classList.add('hidden');
-    document.getElementById('loginModal').classList.remove('hidden');
-}
-
-// ----- TAB SWITCHING -----
-function showTab(tab) {
-    const tabs = ['overview', 'monitoring', 'ai-detection', 'blockchain', 'nodes'];
-    tabs.forEach(t => {
-        const el = document.getElementById(`${t}-tab`);
-        if (el) el.classList.add('hidden');
-    });
-
-    const selected = document.getElementById(`${tab}-tab`);
-    if (selected) selected.classList.remove('hidden');
-
-    // update nav active class
-    document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
-    const btn = [...document.querySelectorAll('.nav-tab')].find(b =>
-        b.textContent.trim().toLowerCase().includes(tab.replace('-', ''))
-    );
-    if (btn) btn.classList.add('active');
-}
 
 // ----- SIMULATED METRICS -----
 function initDashboard() {
