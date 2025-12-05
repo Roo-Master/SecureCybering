@@ -121,3 +121,96 @@
         }, 100);
     }
 })();
+
+/*
+    INTERGRATOR.JS
+    Connects the Gossip simulation UI (localStorage-based) 
+    to the Admin Panel dashboard.
+
+    Reads gossip.html state → pushes to admin.html UI.
+*/
+
+console.log("%c[Integrator] Loaded.", "color:#4ec9b0;font-weight:bold");
+
+function readGossipState() {
+    return {
+        peers: JSON.parse(localStorage.getItem("peers") || "{}"),
+        friendships: JSON.parse(localStorage.getItem("friendships") || "[]"),
+        messages: JSON.parse(localStorage.getItem("messages") || "[]"),
+        reports: JSON.parse(localStorage.getItem("reports") || "[]"),
+        events: JSON.parse(localStorage.getItem("events") || "[]")
+    };
+}
+
+function generateMetrics(state) {
+    const peerList = Object.values(state.peers);
+
+    return {
+        totalPeers: peerList.length,
+        flagged: peerList.filter(p => p.reputation < 5).length,
+        loyal: peerList.filter(p => p.reputation >= 70).length,
+        activeChats: state.messages.length,
+        openReports: state.reports.filter(r => !r.resolved).length,
+        resolvedReports: state.reports.filter(r => r.resolved).length,
+        pendingVotes: state.reports.filter(r => !r.resolved).length,
+        latestEvent: state.events[0] || null,
+        highRisk: peerList.filter(p => p.reputation < 0).length,
+        onlinePeers: Math.floor(peerList.length * 0.5) // simulated
+    };
+}
+
+function updateAdminUI(metrics, state) {
+
+    // Payment placeholders
+    document.getElementById("flagged-payments").textContent = metrics.flagged;
+    document.getElementById("high-risk").textContent = metrics.highRisk;
+
+    // Authentication
+    document.getElementById("active-auth").textContent = metrics.activeChats;
+    document.getElementById("failed-auth").textContent = metrics.flagged;
+
+    // Peers Online
+    document.getElementById("online-peers").textContent = metrics.onlinePeers;
+
+    const list = document.getElementById("online-list");
+    list.innerHTML = "";
+    Object.values(state.peers).slice(0, metrics.onlinePeers).forEach(p => {
+        const li = document.createElement("li");
+        li.textContent = `${p.name} (Rep:${p.reputation}) - Online`;
+        list.appendChild(li);
+    });
+
+    // Votes
+    document.getElementById("pending-votes").textContent = metrics.pendingVotes;
+    document.getElementById("resolved-votes").textContent = metrics.resolvedReports;
+
+    // Reputation Table
+    const repTable = document.getElementById("reputation-list");
+    repTable.innerHTML = "";
+
+    Object.values(state.peers).forEach(peer => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${peer.name}</td>
+            <td>${peer.reputation}</td>
+            <td>${peer.reputation < 5 ? "Flagged (Fraud)" : "OK"}</td>
+            <td><button class="delete-btn" data-peer="${peer.name}">Delete</button></td>
+            <td><button class="ban-btn" data-peer="${peer.name}">Ban</button></td>
+        `;
+        repTable.appendChild(tr);
+    });
+}
+
+function startIntegrator() {
+    console.log("%c[Integrator] Starting sync loop...", "color:yellow");
+
+    setInterval(() => {
+        const gossipState = readGossipState();
+        const metrics = generateMetrics(gossipState);
+
+        updateAdminUI(metrics, gossipState);
+
+    }, 1500); // sync every 1.5 seconds
+}
+
+document.addEventListener("DOMContentLoaded", startIntegrator);
