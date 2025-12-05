@@ -1,217 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>Decentralized System Analytics Dashboard</title>
-<style>
-    body { font-family: Arial, sans-serif; background:#10141a; color:#fff; margin:0; padding:0; }
-    .container { padding:20px; }
-  h1 {
-    text-align: right;
-    margin: 0;
-    padding: 10px 20px;
-    color: #4ec9b0;        /* Signature teal */
-    font-size: 28px;
-    font-weight: 600;
-    letter-spacing: 1px;
-}
-
-    .grid { 
-        display:grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap:20px;
-        margin-top:20px;
-    }
-    .card {
-        background:#1b2330;
-        padding:20px;
-        border-radius:10px;
-        box-shadow:0 0 10px rgba(0,0,0,0.4);
-    }
-    .card h2 { color:#4fc1ff; }
-    canvas { width:100%; height:200px; }
-
-    /* Sidebar Header Container */
-.sidebar-header {
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    background: #1b2330;        /* Dark sleek background */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-}
-
-/* Logo Image */
-.sidebar-header img {
-    width: 48px;
-    height: 48px;
-    border-radius: 8px;         /* Modern rounded corners */
-    object-fit: cover;
-    margin-right: 15px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
-}
-
-/* Title (SecureChain text) */
-.sidebar-header h2 {
-    margin: 0;
-    font-size: 20px;
-    color: #4ec9b0;             /* Signature SecureChain teal */
-    letter-spacing: 1px;
-    font-weight: 600;
-    text-transform: uppercase;
-}
-.sidebar-header h2 {
-    text-shadow: 0 0 8px rgba(78, 201, 176, 0.7);
-}
-
-.sidebar-header img:hover {
-    transform: scale(1.05);
-    transition: 0.2s ease-in-out;
-}
-a {
-    display: block;
-    padding: 12px 18px;
-    background: #1b2330;
-    color: #4ec9b0;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: 600;
-    transition: 0.25s ease;
-}
-
-a:hover {
-    background: #263248;
-    color: #72ffd8;
-    transform: translateX(4px);
-}
-.sidebar a {
-    display: block;
-    padding: 14px 20px;
-    color: #dce8f1;
-    text-decoration: none;
-    font-size: 16px;
-    border-left: 3px solid transparent;
-    transition: 0.25s ease;
-}
-
-.sidebar a:hover {
-    background: rgba(255,255,255,0.06);
-    color: #4ec9b0;
-    border-left: 3px solid #4ec9b0;
-}
-
-</style>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <title>Decentralized System Analytics Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #10141a;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: right;
+            margin: 0;
+            padding: 10px 20px;
+            color: #4ec9b0;
+            /* Signature teal */
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .card {
+            background: #1b2330;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+        }
+        
+        .card h2 {
+            color: #4fc1ff;
+        }
+        
+        canvas {
+            width: 100%;
+            height: 200px;
+        }
+        /* Sidebar Header Container */
+        
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: #1b2330;
+            /* Dark sleek background */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        /* Logo Image */
+        
+        .sidebar-header img {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            /* Modern rounded corners */
+            object-fit: cover;
+            margin-right: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+        }
+        /* Title (SecureChain text) */
+        
+        .sidebar-header h2 {
+            margin: 0;
+            font-size: 20px;
+            color: #4ec9b0;
+            /* Signature SecureChain teal */
+            letter-spacing: 1px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .sidebar-header h2 {
+            text-shadow: 0 0 8px rgba(78, 201, 176, 0.7);
+        }
+        
+        .sidebar-header img:hover {
+            transform: scale(1.05);
+            transition: 0.2s ease-in-out;
+        }
+        
+        a {
+            display: block;
+            padding: 12px 18px;
+            background: #1b2330;
+            color: #4ec9b0;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: 0.25s ease;
+        }
+        
+        a:hover {
+            background: #263248;
+            color: #72ffd8;
+            transform: translateX(4px);
+        }
+        
+        .sidebar a {
+            display: block;
+            padding: 14px 20px;
+            color: #dce8f1;
+            text-decoration: none;
+            font-size: 16px;
+            border-left: 3px solid transparent;
+            transition: 0.25s ease;
+        }
+        
+        .sidebar a:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: #4ec9b0;
+            border-left: 3px solid #4ec9b0;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
 
-<div class="container">
-     <div class="sidebar-header">
+    <div class="container">
+        <div class="sidebar-header">
             <img src="securechain.png" alt="Logo">
             <h2>SecureChain</h2>
 
             <h1>Decentralized System Analytics Dashboard</h1>
             <a href="decentralized.html">Dashboard</a>
         </div>
-    
 
-    <div class="grid">
 
-        <div class="card">
-            <h2>Network Latency</h2>
-            <canvas id="latencyChart"></canvas>
+        <div class="grid">
+
+            <div class="card">
+                <h2>Network Latency</h2>
+                <canvas id="latencyChart"></canvas>
+            </div>
+
+            <div class="card">
+                <h2>Node Uptime</h2>
+                <canvas id="uptimeChart"></canvas>
+            </div>
+
+            <div class="card">
+                <h2>Consensus Finality Time</h2>
+                <canvas id="finalityChart"></canvas>
+            </div>
+
+            <div class="card">
+                <h2>Throughput (TPS)</h2>
+                <canvas id="tpsChart"></canvas>
+            </div>
+
+            <div class="card">
+                <h2>Node Behavior Heatmap</h2>
+                <canvas id="heatmapCanvas"></canvas>
+            </div>
+
+            <div class="card">
+                <h2>Anomaly Detection Score</h2>
+                <canvas id="anomalyChart"></canvas>
+            </div>
+
         </div>
-
-        <div class="card">
-            <h2>Node Uptime</h2>
-            <canvas id="uptimeChart"></canvas>
-        </div>
-
-        <div class="card">
-            <h2>Consensus Finality Time</h2>
-            <canvas id="finalityChart"></canvas>
-        </div>
-
-        <div class="card">
-            <h2>Throughput (TPS)</h2>
-            <canvas id="tpsChart"></canvas>
-        </div>
-
-        <div class="card">
-            <h2>Node Behavior Heatmap</h2>
-            <canvas id="heatmapCanvas"></canvas>
-        </div>
-
-        <div class="card">
-            <h2>Anomaly Detection Score</h2>
-            <canvas id="anomalyChart"></canvas>
-        </div>
-
     </div>
-</div>
 
-<script>
-/* Sample Data */
-const latencyData = [130, 140, 150, 160, 155, 145, 148];
-const uptimeData = [99.1, 99.3, 98.7, 99.8, 99.2];
-const finalityData = [3.2, 2.9, 3.0, 3.1, 2.7];
-const tpsData = [120, 150, 170, 200, 180, 160];
-const anomalyScores = [0.1, 0.12, 0.15, 0.13, 0.2];
+    <script>
+        /* Sample Data */
+        const latencyData = [130, 140, 150, 160, 155, 145, 148];
+        const uptimeData = [99.1, 99.3, 98.7, 99.8, 99.2];
+        const finalityData = [3.2, 2.9, 3.0, 3.1, 2.7];
+        const tpsData = [120, 150, 170, 200, 180, 160];
+        const anomalyScores = [0.1, 0.12, 0.15, 0.13, 0.2];
 
-/* Chart Functions */
-function createChart(id, label, data) {
-    new Chart(document.getElementById(id), {
-        type: 'line',
-        data: {
-            labels: data.map((_, i) => i + 1),
-            datasets: [{
-                label,
-                data,
-                borderColor:'#4fc1ff',
-                fill:false
-            }]
+        /* Chart Functions */
+        function createChart(id, label, data) {
+            new Chart(document.getElementById(id), {
+                type: 'line',
+                data: {
+                    labels: data.map((_, i) => i + 1),
+                    datasets: [{
+                        label,
+                        data,
+                        borderColor: '#4fc1ff',
+                        fill: false
+                    }]
+                }
+            });
         }
-    });
-}
-createChart("latencyChart", "Latency (ms)", latencyData);
-createChart("uptimeChart", "Uptime (%)", uptimeData);
-createChart("finalityChart", "Finality (sec)", finalityData);
-createChart("tpsChart", "TPS", tpsData);
-createChart("anomalyChart", "Anomaly Score", anomalyScores);
+        createChart("latencyChart", "Latency (ms)", latencyData);
+        createChart("uptimeChart", "Uptime (%)", uptimeData);
+        createChart("finalityChart", "Finality (sec)", finalityData);
+        createChart("tpsChart", "TPS", tpsData);
+        createChart("anomalyChart", "Anomaly Score", anomalyScores);
 
-/* Heatmap Renderer */
-const heatmapCanvas = document.getElementById("heatmapCanvas");
-const ctx = heatmapCanvas.getContext("2d");
-const heatData = [
-    [0.2,0.3,0.6,0.8],
-    [0.7,0.5,0.3,0.2],
-    [0.9,0.8,0.4,0.3],
-    [0.1,0.2,0.4,0.9]
-];
-const cellSize = 50;
-heatData.forEach((row, y) => {
-    row.forEach((value, x) => {
-        const color = `rgba(${value*255}, 50, 100, 1)`;
-        ctx.fillStyle = color;
-        ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
-    });
-});
-// REST Fetch Example
-async function updateMetrics() {
-    const net = await fetch("http://localhost:4000/metrics/network").then(r => r.json());
-    console.log("Network Metrics:", net);
-}
-setInterval(updateMetrics, 3000);
+        /* Heatmap Renderer */
+        const heatmapCanvas = document.getElementById("heatmapCanvas");
+        const ctx = heatmapCanvas.getContext("2d");
+        const heatData = [
+            [0.2, 0.3, 0.6, 0.8],
+            [0.7, 0.5, 0.3, 0.2],
+            [0.9, 0.8, 0.4, 0.3],
+            [0.1, 0.2, 0.4, 0.9]
+        ];
+        const cellSize = 50;
+        heatData.forEach((row, y) => {
+            row.forEach((value, x) => {
+                const color = `rgba(${value*255}, 50, 100, 1)`;
+                ctx.fillStyle = color;
+                ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+            });
+        });
+        // REST Fetch Example
+        async function updateMetrics() {
+            const net = await fetch("http://localhost:4000/metrics/network").then(r => r.json());
+            console.log("Network Metrics:", net);
+        }
+        setInterval(updateMetrics, 3000);
 
-// WebSocket Stream
-const ws = new WebSocket("ws://localhost:4000/ws/live");
-ws.onmessage = (msg) => {
-    const data = JSON.parse(msg.data);
-    console.log("Live Stream:", data);
-};
-
-</script>
- <script src="/securecybering 2.1/js/analytcs_server.js"></script>
+        // WebSocket Stream
+        const ws = new WebSocket("ws://localhost:4000/ws/live");
+        ws.onmessage = (msg) => {
+            const data = JSON.parse(msg.data);
+            console.log("Live Stream:", data);
+        };
+    </script>
+    <script src="/securecybering 2.1/js/analytcs_server.js"></script>
 
 </body>
+
 </html>
