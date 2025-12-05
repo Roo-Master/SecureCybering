@@ -135,7 +135,7 @@ function updateSettings() {
 }
 
 function viewLogs() {
-    window.location.href = "http://127.0.0.1:5500/audit-logs.html";
+    window.location.href = "audit-logs.html";
 }
 //sidebar collapse
 const sidebar = document.querySelector(".sidebar");
