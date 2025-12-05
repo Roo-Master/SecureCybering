@@ -181,17 +181,57 @@
                 flex-direction: column;
             }
         }
+         .login-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;         /* center horizontally */
+    gap: 12px;                       /* spacing between icon + text */
+    font-size: 26px;
+    font-weight: 600;
+    color: #4ec9b0;                  /* SecureChain teal */
+    margin-bottom: 25px;
+    text-shadow: 0 0 6px rgba(78, 201, 176, 0.4);
+}
+.header-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.35);
+}
+.header-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.35);
+}
+.login-title i {
+    font-size: 28px;
+    color: #4ec9b0;
+}
+.login-title:hover {
+    text-shadow: 0 0 10px rgba(78, 201, 176, 0.7);
+    transition: 0.25s ease;
+}
+.login-title {
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+}
     </style>
 </head>
 
 <body>
     <div class="login-container">
-        <div class="logo">
-            <i class="fas fa-shield-alt"></i>
-            <h1>SecureChain</h1>
-        </div>
+       
 
         <div class="login-title">
+          
+          <img src="securechain.png" alt="Logo" class="header-logo">
+        
+         
             <i class="fas fa-lock"></i> Secure Login
         </div>
 
@@ -213,7 +253,7 @@
             <div class="role-selection">
                 <div class="role-title">Select Authentication Level</div>
                 <div class="role-buttons">
-                    <button type="button" class="role-btn" data-role="user"><i class="fas fa-user"></i> User</button>
+                  
                     <button type="button" class="role-btn" data-role="admin"><i class="fas fa-user-shield"></i> Admin</button>
                     <button type="button" class="role-btn" data-role="manager"><i class="fas fa-user-tie"></i> Manager</button>
                     <button type="button" class="role-btn" data-role="ceo"><i class="fas fa-crown"></i> CEO</button>
@@ -226,12 +266,7 @@
 
     <script>
         const mockUsers = {
-            user: {
-                username: 'user',
-                password: 'user123',
-                role: 'user',
-                fullName: 'Cherise Mariam'
-            },
+           
             admin: {
                 username: 'admin',
                 password: 'admin123',

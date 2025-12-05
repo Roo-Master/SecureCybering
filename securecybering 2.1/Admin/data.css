@@ -687,3 +687,39 @@ body {
 
 
 /* Modal and modal-content CSS remain the same as before */
+.admin {
+    display: block;
+    width: 30%;
+    padding: 15px 20px;
+    background: rgba(255,255,255,0.05);
+    color: #dce8f1;
+    font-weight: 600;
+    text-decoration: none;
+    border-left: 4px solid transparent;
+    transition: 0.25s ease;
+}
+
+.admin:hover {
+    background: rgba(255,255,255,0.12);
+    color: #4ec9b0;
+    border-left: 4px solid #4ec9b0;
+}
+.admin {
+    display: inline-block;
+    padding: 12px 20px;
+    background: #1b2330;
+    color: #4ec9b0;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 15px;
+    border: 1px solid rgba(78, 201, 176, 0.4);
+    transition: 0.25s ease;
+}
+
+.admin:hover {
+    background: #263248;
+    border-color: #72ffd8;
+    color: #72ffd8;
+    box-shadow: 0 0 10px rgba(78, 201, 176, 0.5);
+}
