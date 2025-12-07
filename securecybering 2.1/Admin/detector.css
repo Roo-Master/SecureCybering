@@ -326,3 +326,19 @@ nav {
 .node-online {
     animation: pulse 1.5s infinite;
 }
+
+
+/* Glow effect for active link */
+
+.sidebar-nav a.active.glow-effect {
+    box-shadow: 0 0 10px rgba(93, 92, 222, 0.7);
+    border-radius: 8px;
+}
+
+
+/* Hover glow effect */
+
+.sidebar-nav a.hover-glow {
+    background-color: rgba(93, 92, 222, 0.1);
+    transition: all 0.3s ease;
+}

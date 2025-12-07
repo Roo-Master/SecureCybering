@@ -1,119 +1,158 @@
-// ======== Login & Logout ========
+// app.js
+
+// ------------------------
+// Login and Role Handling
+// ------------------------
 function login() {
-    const role = document.getElementById("roleSelect").value;
+    const roleSelect = document.getElementById('roleSelect');
+    const selectedRole = roleSelect.value;
 
-    if (!role) {
-        alert("Please select a role");
-        return;
-    }
+    // Show dashboard and hide login modal
+    document.getElementById('loginModal').classList.add('hidden');
+    document.getElementById('dashboard').classList.remove('hidden');
 
-    // Save login state
-    localStorage.setItem("loggedInUser", role);
-
-    // Hide login modal & show dashboard
-    document.getElementById("loginModal").classList.add("hidden");
-    document.getElementById("dashboard").classList.remove("hidden");
-
-    // Display user role
-    document.getElementById("userRole").textContent = role.charAt(0).toUpperCase() + role.slice(1);
-}
-
-// Check login state on page load
-function checkLogin() {
-    const role = localStorage.getItem("loggedInUser");
-    if (!role) {
-        // Show login modal
-        document.getElementById("loginModal").classList.remove("hidden");
-        document.getElementById("dashboard").classList.add("hidden");
-    } else {
-        // Show dashboard
-        document.getElementById("loginModal").classList.add("hidden");
-        document.getElementById("dashboard").classList.remove("hidden");
-        document.getElementById("userRole").textContent = role.charAt(0).toUpperCase() + role.slice(1);
-    }
+    // Display role in header
+    document.getElementById('userRole').textContent = selectedRole.charAt(0).toUpperCase() + selectedRole.slice(1);
 }
 
 // Logout function
 function logout() {
-    localStorage.removeItem("loggedInUser");
-    // Redirect to login modal
-    document.getElementById("loginModal").classList.remove("hidden");
-    document.getElementById("dashboard").classList.add("hidden");
-    alert("You have been logged out. Please login again to access the system.");
+    document.getElementById('dashboard').classList.add('hidden');
+    document.getElementById('loginModal').classList.remove('hidden');
 }
 
-// ======== Tab Navigation ========
-function showTab(tabId) {
-    const tabs = document.querySelectorAll(".tab-content");
-    tabs.forEach(tab => tab.classList.add("hidden"));
+// ------------------------
+// Tab Navigation
+// ------------------------
+const tabs = document.querySelectorAll('.nav-tab');
+const contents = document.querySelectorAll('.tab-content');
 
-    const targetTab = document.getElementById(`${tabId}-tab`);
-    if (targetTab) targetTab.classList.remove("hidden");
+function showTab(tabName) {
+    contents.forEach(content => {
+        if (content.id === tabName + '-tab') {
+            content.classList.add('active');
+        } else {
+            content.classList.remove('active');
+        }
+    });
 
-    // Update active tab button
-    const tabButtons = document.querySelectorAll(".nav-tab");
-    tabButtons.forEach(btn => btn.classList.remove("active"));
+    tabs.forEach(tab => {
+        if (tab.textContent.replace(/\s/g, '').toLowerCase() === tabName.replace(/-/g, '').toLowerCase()) {
+            tab.classList.add('active');
+        } else {
+            tab.classList.remove('active');
+        }
+    });
 
-    const activeBtn = Array.from(tabButtons).find(btn => btn.getAttribute("onclick")?.includes(tabId));
-    if (activeBtn) activeBtn.classList.add("active");
+    // Animate grid cards in the Overview tab
+    if (tabName === 'overview') {
+        animateGridCards();
+    }
 }
 
-// ======== Dashboard Tab Loader ========
-document.addEventListener("DOMContentLoaded", () => {
-    // Check login state
-    checkLogin();
+// ------------------------
+// Animate Overview Cards
+// ------------------------
+function animateGridCards() {
+    const cards = document.querySelectorAll('#overview-tab .grid > div');
+    cards.forEach((card, index) => {
+        setTimeout(() => {
+            card.classList.add('visible');
+        }, index * 150); // staggered animation
+    });
+}
 
-    const dashboardTab = document.getElementById('dashboardTab');
-    if (dashboardTab) {
-        dashboardTab.addEventListener('click', function(e) {
-            e.preventDefault();
-            alert("Redirecting to Decentralized Dashboard...");
 
-            // Loader overlay
-            const loader = document.createElement('div');
-            loader.id = "loaderOverlay";
-            loader.innerHTML = `
-                <div class="spinner"></div>
-                <p>Loading Decentralized Dashboard...</p>
-            `;
-            document.body.appendChild(loader);
 
-            const style = document.createElement('style');
-            style.textContent = `
-                #loaderOverlay {
-                    position: fixed;
-                    top:0; left:0;
-                    width:100vw; height:100vh;
-                    background: rgba(255,255,255,0.9);
-                    display:flex;
-                    flex-direction:column;
-                    justify-content:center;
-                    align-items:center;
-                    z-index:9999;
-                }
-                .spinner {
-                    width: 60px;
-                    height: 60px;
-                    border: 6px solid #ddd;
-                    border-top: 6px solid #4070f4;
-                    border-radius: 50%;
-                    animation: spin 1s linear infinite;
-                }
-                @keyframes spin {
-                    from { transform: rotate(0deg); }
-                    to { transform: rotate(360deg); }
-                }
-                #loaderOverlay p {
-                    margin-top: 15px;
-                    font-size:16px;
-                    color:#333;
-                }
-            `;
-            document.head.appendChild(style);
+// ------------------------
+// Initialize all charts
+// ------------------------
+function createCharts() {
+    // Transaction Chart
+    initChart(
+        'transactionChart',
+        'line', ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], [120, 150, 170, 160, 190, 200], ['#5D5CDE'], { plugins: { legend: { display: false } } }
+    );
 
-            setTimeout(() => {
-                window.location.href = 'decentralized.html';
-            }, 2000);
-        });
+    // Fraud Chart
+    initChart(
+        'fraudChart',
+        'bar', ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], [5, 8, 4, 10, 6, 9], ['#FF6B6B'], { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+    );
+
+    // Risk Chart
+    initChart(
+        'riskChart',
+        'doughnut', ['Low', 'Medium', 'High'], [60, 30, 10], ['#4ECDC4', '#FFE66D', '#FF6B6B'], { plugins: { legend: { position: 'bottom' } } }
+    );
+}
+
+
+// Fraud Chart
+new Chart(fraudCtx, {
+    type: 'bar',
+    data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+            label: 'Fraud Detected',
+            data: [5, 8, 4, 10, 6, 9],
+            backgroundColor: '#FF6B6B'
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+            y: { beginAtZero: true }
+        }
     }
 });
+
+// Risk Chart (if exists)
+if (riskCtx) {
+    new Chart(riskCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Low', 'Medium', 'High'],
+            datasets: [{
+                data: [60, 30, 10],
+                backgroundColor: ['#4ECDC4', '#FFE66D', '#FF6B6B']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { position: 'bottom' } }
+        }
+    });
+}
+
+
+// ------------------------
+// Initialize Dashboard
+// ------------------------
+document.addEventListener('DOMContentLoaded', () => {
+    createCharts();
+    showTab('overview'); // default tab
+});
+
+// ------------------------
+// Optional: Node Grid Coloring
+// ------------------------
+function updateNodeStatus(nodes) {
+    const grid = document.getElementById('nodesGrid');
+    grid.innerHTML = ''; // clear previous
+
+    nodes.forEach(node => {
+        const div = document.createElement('div');
+        div.className = `p-4 rounded-lg text-white text-center ${node.status === 'active' ? 'bg-green-500' : 'bg-red-500'}`;
+        div.textContent = node.name;
+        grid.appendChild(div);
+    });
+}
+
+// Example usage:
+// updateNodeStatus([
+//     {name: 'Node 1', status: 'active'},
+//     {name: 'Node 2', status: 'inactive'},
+//     {name: 'Node 3', status: 'active'}
+// ]);

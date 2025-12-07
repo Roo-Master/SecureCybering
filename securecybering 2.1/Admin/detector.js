@@ -1,3 +1,45 @@
+// Login functionality
+function login() {
+    currentRole = document.getElementById('roleSelect').value;
+    document.getElementById('loginModal').classList.add('hidden');
+    document.getElementById('dashboard').classList.remove('hidden');
+
+    updateUIForRole();
+    initializeCharts();
+    startRealTimeUpdates();
+}
+
+function logout() {
+    document.getElementById('loginModal').classList.remove('hidden');
+    document.getElementById('dashboard').classList.add('hidden');
+    stopRealTimeUpdates();
+}
+
+// Role-based UI updates
+function updateUIForRole() {
+    const roleDisplayNames = {
+        'user': 'User - Basic Monitoring',
+        'admin': 'Admin - System Configuration',
+        'manager': 'Manager - Fraud Oversight',
+        'ceo': 'CEO - Strategic Overview'
+    };
+
+    document.getElementById('userRole').textContent = roleDisplayNames[currentRole];
+
+    // Update navigation based on role
+    const navTabs = document.getElementById('navTabs');
+    const tabs = navTabs.querySelectorAll('.nav-tab');
+
+    if (currentRole === 'user') {
+        // Users can only see overview and monitoring
+        tabs.forEach((tab, index) => {
+            if (index > 1) tab.style.display = 'none';
+        });
+    } else {
+        // All other roles see all tabs
+        tabs.forEach(tab => tab.style.display = 'inline-block');
+    }
+}
 // ----- SIMULATED METRICS -----
 function initDashboard() {
     // Metrics

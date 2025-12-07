@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Gossip — Peer Interaction & Reputation</title>
     <style>
-        :root {
+         :root {
             --bg: #f6f8fa;
             --card: #fff;
             --muted: #666;
@@ -15,7 +15,7 @@
             --bad: #ef4444;
             --neutral: #f59e0b;
         }
-
+        
         body {
             font-family: Inter, Arial, Helvetica, sans-serif;
             background: var(--bg);
@@ -23,7 +23,7 @@
             padding: 20px;
             color: #111
         }
-
+        
         .wrap {
             max-width: 1100px;
             margin: 0 auto;
@@ -31,36 +31,36 @@
             grid-template-columns: 320px 1fr 360px;
             gap: 18px
         }
-
+        
         .card {
             background: var(--card);
             border-radius: 10px;
             padding: 14px;
             box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06)
         }
-
+        
         h1 {
             margin: 0 0 10px;
             font-size: 20px
         }
-
+        
         h2 {
             margin: 0 0 10px;
             font-size: 16px
         }
-
+        
         label {
             font-size: 13px;
             color: var(--muted)
         }
-
+        
         input,
         select,
         textarea,
         button {
             font-family: inherit
         }
-
+        
         input[type=text],
         select,
         textarea {
@@ -70,7 +70,7 @@
             border-radius: 6px;
             margin-top: 6px
         }
-
+        
         button {
             padding: 8px 10px;
             border-radius: 8px;
@@ -79,18 +79,18 @@
             color: white;
             cursor: pointer
         }
-
+        
         .muted {
             color: var(--muted);
             font-size: 13px
         }
-
+        
         .peer-list {
             max-height: 420px;
             overflow: auto;
             margin-top: 10px
         }
-
+        
         .peer {
             display: flex;
             align-items: center;
@@ -100,7 +100,7 @@
             border: 1px solid #f1f3f5;
             margin-bottom: 8px
         }
-
+        
         .avatar {
             width: 44px;
             height: 44px;
@@ -111,53 +111,53 @@
             color: white;
             font-weight: 700
         }
-
+        
         .badge {
             padding: 4px 8px;
             border-radius: 12px;
             font-weight: 600;
             font-size: 12px
         }
-
+        
         .badge.red {
             background: var(--bad);
             color: white
         }
-
+        
         .badge.green {
             background: var(--good);
             color: white
         }
-
+        
         .badge.gold {
             background: gold;
             color: #111
         }
-
+        
         .friend-actions {
             margin-left: auto;
             display: flex;
             gap: 6px
         }
-
+        
         .small {
             font-size: 12px;
             padding: 6px 8px
         }
-
+        
         .reports-list {
             max-height: 280px;
             overflow: auto;
             margin-top: 8px
         }
-
+        
         .report {
             border: 1px solid #f3f4f6;
             padding: 8px;
             border-radius: 8px;
             margin-bottom: 8px
         }
-
+        
         .vote-btn {
             background: #eef2ff;
             border: 1px solid #dbeafe;
@@ -165,7 +165,7 @@
             padding: 6px 8px;
             border-radius: 6px
         }
-
+        
         .pill {
             display: inline-block;
             padding: 6px 10px;
@@ -173,31 +173,31 @@
             border: 1px solid #eee;
             background: #fafafa
         }
-
+        
         .events {
             max-height: 220px;
             overflow: auto;
             margin-top: 8px;
             font-size: 13px
         }
-
+        
         .info-row {
             display: flex;
             gap: 10px;
             align-items: center;
             margin-top: 8px
         }
-
+        
         .note {
             font-size: 12px;
             color: var(--muted)
         }
-
+        
         .danger {
             color: var(--bad)
         }
-
         /* Dashboard chart container */
+        
         #radarChartContainer {
             margin-top: 20px;
             background: var(--card);
@@ -205,49 +205,61 @@
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
         }
+        
         .login-title {
-    display: flex;               /* Align logo and title in a row */
-    align-items: center;         /* Vertically center them */
-    gap: 15px;                   /* Space between logo and title */
-    padding: 20px;
-    background-color: #f7f7f7;  /* Light background */
-    border-radius: 10px;         /* Rounded corners */
-      /* Subtle border */
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* Soft shadow */
-}
-
-.header-logo {
-    height: 50px;    /* Set a consistent logo height */
-    width: auto;     /* Maintain aspect ratio */
-}
-
-.login-title h1 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #222;
-    margin: 0;       
-}
-.logout-btn {
-    padding: 10px 20px;
-    background-color: #ff4d4f; /* Red color for logout */
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-.logout-btn:hover {
-    background-color: #ff7875;
-    transform: scale(1.05); /* Slight grow effect */
-}
-
-.logout-btn:active {
-    transform: scale(0.98); /* Pressed effect */
-}
-
+            display: flex;
+            /* Align logo and title in a row */
+            align-items: center;
+            /* Vertically center them */
+            gap: 15px;
+            /* Space between logo and title */
+            padding: 20px;
+            background-color: #f7f7f7;
+            /* Light background */
+            border-radius: 10px;
+            /* Rounded corners */
+            /* Subtle border */
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            /* Soft shadow */
+        }
+        
+        .header-logo {
+            height: 50px;
+            /* Set a consistent logo height */
+            width: auto;
+            /* Maintain aspect ratio */
+        }
+        
+        .login-title h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #222;
+            margin: 0;
+        }
+        
+        .logout-btn {
+            padding: 10px 20px;
+            background-color: #ff4d4f;
+            /* Red color for logout */
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        
+        .logout-btn:hover {
+            background-color: #ff7875;
+            transform: scale(1.05);
+            /* Slight grow effect */
+        }
+        
+        .logout-btn:active {
+            transform: scale(0.98);
+            /* Pressed effect */
+        }
     </style>
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -255,14 +267,14 @@
 
 <body>
     <div style="max-width:1100px;margin:0 auto 18px;">
-        
-         <div class="login-title">
+
+        <div class="login-title">
             <img src="securechain.png" alt="Logo" class="header-logo">
-             <h1>Gossip Hub</h1>
-         <button class="logout-btn">Logout</button>
+            <h1>Gossip Hub</h1>
+            <button class="logout-btn">Logout</button>
 
         </div>
-       
+
     </div>
 
     <div class="wrap">
@@ -366,18 +378,22 @@
         function uid(prefix = 'id') {
             return prefix + '_' + Math.random().toString(36).slice(2, 9)
         }
+
         function nowISO() {
             return new Date().toISOString()
         }
+
         function save(key, val) {
             localStorage.setItem(key, JSON.stringify(val))
         }
+
         function load(key, fallback) {
             return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback))
         }
 
         // -------------------- Notification logic --------------------
         let notifications = load('notifications', []);
+
         function pushNotification(message) {
             notifications.unshift({
                 id: uid('note'),
@@ -434,8 +450,18 @@
         function createPeer(name) {
             const id = uid('peer');
             const color = randomColorFromName(name);
-            peers[id] = { id, name, color, reputation: CONF.startReputation, loyaltyCard: false };
-            logEvent({ type: 'peer_created', by: id, name });
+            peers[id] = {
+                id,
+                name,
+                color,
+                reputation: CONF.startReputation,
+                loyaltyCard: false
+            };
+            logEvent({
+                type: 'peer_created',
+                by: id,
+                name
+            });
             saveAll();
             renderUI();
             return id;
@@ -449,10 +475,19 @@
             if (p.reputation > 999) p.reputation = 999;
             if (p.reputation >= CONF.loyaltyThreshold && !p.loyaltyCard) {
                 p.loyaltyCard = true;
-                logEvent({ type: 'loyalty_awarded', peerId, at: nowISO() });
+                logEvent({
+                    type: 'loyalty_awarded',
+                    peerId,
+                    at: nowISO()
+                });
             }
             if (p.reputation < CONF.fraudThreshold) {
-                logEvent({ type: 'flagged_fraud', peerId, reputation: p.reputation, at: nowISO() });
+                logEvent({
+                    type: 'flagged_fraud',
+                    peerId,
+                    reputation: p.reputation,
+                    at: nowISO()
+                });
             }
             saveAll();
             renderUI();
@@ -466,15 +501,30 @@
         }
 
         function peerBadge(peer) {
-            if (peer.reputation < CONF.fraudThreshold) return { label: 'FRAUD', cls: 'red' };
-            if (peer.reputation >= CONF.loyaltyThreshold) return { label: 'LOYAL', cls: 'gold' };
-            if (peer.reputation >= 55) return { label: 'TRUSTED', cls: 'green' };
-            return { label: 'NORMAL', cls: '' };
+            if (peer.reputation < CONF.fraudThreshold) return {
+                label: 'FRAUD',
+                cls: 'red'
+            };
+            if (peer.reputation >= CONF.loyaltyThreshold) return {
+                label: 'LOYAL',
+                cls: 'gold'
+            };
+            if (peer.reputation >= 55) return {
+                label: 'TRUSTED',
+                cls: 'green'
+            };
+            return {
+                label: 'NORMAL',
+                cls: ''
+            };
         }
 
         // -------------------- Logging & Events --------------------
         function logEvent(obj) {
-            const e = Object.assign({ id: uid('ev'), at: nowISO() }, obj);
+            const e = Object.assign({
+                id: uid('ev'),
+                at: nowISO()
+            }, obj);
             events.unshift(e);
             if (events.length > 1000) events.pop();
             pushNotification("Event: " + obj.type + " | " + JSON.stringify(obj));
@@ -484,29 +534,51 @@
         function areFriends(a, b) {
             return friendships.some(f => ((f.requesterId === a && f.targetId === b) || (f.requesterId === b && f.targetId === a)) && f.status === 'accepted');
         }
+
         function sendFriendRequest(fromId, toId) {
             if (!fromId || !toId || fromId === toId) return;
             const exists = friendships.find(f => (f.requesterId === fromId && f.targetId === toId) || (f.requesterId === toId && f.targetId === fromId));
             if (exists) return alert('Friend request or friendship already exists.');
-            const req = { id: uid('req'), requesterId: fromId, targetId: toId, status: 'pending', createdAt: nowISO() };
+            const req = {
+                id: uid('req'),
+                requesterId: fromId,
+                targetId: toId,
+                status: 'pending',
+                createdAt: nowISO()
+            };
             friendships.push(req);
-            logEvent({ type: 'friend_request', from: fromId, to: toId, at: nowISO() });
+            logEvent({
+                type: 'friend_request',
+                from: fromId,
+                to: toId,
+                at: nowISO()
+            });
             saveAll();
             renderUI();
         }
+
         function acceptFriendRequest(reqId) {
             const req = friendships.find(r => r.id === reqId);
             if (!req) return;
             req.status = 'accepted';
-            logEvent({ type: 'friend_accept', reqId, at: nowISO() });
+            logEvent({
+                type: 'friend_accept',
+                reqId,
+                at: nowISO()
+            });
             saveAll();
             renderUI();
         }
+
         function rejectFriendRequest(reqId) {
             const req = friendships.find(r => r.id === reqId);
             if (!req) return;
             req.status = 'rejected';
-            logEvent({ type: 'friend_reject', reqId, at: nowISO() });
+            logEvent({
+                type: 'friend_reject',
+                reqId,
+                at: nowISO()
+            });
             saveAll();
             renderUI();
         }
@@ -514,9 +586,21 @@
         // -------------------- Messaging --------------------
         function sendMessage(fromId, toId, text) {
             if (!text || !fromId || !toId) return;
-            const msg = { id: uid('m'), fromId, toId, text, createdAt: nowISO() };
+            const msg = {
+                id: uid('m'),
+                fromId,
+                toId,
+                text,
+                createdAt: nowISO()
+            };
             messages.push(msg);
-            logEvent({ type: 'message', from: fromId, to: toId, text, at: nowISO() });
+            logEvent({
+                type: 'message',
+                from: fromId,
+                to: toId,
+                text,
+                at: nowISO()
+            });
             saveAll();
             renderUI();
         }
@@ -537,7 +621,14 @@
                 result: null
             };
             reports.push(rpt);
-            logEvent({ type: 'report_created', rptId: rpt.id, reporterId, targetId, at: nowISO(), description });
+            logEvent({
+                type: 'report_created',
+                rptId: rpt.id,
+                reporterId,
+                targetId,
+                at: nowISO(),
+                description
+            });
             pushNotification(`${peers[reporterId].name} REPORTED ${peers[targetId].name} for FRAUD.`);
             saveAll();
             renderUI();
@@ -550,7 +641,13 @@
             if (rpt.votes[voterId]) return alert('You have already voted on this report.');
 
             rpt.votes[voterId] = vote; // 'fraud' or 'not'
-            logEvent({ type: 'vote_cast', reportId, voterId, vote, at: nowISO() });
+            logEvent({
+                type: 'vote_cast',
+                reportId,
+                voterId,
+                vote,
+                at: nowISO()
+            });
             pushNotification(`${peers[voterId].name} voted "${vote.toUpperCase()}" on report against ${peers[rpt.targetId].name}.`);
             saveAll();
             evaluateReportIfReady(rpt);
@@ -571,13 +668,23 @@
                 rpt.result = 'fraud';
                 updatePeerReputation(rpt.targetId, -CONF.fraudPenalty);
                 updatePeerReputation(rpt.reporterId, CONF.reporterReward);
-                logEvent({ type: 'report_resolved', reportId: rpt.id, result: 'fraud', at: nowISO() });
+                logEvent({
+                    type: 'report_resolved',
+                    reportId: rpt.id,
+                    result: 'fraud',
+                    at: nowISO()
+                });
                 pushNotification(`REPORT RESOLVED: ${peers[rpt.targetId].name} CONFIRMED as FRAUD.`);
             } else {
                 rpt.result = 'not';
                 updatePeerReputation(rpt.targetId, CONF.trueReportAccusedReward);
                 updatePeerReputation(rpt.reporterId, -CONF.falseReportPenalty);
-                logEvent({ type: 'report_resolved', reportId: rpt.id, result: 'not', at: nowISO() });
+                logEvent({
+                    type: 'report_resolved',
+                    reportId: rpt.id,
+                    result: 'not',
+                    at: nowISO()
+                });
                 pushNotification(`REPORT RESOLVED: ${peers[rpt.targetId].name} declared NOT fraudulent.`);
             }
             saveAll();
@@ -735,10 +842,10 @@
             msgBox.innerHTML = '';
             const partnerId = document.getElementById('chatFriend').value;
             const convo = messages.filter(m => (m.fromId === activePeerId && m.toId === partnerId) || (m.fromId === partnerId && m.toId === activePeerId))
-                                  .sort((a,b)=> new Date(a.createdAt) - new Date(b.createdAt));
+                .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
             convo.forEach(m => {
                 const d = document.createElement('div');
-                d.className = 'msg ' + (m.fromId === activePeerId ? 'me':'them');
+                d.className = 'msg ' + (m.fromId === activePeerId ? 'me' : 'them');
                 const who = peers[m.fromId] ? peers[m.fromId].name : m.fromId;
                 d.innerHTML = `<div style="font-size:12px;color:var(--muted)">${who} • ${new Date(m.createdAt).toLocaleTimeString()}</div><div style="margin-top:6px">${escapeHtml(m.text)}</div>`;
                 msgBox.appendChild(d);
@@ -799,6 +906,7 @@
 
         // -------------------- Radar Chart --------------------
         let radarChartInstance = null;
+
         function updateRadarChart() {
             const ctx = document.getElementById('radarChart').getContext('2d');
             const labels = Object.values(peers).map(p => p.name);
@@ -880,15 +988,306 @@
         document.getElementById('syncBtn').addEventListener('click', () => {
             alert('Sync stub (not implemented)');
         });
-document.querySelector(".logout-btn").addEventListener("click", () => {
-    // Clear user session (example)
-    localStorage.removeItem("username");
-    alert("You have been logged out!");
-    window.location.href = "gosip.html"; // Redirect to login page
-});
-
+        document.querySelector(".logout-btn").addEventListener("click", () => {
+            // Clear user session (example)
+            localStorage.removeItem("username");
+            alert("You have been logged out!");
+            window.location.href = "gosip.html"; // Redirect to login page
+        });
     </script>
     <script src="auth-and-peer.js"></script>
+</body>
+
+</html>
+<div>${escapeHtml(n.text)}</div>`; notifBox.appendChild(div); }); // Update reputation badge display for active peer const repDisp = document.getElementById('reputationDisplay'); repDisp.textContent = 'Reputation: ' + (ap ? ap.reputation : '--'); // Update
+radar chart updateRadarChart(); } // -------------------- Radar Chart -------------------- let radarChartInstance = null; function updateRadarChart() { const ctx = document.getElementById('radarChart').getContext('2d'); const labels = Object.values(peers).map(p
+=> p.name); const data = Object.values(peers).map(p => p.reputation); const chartData = { labels: labels, datasets: [{ label: 'Peer Reputation', data: data, backgroundColor: 'rgba(54, 162, 235, 0.2)', borderColor: 'rgba(54, 162, 235, 1)', borderWidth:
+2, pointBackgroundColor: 'rgba(54, 162, 235, 1)' }] }; const config = { type: 'radar', data: chartData, options: { scales: { r: { suggestedMin: 0, suggestedMax: 100 } }, responsive: true, maintainAspectRatio: false } }; if (radarChartInstance) { radarChartInstance.data
+= chartData; radarChartInstance.update(); } else { radarChartInstance = new Chart(ctx, config); } } // -------------------- Boot -------------------- ensureDemoData(); renderUI(); // -------------------- UI wiring -------------------- document.getElementById('createPeerBtn').addEventListener('click',
+() => { const name = document.getElementById('newPeerName').value.trim(); if (!name) return alert('Peer name required'); createPeer(name); document.getElementById('newPeerName').value = ''; }); document.getElementById('activePeer').addEventListener('change',
+(e) => { activePeerId = e.target.value; save('activePeerId', activePeerId); renderUI(); }); document.getElementById('sendMsgBtn').addEventListener('click', () => { const text = document.getElementById('messageText').value.trim(); const toId = document.getElementById('chatFriend').value;
+if (!toId) return alert('Select a friend to send to'); if (!text) return alert('Enter a message'); sendMessage(activePeerId, toId, text); document.getElementById('messageText').value = ''; }); document.getElementById('createReportBtn').addEventListener('click',
+() => { const target = document.getElementById('reportTarget').value; const desc = document.getElementById('reportDesc').value.trim(); createReport(activePeerId, target, desc); document.getElementById('reportDesc').value = ''; }); document.getElementById('sendTestMsg').addEventListener('click',
+() => { alert('SMS stub (not implemented)'); }); document.getElementById('syncBtn').addEventListener('click', () => { alert('Sync stub (not implemented)'); }); document.querySelector(".logout-btn").addEventListener("click", () => { // Clear user session
+(example) localStorage.removeItem("username"); alert("You have been logged out!"); window.location.href = "gosip.html"; // Redirect to login page });
+</script>
+<script src="auth-and-peer.js"></script>
+</body>
+
+</html>
+<div>${escapeHtml(n.text)}</div>`; notifBox.appendChild(div); }); // Update reputation badge display for active peer const repDisp = document.getElementById('reputationDisplay'); repDisp.textContent = 'Reputation: ' + (ap ? ap.reputation : '--'); // Update
+radar chart updateRadarChart(); } // -------------------- Radar Chart -------------------- let radarChartInstance = null; function updateRadarChart() { const ctx = document.getElementById('radarChart').getContext('2d'); const labels = Object.values(peers).map(p
+=> p.name); const data = Object.values(peers).map(p => p.reputation); const chartData = { labels: labels, datasets: [{ label: 'Peer Reputation', data: data, backgroundColor: 'rgba(54, 162, 235, 0.2)', borderColor: 'rgba(54, 162, 235, 1)', borderWidth:
+2, pointBackgroundColor: 'rgba(54, 162, 235, 1)' }] }; const config = { type: 'radar', data: chartData, options: { scales: { r: { suggestedMin: 0, suggestedMax: 100 } }, responsive: true, maintainAspectRatio: false } }; if (radarChartInstance) { radarChartInstance.data
+= chartData; radarChartInstance.update(); } else { radarChartInstance = new Chart(ctx, config); } } // -------------------- Boot -------------------- ensureDemoData(); renderUI(); // -------------------- UI wiring -------------------- document.getElementById('createPeerBtn').addEventListener('click',
+() => { const name = document.getElementById('newPeerName').value.trim(); if (!name) return alert('Peer name required'); createPeer(name); document.getElementById('newPeerName').value = ''; }); document.getElementById('activePeer').addEventListener('change',
+(e) => { activePeerId = e.target.value; save('activePeerId', activePeerId); renderUI(); }); document.getElementById('sendMsgBtn').addEventListener('click', () => { const text = document.getElementById('messageText').value.trim(); const toId = document.getElementById('chatFriend').value;
+if (!toId) return alert('Select a friend to send to'); if (!text) return alert('Enter a message'); sendMessage(activePeerId, toId, text); document.getElementById('messageText').value = ''; }); document.getElementById('createReportBtn').addEventListener('click',
+() => { const target = document.getElementById('reportTarget').value; const desc = document.getElementById('reportDesc').value.trim(); createReport(activePeerId, target, desc); document.getElementById('reportDesc').value = ''; }); document.getElementById('sendTestMsg').addEventListener('click',
+() => { alert('SMS stub (not implemented)'); }); document.getElementById('syncBtn').addEventListener('click', () => { alert('Sync stub (not implemented)'); }); document.querySelector(".logout-btn").addEventListener("click", () => { // Clear user session
+(example) localStorage.removeItem("username"); alert("You have been logged out!"); window.location.href = "gosip.html"; // Redirect to login page });
+</script>
+<script src="auth-and-peer.js"></script>
+</body>
+
+</html>
+<div>${escapeHtml(n.text)}</div>`; notifBox.appendChild(div); }); // Update reputation badge display for active peer const repDisp = document.getElementById('reputationDisplay'); repDisp.textContent = 'Reputation: ' + (ap ? ap.reputation : '--'); // Update
+radar chart updateRadarChart(); } // -------------------- Radar Chart -------------------- let radarChartInstance = null; function updateRadarChart() { const ctx = document.getElementById('radarChart').getContext('2d'); const labels = Object.values(peers).map(p
+=> p.name); const data = Object.values(peers).map(p => p.reputation); const chartData = { labels: labels, datasets: [{ label: 'Peer Reputation', data: data, backgroundColor: 'rgba(54, 162, 235, 0.2)', borderColor: 'rgba(54, 162, 235, 1)', borderWidth:
+2, pointBackgroundColor: 'rgba(54, 162, 235, 1)' }] }; const config = { type: 'radar', data: chartData, options: { scales: { r: { suggestedMin: 0, suggestedMax: 100 } }, responsive: true, maintainAspectRatio: false } }; if (radarChartInstance) { radarChartInstance.data
+= chartData; radarChartInstance.update(); } else { radarChartInstance = new Chart(ctx, config); } } // -------------------- Boot -------------------- ensureDemoData(); renderUI(); // -------------------- UI wiring -------------------- document.getElementById('createPeerBtn').addEventListener('click',
+() => { const name = document.getElementById('newPeerName').value.trim(); if (!name) return alert('Peer name required'); createPeer(name); document.getElementById('newPeerName').value = ''; }); document.getElementById('activePeer').addEventListener('change',
+(e) => { activePeerId = e.target.value; save('activePeerId', activePeerId); renderUI(); }); document.getElementById('sendMsgBtn').addEventListener('click', () => { const text = document.getElementById('messageText').value.trim(); const toId = document.getElementById('chatFriend').value;
+if (!toId) return alert('Select a friend to send to'); if (!text) return alert('Enter a message'); sendMessage(activePeerId, toId, text); document.getElementById('messageText').value = ''; }); document.getElementById('createReportBtn').addEventListener('click',
+() => { const target = document.getElementById('reportTarget').value; const desc = document.getElementById('reportDesc').value.trim(); createReport(activePeerId, target, desc); document.getElementById('reportDesc').value = ''; }); document.getElementById('sendTestMsg').addEventListener('click',
+() => { alert('SMS stub (not implemented)'); }); document.getElementById('syncBtn').addEventListener('click', () => { alert('Sync stub (not implemented)'); }); document.querySelector(".logout-btn").addEventListener("click", () => { // Clear user session
+(example) localStorage.removeItem("username"); alert("You have been logged out!"); window.location.href = "login.html"; // Redirect to login page });
+</script>
+<script src="auth-and-peer.js"></script>
+</body>
+
+</html> data: data, backgroundColor: 'rgba(54, 162, 235, 0.2)', borderColor: 'rgba(54, 162, 235, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(54, 162, 235, 1)' }] }; const config = { type: 'radar', data: chartData, options: { scales: { r: { suggestedMin:
+0, suggestedMax: 100 } }, responsive: true, maintainAspectRatio: false } }; if (radarChartInstance) { radarChartInstance.data = chartData; radarChartInstance.update(); } else { radarChartInstance = new Chart(ctx, config); } } // -------------------- Boot
+-------------------- ensureDemoData(); renderUI(); // -------------------- UI wiring -------------------- document.getElementById('createPeerBtn').addEventListener('click', () => { const name = document.getElementById('newPeerName').value.trim(); if (!name)
+return alert('Peer name required'); createPeer(name); document.getElementById('newPeerName').value = ''; }); document.getElementById('activePeer').addEventListener('change', (e) => { activePeerId = e.target.value; save('activePeerId', activePeerId); renderUI();
+}); document.getElementById('sendMsgBtn').addEventListener('click', () => { const text = document.getElementById('messageText').value.trim(); const toId = document.getElementById('chatFriend').value; if (!toId) return alert('Select a friend to send to');
+if (!text) return alert('Enter a message'); sendMessage(activePeerId, toId, text); document.getElementById('messageText').value = ''; }); document.getElementById('createReportBtn').addEventListener('click', () => { const target = document.getElementById('reportTarget').value;
+const desc = document.getElementById('reportDesc').value.trim(); createReport(activePeerId, target, desc); document.getElementById('reportDesc').value = ''; }); document.getElementById('sendTestMsg').addEventListener('click', () => { alert('SMS stub (not
+implemented)'); }); document.getElementById('syncBtn').addEventListener('click', () => { alert('Sync stub (not implemented)'); });
+</script>
+<script src="auth-and-peer.js"></script>
+</body>
+
+</html> div.style.padding = '4px 0'; div.innerHTML = `
+<div style="font-size:12px;color:var(--muted)">${new Date(n.at).toLocaleTimeString()}</div>
+<div>${escapeHtml(n.text)}</div>`; notifBox.appendChild(div); }); // Update reputation badge display for active peer const repDisp = document.getElementById('reputationDisplay'); repDisp.textContent = 'Reputation: ' + (ap ? ap.reputation : '--'); // Update
+radar chart updateRadarChart(); } // -------------------- Radar Chart -------------------- let radarChartInstance = null; function updateRadarChart() { const ctx = document.getElementById('radarChart').getContext('2d'); const labels = Object.values(peers).map(p
+=> p.name); const data = Object.values(peers).map(p => p.reputation); const chartData = { labels: labels, datasets: [{ label: 'Peer Reputation', data: data, backgroundColor: 'rgba(54, 162, 235, 0.2)', borderColor: 'rgba(54, 162, 235, 1)', borderWidth:
+2, pointBackgroundColor: 'rgba(54, 162, 235, 1)' }] }; const config = { type: 'radar', data: chartData, options: { scales: { r: { suggestedMin: 0, suggestedMax: 100 } }, responsive: true, maintainAspectRatio: false } }; if (radarChartInstance) { radarChartInstance.data
+= chartData; radarChartInstance.update(); } else { radarChartInstance = new Chart(ctx, config); } } // -------------------- Boot -------------------- ensureDemoData(); renderUI(); // -------------------- UI wiring -------------------- document.getElementById('createPeerBtn').addEventListener('click',
+() => { const name = document.getElementById('newPeerName').value.trim(); if (!name) return alert('Peer name required'); createPeer(name); document.getElementById('newPeerName').value = ''; }); document.getElementById('activePeer').addEventListener('change',
+(e) => { activePeerId = e.target.value; save('activePeerId', activePeerId); renderUI(); }); document.getElementById('sendMsgBtn').addEventListener('click', () => { const text = document.getElementById('messageText').value.trim(); const toId = document.getElementById('chatFriend').value;
+if (!toId) return alert('Select a friend to send to'); if (!text) return alert('Enter a message'); sendMessage(activePeerId, toId, text); document.getElementById('messageText').value = ''; }); document.getElementById('createReportBtn').addEventListener('click',
+() => { const target = document.getElementById('reportTarget').value; const desc = document.getElementById('reportDesc').value.trim(); createReport(activePeerId, target, desc); document.getElementById('reportDesc').value = ''; }); document.getElementById('sendTestMsg').addEventListener('click',
+() => { alert('SMS stub (not implemented)'); }); document.getElementById('syncBtn').addEventListener('click', () => { alert('Sync stub (not implemented)'); });
+</script>
+<script src="auth-and-peer.js"></script>
+</body>
+
+</html> div.style.padding = '4px 0'; div.innerHTML = `
+<div style="font-size:12px;color:var(--muted)">${new Date(n.at).toLocaleTimeString()}</div>
+<div>${escapeHtml(n.text)}</div>`; notifBox.appendChild(div); }); // Update reputation badge display for active peer const repDisp = document.getElementById('reputationDisplay'); repDisp.textContent = 'Reputation: ' + (ap ? ap.reputation : '--'); // Update
+radar chart updateRadarChart(); } // -------------------- Radar Chart -------------------- let radarChartInstance = null; function updateRadarChart() { const ctx = document.getElementById('radarChart').getContext('2d'); const labels = Object.values(peers).map(p
+=> p.name); const data = Object.values(peers).map(p => p.reputation); const chartData = { labels: labels, datasets: [{ label: 'Peer Reputation', data: data, backgroundColor: 'rgba(54, 162, 235, 0.2)', borderColor: 'rgba(54, 162, 235, 1)', borderWidth:
+2, pointBackgroundColor: 'rgba(54, 162, 235, 1)' }] }; const config = { type: 'radar', data: chartData, options: { scales: { r: { suggestedMin: 0, suggestedMax: 100 } }, responsive: true, maintainAspectRatio: false } }; if (radarChartInstance) { radarChartInstance.data
+= chartData; radarChartInstance.update(); } else { radarChartInstance = new Chart(ctx, config); } } // -------------------- Boot -------------------- ensureDemoData(); renderUI(); // -------------------- UI wiring -------------------- document.getElementById('createPeerBtn').addEventListener('click',
+() => { const name = document.getElementById('newPeerName').value.trim(); if (!name) return alert('Peer name required'); createPeer(name); document.getElementById('newPeerName').value = ''; }); document.getElementById('activePeer').addEventListener('change',
+(e) => { activePeerId = e.target.value; save('activePeerId', activePeerId); renderUI(); }); document.getElementById('sendMsgBtn').addEventListener('click', () => { const text = document.getElementById('messageText').value.trim(); const toId = document.getElementById('chatFriend').value;
+if (!toId) return alert('Select a friend to send to'); if (!text) return alert('Enter a message'); sendMessage(activePeerId, toId, text); document.getElementById('messageText').value = ''; }); document.getElementById('createReportBtn').addEventListener('click',
+() => { const target = document.getElementById('reportTarget').value; const desc = document.getElementById('reportDesc').value.trim(); createReport(activePeerId, target, desc); document.getElementById('reportDesc').value = ''; }); document.getElementById('sendTestMsg').addEventListener('click',
+() => { alert('SMS stub (not implemented)'); }); document.getElementById('syncBtn').addEventListener('click', () => { alert('Sync stub (not implemented)'); });
+</script>
+<script src="auth-and-peer.js"></script>
+</body>
+
+</html> div.style.borderBottom = '1px dashed #ddd'; div.style.padding = '4px 0'; div.innerHTML = `
+<div style="font-size:12px;color:var(--muted)">${new Date(n.at).toLocaleTimeString()}</div>
+<div>${escapeHtml(n.text)}</div>`; notifBox.appendChild(div); }); // Update reputation badge display for active peer const repDisp = document.getElementById('reputationDisplay'); repDisp.textContent = 'Reputation: ' + (ap ? ap.reputation : '--'); // Update
+radar chart updateRadarChart(); } // -------------------- Radar Chart -------------------- let radarChartInstance = null; function updateRadarChart() { const ctx = document.getElementById('radarChart').getContext('2d'); const labels = Object.values(peers).map(p
+=> p.name); const data = Object.values(peers).map(p => p.reputation); const chartData = { labels: labels, datasets: [{ label: 'Peer Reputation', data: data, backgroundColor: 'rgba(54, 162, 235, 0.2)', borderColor: 'rgba(54, 162, 235, 1)', borderWidth:
+2, pointBackgroundColor: 'rgba(54, 162, 235, 1)' }] }; const config = { type: 'radar', data: chartData, options: { scales: { r: { suggestedMin: 0, suggestedMax: 100 } }, responsive: true, maintainAspectRatio: false } }; if (radarChartInstance) { radarChartInstance.data
+= chartData; radarChartInstance.update(); } else { radarChartInstance = new Chart(ctx, config); } } // -------------------- Boot -------------------- ensureDemoData(); renderUI(); // -------------------- UI wiring -------------------- document.getElementById('createPeerBtn').addEventListener('click',
+() => { const name = document.getElementById('newPeerName').value.trim(); if (!name) return alert('Peer name required'); createPeer(name); document.getElementById('newPeerName').value = ''; }); document.getElementById('activePeer').addEventListener('change',
+(e) => { activePeerId = e.target.value; save('activePeerId', activePeerId); renderUI(); }); document.getElementById('sendMsgBtn').addEventListener('click', () => { const text = document.getElementById('messageText').value.trim(); const toId = document.getElementById('chatFriend').value;
+if (!toId) return alert('Select a friend to send to'); if (!text) return alert('Enter a message'); sendMessage(activePeerId, toId, text); document.getElementById('messageText').value = ''; }); document.getElementById('createReportBtn').addEventListener('click',
+() => { const target = document.getElementById('reportTarget').value; const desc = document.getElementById('reportDesc').value.trim(); createReport(activePeerId, target, desc); document.getElementById('reportDesc').value = ''; }); document.getElementById('sendTestMsg').addEventListener('click',
+() => { alert('SMS stub (not implemented)'); }); document.getElementById('syncBtn').addEventListener('click', () => { alert('Sync stub (not implemented)'); });
+</script>
+<script src="auth-and-peer.js"></script>
+</body>
+
+</html> const div = document.createElement('div'); div.style.borderBottom = '1px dashed #ddd'; div.style.padding = '4px 0'; div.innerHTML = `
+<div style="font-size:12px;color:var(--muted)">${new Date(n.at).toLocaleTimeString()}</div>
+<div>${escapeHtml(n.text)}</div>`; notifBox.appendChild(div); }); // Update reputation badge display for active peer const repDisp = document.getElementById('reputationDisplay'); repDisp.textContent = 'Reputation: ' + (ap ? ap.reputation : '--'); // Update
+radar chart updateRadarChart(); } // -------------------- Radar Chart -------------------- let radarChartInstance = null; function updateRadarChart() { const ctx = document.getElementById('radarChart').getContext('2d'); const labels = Object.values(peers).map(p
+=> p.name); const data = Object.values(peers).map(p => p.reputation); const chartData = { labels: labels, datasets: [{ label: 'Peer Reputation', data: data, backgroundColor: 'rgba(54, 162, 235, 0.2)', borderColor: 'rgba(54, 162, 235, 1)', borderWidth:
+2, pointBackgroundColor: 'rgba(54, 162, 235, 1)' }] }; const config = { type: 'radar', data: chartData, options: { scales: { r: { suggestedMin: 0, suggestedMax: 100 } }, responsive: true, maintainAspectRatio: false } }; if (radarChartInstance) { radarChartInstance.data
+= chartData; radarChartInstance.update(); } else { radarChartInstance = new Chart(ctx, config); } } // -------------------- Boot -------------------- ensureDemoData(); renderUI(); // -------------------- UI wiring -------------------- document.getElementById('createPeerBtn').addEventListener('click',
+() => { const name = document.getElementById('newPeerName').value.trim(); if (!name) return alert('Peer name required'); createPeer(name); document.getElementById('newPeerName').value = ''; }); document.getElementById('activePeer').addEventListener('change',
+(e) => { activePeerId = e.target.value; save('activePeerId', activePeerId); renderUI(); }); document.getElementById('sendMsgBtn').addEventListener('click', () => { const text = document.getElementById('messageText').value.trim(); const toId = document.getElementById('chatFriend').value;
+if (!toId) return alert('Select a friend to send to'); if (!text) return alert('Enter a message'); sendMessage(activePeerId, toId, text); document.getElementById('messageText').value = ''; }); document.getElementById('createReportBtn').addEventListener('click',
+() => { const target = document.getElementById('reportTarget').value; const desc = document.getElementById('reportDesc').value.trim(); createReport(activePeerId, target, desc); document.getElementById('reportDesc').value = ''; }); document.getElementById('sendTestMsg').addEventListener('click',
+() => { alert('SMS stub (not implemented)'); }); document.getElementById('syncBtn').addEventListener('click', () => { alert('Sync stub (not implemented)'); });
+</script>
+<script src="auth-and-peer.js"></script>
+</body>
+
+</html> div.style.borderBottom = '1px dashed #ddd'; div.style.padding = '4px 0'; div.innerHTML = `
+<div style="font-size:12px;color:var(--muted)">${new Date(n.at).toLocaleTimeString()}</div>
+<div>${escapeHtml(n.text)}</div>`; notifBox.appendChild(div); }); // Update reputation badge display for active peer const repDisp = document.getElementById('reputationDisplay'); repDisp.textContent = 'Reputation: ' + (ap ? ap.reputation : '--'); // Update
+radar chart updateRadarChart(); } // -------------------- Radar Chart -------------------- let radarChartInstance = null; function updateRadarChart() { const ctx = document.getElementById('radarChart').getContext('2d'); const labels = Object.values(peers).map(p
+=> p.name); const data = Object.values(peers).map(p => p.reputation); const chartData = { labels: labels, datasets: [{ label: 'Peer Reputation', data: data, backgroundColor: 'rgba(54, 162, 235, 0.2)', borderColor: 'rgba(54, 162, 235, 1)', borderWidth:
+2, pointBackgroundColor: 'rgba(54, 162, 235, 1)' }] }; const config = { type: 'radar', data: chartData, options: { scales: { r: { suggestedMin: 0, suggestedMax: 100 } }, responsive: true, maintainAspectRatio: false } }; if (radarChartInstance) { radarChartInstance.data
+= chartData; radarChartInstance.update(); } else { radarChartInstance = new Chart(ctx, config); } } // -------------------- Boot -------------------- ensureDemoData(); renderUI(); // -------------------- UI wiring -------------------- document.getElementById('createPeerBtn').addEventListener('click',
+() => { const name = document.getElementById('newPeerName').value.trim(); if (!name) return alert('Peer name required'); createPeer(name); document.getElementById('newPeerName').value = ''; }); document.getElementById('activePeer').addEventListener('change',
+(e) => { activePeerId = e.target.value; save('activePeerId', activePeerId); renderUI(); }); document.getElementById('sendMsgBtn').addEventListener('click', () => { const text = document.getElementById('messageText').value.trim(); const toId = document.getElementById('chatFriend').value;
+if (!toId) return alert('Select a friend to send to'); if (!text) return alert('Enter a message'); sendMessage(activePeerId, toId, text); document.getElementById('messageText').value = ''; }); document.getElementById('createReportBtn').addEventListener('click',
+() => { const target = document.getElementById('reportTarget').value; const desc = document.getElementById('reportDesc').value.trim(); createReport(activePeerId, target, desc); document.getElementById('reportDesc').value = ''; }); document.getElementById('sendTestMsg').addEventListener('click',
+() => { alert('SMS stub (not implemented)'); }); document.getElementById('syncBtn').addEventListener('click', () => { alert('Sync stub (not implemented)'); });
+</script>
+<script src="auth-and-peer.js"></script>
+</body>
+
+</html> div.style.borderBottom = '1px dashed #ddd'; div.style.padding = '4px 0'; div.innerHTML = `
+<div style="font-size:12px;color:var(--muted)">${new Date(n.at).toLocaleTimeString()}</div>
+<div>${escapeHtml(n.text)}</div>`; notifBox.appendChild(div); }); // Update reputation badge display for active peer const repDisp = document.getElementById('reputationDisplay'); repDisp.textContent = 'Reputation: ' + (ap ? ap.reputation : '--'); // Update
+radar chart updateRadarChart(); } // -------------------- Radar Chart -------------------- let radarChartInstance = null; function updateRadarChart() { const ctx = document.getElementById('radarChart').getContext('2d'); const labels = Object.values(peers).map(p
+=> p.name); const data = Object.values(peers).map(p => p.reputation); const chartData = { labels: labels, datasets: [{ label: 'Peer Reputation', data: data, backgroundColor: 'rgba(54, 162, 235, 0.2)', borderColor: 'rgba(54, 162, 235, 1)', borderWidth:
+2, pointBackgroundColor: 'rgba(54, 162, 235, 1)' }] }; const config = { type: 'radar', data: chartData, options: { scales: { r: { suggestedMin: 0, suggestedMax: 100 } }, responsive: true, maintainAspectRatio: false } }; if (radarChartInstance) { radarChartInstance.data
+= chartData; radarChartInstance.update(); } else { radarChartInstance = new Chart(ctx, config); } } // -------------------- Boot -------------------- ensureDemoData(); renderUI(); // -------------------- UI wiring -------------------- document.getElementById('createPeerBtn').addEventListener('click',
+() => { const name = document.getElementById('newPeerName').value.trim(); if (!name) return alert('Peer name required'); createPeer(name); document.getElementById('newPeerName').value = ''; }); document.getElementById('activePeer').addEventListener('change',
+(e) => { activePeerId = e.target.value; save('activePeerId', activePeerId); renderUI(); }); document.getElementById('sendMsgBtn').addEventListener('click', () => { const text = document.getElementById('messageText').value.trim(); const toId = document.getElementById('chatFriend').value;
+if (!toId) return alert('Select a friend to send to'); if (!text) return alert('Enter a message'); sendMessage(activePeerId, toId, text); document.getElementById('messageText').value = ''; }); document.getElementById('createReportBtn').addEventListener('click',
+() => { const target = document.getElementById('reportTarget').value; const desc = document.getElementById('reportDesc').value.trim(); createReport(activePeerId, target, desc); document.getElementById('reportDesc').value = ''; }); document.getElementById('sendTestMsg').addEventListener('click',
+() => { alert('SMS stub (not implemented)'); }); document.getElementById('syncBtn').addEventListener('click', () => { alert('Sync stub (not implemented)'); });
+</script>
+<script src="auth-and-peer.js"></script>
+</body>
+
+</html> const div = document.createElement('div'); div.style.borderBottom = '1px dashed #ddd'; div.style.padding = '4px 0'; div.innerHTML = `
+<div style="font-size:12px;color:var(--muted)">${new Date(n.at).toLocaleTimeString()}</div>
+<div>${escapeHtml(n.text)}</div>`; notifBox.appendChild(div); }); // Update reputation badge display for active peer const repDisp = document.getElementById('reputationDisplay'); repDisp.textContent = 'Reputation: ' + (ap ? ap.reputation : '--'); // Update
+radar chart updateRadarChart(); } // -------------------- Radar Chart -------------------- let radarChartInstance = null; function updateRadarChart() { const ctx = document.getElementById('radarChart').getContext('2d'); const labels = Object.values(peers).map(p
+=> p.name); const data = Object.values(peers).map(p => p.reputation); const chartData = { labels: labels, datasets: [{ label: 'Peer Reputation', data: data, backgroundColor: 'rgba(54, 162, 235, 0.2)', borderColor: 'rgba(54, 162, 235, 1)', borderWidth:
+2, pointBackgroundColor: 'rgba(54, 162, 235, 1)' }] }; const config = { type: 'radar', data: chartData, options: { scales: { r: { suggestedMin: 0, suggestedMax: 100 } }, responsive: true, maintainAspectRatio: false } }; if (radarChartInstance) { radarChartInstance.data
+= chartData; radarChartInstance.update(); } else { radarChartInstance = new Chart(ctx, config); } } // -------------------- Boot -------------------- ensureDemoData(); renderUI(); // -------------------- UI wiring -------------------- document.getElementById('createPeerBtn').addEventListener('click',
+() => { const name = document.getElementById('newPeerName').value.trim(); if (!name) return alert('Peer name required'); createPeer(name); document.getElementById('newPeerName').value = ''; }); document.getElementById('activePeer').addEventListener('change',
+(e) => { activePeerId = e.target.value; save('activePeerId', activePeerId); renderUI(); }); document.getElementById('sendMsgBtn').addEventListener('click', () => { const text = document.getElementById('messageText').value.trim(); const toId = document.getElementById('chatFriend').value;
+if (!toId) return alert('Select a friend to send to'); if (!text) return alert('Enter a message'); sendMessage(activePeerId, toId, text); document.getElementById('messageText').value = ''; }); document.getElementById('createReportBtn').addEventListener('click',
+() => { const target = document.getElementById('reportTarget').value; const desc = document.getElementById('reportDesc').value.trim(); createReport(activePeerId, target, desc); document.getElementById('reportDesc').value = ''; }); document.getElementById('sendTestMsg').addEventListener('click',
+() => { alert('SMS stub (not implemented)'); }); document.getElementById('syncBtn').addEventListener('click', () => { alert('Sync stub (not implemented)'); });
+</script>
+<script src="auth-and-peer.js"></script>
+</body>
+
+</html> pointBackgroundColor: 'rgba(54, 162, 235, 1)' }] }; const config = { type: 'radar', data: chartData, options: { scales: { r: { suggestedMin: 0, suggestedMax: 100 } }, responsive: true, maintainAspectRatio: false } }; if (radarChartInstance) { radarChartInstance.data
+= chartData; radarChartInstance.update(); } else { radarChartInstance = new Chart(ctx, config); } } // -------------------- Boot -------------------- ensureDemoData(); renderUI(); // -------------------- UI wiring -------------------- document.getElementById('createPeerBtn').addEventListener('click',
+() => { const name = document.getElementById('newPeerName').value.trim(); if (!name) return alert('Peer name required'); createPeer(name); document.getElementById('newPeerName').value = ''; }); document.getElementById('activePeer').addEventListener('change',
+(e) => { activePeerId = e.target.value; save('activePeerId', activePeerId); renderUI(); }); document.getElementById('sendMsgBtn').addEventListener('click', () => { const text = document.getElementById('messageText').value.trim(); const toId = document.getElementById('chatFriend').value;
+if (!toId) return alert('Select a friend to send to'); if (!text) return alert('Enter a message'); sendMessage(activePeerId, toId, text); document.getElementById('messageText').value = ''; }); document.getElementById('createReportBtn').addEventListener('click',
+() => { const target = document.getElementById('reportTarget').value; const desc = document.getElementById('reportDesc').value.trim(); createReport(activePeerId, target, desc); document.getElementById('reportDesc').value = ''; }); document.getElementById('sendTestMsg').addEventListener('click',
+() => { alert('SMS stub (not implemented)'); }); document.getElementById('syncBtn').addEventListener('click', () => { alert('Sync stub (not implemented)'); });
+</script>
+<script src="auth-and-peer.js"></script>
+</body>
+
+</html> repDisp.textContent = 'Reputation: ' + (ap ? ap.reputation : '--'); // Update radar chart updateRadarChart(); } // -------------------- Radar Chart -------------------- let radarChartInstance = null; function updateRadarChart() { const ctx = document.getElementById('radarChart').getContext('2d');
+const labels = Object.values(peers).map(p => p.name); const data = Object.values(peers).map(p => p.reputation); const chartData = { labels: labels, datasets: [{ label: 'Peer Reputation', data: data, backgroundColor: 'rgba(54, 162, 235, 0.2)', borderColor:
+'rgba(54, 162, 235, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(54, 162, 235, 1)' }] }; const config = { type: 'radar', data: chartData, options: { scales: { r: { suggestedMin: 0, suggestedMax: 100 } }, responsive: true, maintainAspectRatio: false
+} }; if (radarChartInstance) { radarChartInstance.data = chartData; radarChartInstance.update(); } else { radarChartInstance = new Chart(ctx, config); } } // -------------------- Boot -------------------- ensureDemoData(); renderUI(); // --------------------
+UI wiring -------------------- document.getElementById('createPeerBtn').addEventListener('click', () => { const name = document.getElementById('newPeerName').value.trim(); if (!name) return alert('Peer name required'); createPeer(name); document.getElementById('newPeerName').value
+= ''; }); document.getElementById('activePeer').addEventListener('change', (e) => { activePeerId = e.target.value; save('activePeerId', activePeerId); renderUI(); }); document.getElementById('sendMsgBtn').addEventListener('click', () => { const text =
+document.getElementById('messageText').value.trim(); const toId = document.getElementById('chatFriend').value; if (!toId) return alert('Select a friend to send to'); if (!text) return alert('Enter a message'); sendMessage(activePeerId, toId, text); document.getElementById('messageText').value
+= ''; }); document.getElementById('createReportBtn').addEventListener('click', () => { const target = document.getElementById('reportTarget').value; const desc = document.getElementById('reportDesc').value.trim(); createReport(activePeerId, target, desc);
+document.getElementById('reportDesc').value = ''; }); document.getElementById('sendTestMsg').addEventListener('click', () => { alert('SMS stub (not implemented)'); }); document.getElementById('syncBtn').addEventListener('click', () => { alert('Sync stub
+(not implemented)'); });
+</script>
+<script src="auth-and-peer.js"></script>
+</body>
+
+</html> repDisp.textContent = 'Reputation: ' + (ap ? ap.reputation : '--'); // Update radar chart updateRadarChart(); } // -------------------- Radar Chart -------------------- let radarChartInstance = null; function updateRadarChart() { const ctx = document.getElementById('radarChart').getContext('2d');
+const labels = Object.values(peers).map(p => p.name); const data = Object.values(peers).map(p => p.reputation); const chartData = { labels: labels, datasets: [{ label: 'Peer Reputation', data: data, backgroundColor: 'rgba(54, 162, 235, 0.2)', borderColor:
+'rgba(54, 162, 235, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(54, 162, 235, 1)' }] }; const config = { type: 'radar', data: chartData, options: { scales: { r: { suggestedMin: 0, suggestedMax: 100 } }, responsive: true, maintainAspectRatio: false
+} }; if (radarChartInstance) { radarChartInstance.data = chartData; radarChartInstance.update(); } else { radarChartInstance = new Chart(ctx, config); } } // -------------------- Boot -------------------- ensureDemoData(); renderUI(); // --------------------
+UI wiring -------------------- document.getElementById('createPeerBtn').addEventListener('click', () => { const name = document.getElementById('newPeerName').value.trim(); if (!name) return alert('Peer name required'); createPeer(name); document.getElementById('newPeerName').value
+= ''; }); document.getElementById('activePeer').addEventListener('change', (e) => { activePeerId = e.target.value; save('activePeerId', activePeerId); renderUI(); }); document.getElementById('sendMsgBtn').addEventListener('click', () => { const text =
+document.getElementById('messageText').value.trim(); const toId = document.getElementById('chatFriend').value; if (!toId) return alert('Select a friend to send to'); if (!text) return alert('Enter a message'); sendMessage(activePeerId, toId, text); document.getElementById('messageText').value
+= ''; }); document.getElementById('createReportBtn').addEventListener('click', () => { const target = document.getElementById('reportTarget').value; const desc = document.getElementById('reportDesc').value.trim(); createReport(activePeerId, target, desc);
+document.getElementById('reportDesc').value = ''; }); document.getElementById('sendTestMsg').addEventListener('click', () => { alert('SMS stub (not implemented)'); }); document.getElementById('syncBtn').addEventListener('click', () => { alert('Sync stub
+(not implemented)'); });
+</script>
+<script src="auth-and-peer.js"></script>
+</body>
+
+</html> repDisp.textContent = 'Reputation: ' + (ap ? ap.reputation : '--'); // Update radar chart updateRadarChart(); } // -------------------- Radar Chart -------------------- let radarChartInstance = null; function updateRadarChart() { const ctx = document.getElementById('radarChart').getContext('2d');
+const labels = Object.values(peers).map(p => p.name); const data = Object.values(peers).map(p => p.reputation); const chartData = { labels: labels, datasets: [{ label: 'Peer Reputation', data: data, backgroundColor: 'rgba(54, 162, 235, 0.2)', borderColor:
+'rgba(54, 162, 235, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(54, 162, 235, 1)' }] }; const config = { type: 'radar', data: chartData, options: { scales: { r: { suggestedMin: 0, suggestedMax: 100 } }, responsive: true, maintainAspectRatio: false
+} }; if (radarChartInstance) { radarChartInstance.data = chartData; radarChartInstance.update(); } else { radarChartInstance = new Chart(ctx, config); } } // -------------------- Boot -------------------- ensureDemoData(); renderUI(); // --------------------
+UI wiring -------------------- document.getElementById('createPeerBtn').addEventListener('click', () => { const name = document.getElementById('newPeerName').value.trim(); if (!name) return alert('Peer name required'); createPeer(name); document.getElementById('newPeerName').value
+= ''; }); document.getElementById('activePeer').addEventListener('change', (e) => { activePeerId = e.target.value; save('activePeerId', activePeerId); renderUI(); }); document.getElementById('sendMsgBtn').addEventListener('click', () => { const text =
+document.getElementById('messageText').value.trim(); const toId = document.getElementById('chatFriend').value; if (!toId) return alert('Select a friend to send to'); if (!text) return alert('Enter a message'); sendMessage(activePeerId, toId, text); document.getElementById('messageText').value
+= ''; }); document.getElementById('createReportBtn').addEventListener('click', () => { const target = document.getElementById('reportTarget').value; const desc = document.getElementById('reportDesc').value.trim(); createReport(activePeerId, target, desc);
+document.getElementById('reportDesc').value = ''; }); document.getElementById('sendTestMsg').addEventListener('click', () => { alert('SMS stub (not implemented)'); }); document.getElementById('syncBtn').addEventListener('click', () => { alert('Sync stub
+(not implemented)'); });
+</script>
+<script src="auth-and-peer.js"></script>
+</body>
+
+</html>
+// -------------------- Radar Chart -------------------- let radarChartInstance = null; function updateRadarChart() { const ctx = document.getElementById('radarChart').getContext('2d'); const labels = Object.values(peers).map(p => p.name); const data
+= Object.values(peers).map(p => p.reputation); const chartData = { labels: labels, datasets: [{ label: 'Peer Reputation', data: data, backgroundColor: 'rgba(54, 162, 235, 0.2)', borderColor: 'rgba(54, 162, 235, 1)', borderWidth: 2, pointBackgroundColor:
+'rgba(54, 162, 235, 1)' }] }; const config = { type: 'radar', data: chartData, options: { scales: { r: { suggestedMin: 0, suggestedMax: 100 } }, responsive: true, maintainAspectRatio: false } }; if (radarChartInstance) { radarChartInstance.data = chartData;
+radarChartInstance.update(); } else { radarChartInstance = new Chart(ctx, config); } } // -------------------- Boot -------------------- ensureDemoData(); renderUI(); // -------------------- UI wiring -------------------- document.getElementById('createPeerBtn').addEventListener('click',
+() => { const name = document.getElementById('newPeerName').value.trim(); if (!name) return alert('Peer name required'); createPeer(name); document.getElementById('newPeerName').value = ''; }); document.getElementById('activePeer').addEventListener('change',
+(e) => { activePeerId = e.target.value; save('activePeerId', activePeerId); renderUI(); }); document.getElementById('sendMsgBtn').addEventListener('click', () => { const text = document.getElementById('messageText').value.trim(); const toId = document.getElementById('chatFriend').value;
+if (!toId) return alert('Select a friend to send to'); if (!text) return alert('Enter a message'); sendMessage(activePeerId, toId, text); document.getElementById('messageText').value = ''; }); document.getElementById('createReportBtn').addEventListener('click',
+() => { const target = document.getElementById('reportTarget').value; const desc = document.getElementById('reportDesc').value.trim(); createReport(activePeerId, target, desc); document.getElementById('reportDesc').value = ''; }); document.getElementById('sendTestMsg').addEventListener('click',
+() => { alert('SMS stub (not implemented)'); }); document.getElementById('syncBtn').addEventListener('click', () => { alert('Sync stub (not implemented)'); });
+</script>
+<script src="auth-and-peer.js"></script>
+</body>
+
+</html>
+// Update radar chart updateRadarChart(); } // -------------------- Radar Chart -------------------- let radarChartInstance = null; function updateRadarChart() { const ctx = document.getElementById('radarChart').getContext('2d'); const labels = Object.values(peers).map(p
+=> p.name); const data = Object.values(peers).map(p => p.reputation); const chartData = { labels: labels, datasets: [{ label: 'Peer Reputation', data: data, backgroundColor: 'rgba(54, 162, 235, 0.2)', borderColor: 'rgba(54, 162, 235, 1)', borderWidth:
+2, pointBackgroundColor: 'rgba(54, 162, 235, 1)' }] }; const config = { type: 'radar', data: chartData, options: { scales: { r: { suggestedMin: 0, suggestedMax: 100 } }, responsive: true, maintainAspectRatio: false } }; if (radarChartInstance) { radarChartInstance.data
+= chartData; radarChartInstance.update(); } else { radarChartInstance = new Chart(ctx, config); } } // -------------------- Boot -------------------- ensureDemoData(); renderUI(); // -------------------- UI wiring -------------------- document.getElementById('createPeerBtn').addEventListener('click',
+() => { const name = document.getElementById('newPeerName').value.trim(); if (!name) return alert('Peer name required'); createPeer(name); document.getElementById('newPeerName').value = ''; }); document.getElementById('activePeer').addEventListener('change',
+(e) => { activePeerId = e.target.value; save('activePeerId', activePeerId); renderUI(); }); document.getElementById('sendMsgBtn').addEventListener('click', () => { const text = document.getElementById('messageText').value.trim(); const toId = document.getElementById('chatFriend').value;
+if (!toId) return alert('Select a friend to send to'); if (!text) return alert('Enter a message'); sendMessage(activePeerId, toId, text); document.getElementById('messageText').value = ''; }); document.getElementById('createReportBtn').addEventListener('click',
+() => { const target = document.getElementById('reportTarget').value; const desc = document.getElementById('reportDesc').value.trim(); createReport(activePeerId, target, desc); document.getElementById('reportDesc').value = ''; }); document.getElementById('sendTestMsg').addEventListener('click',
+() => { alert('SMS stub (not implemented)'); }); document.getElementById('syncBtn').addEventListener('click', () => { alert('Sync stub (not implemented)'); });
+</script>
+<script src="auth-and-peer.js"></script>
+</body>
+
+</html> repDisp.textContent = 'Reputation: ' + (ap ? ap.reputation : '--'); // Update radar chart updateRadarChart(); } // -------------------- Radar Chart -------------------- let radarChartInstance = null; function updateRadarChart() { const ctx = document.getElementById('radarChart').getContext('2d');
+const labels = Object.values(peers).map(p => p.name); const data = Object.values(peers).map(p => p.reputation); const chartData = { labels: labels, datasets: [{ label: 'Peer Reputation', data: data, backgroundColor: 'rgba(54, 162, 235, 0.2)', borderColor:
+'rgba(54, 162, 235, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(54, 162, 235, 1)' }] }; const config = { type: 'radar', data: chartData, options: { scales: { r: { suggestedMin: 0, suggestedMax: 100 } }, responsive: true, maintainAspectRatio: false
+} }; if (radarChartInstance) { radarChartInstance.data = chartData; radarChartInstance.update(); } else { radarChartInstance = new Chart(ctx, config); } } // -------------------- Boot -------------------- ensureDemoData(); renderUI(); // --------------------
+UI wiring -------------------- document.getElementById('createPeerBtn').addEventListener('click', () => { const name = document.getElementById('newPeerName').value.trim(); if (!name) return alert('Peer name required'); createPeer(name); document.getElementById('newPeerName').value
+= ''; }); document.getElementById('activePeer').addEventListener('change', (e) => { activePeerId = e.target.value; save('activePeerId', activePeerId); renderUI(); }); document.getElementById('sendMsgBtn').addEventListener('click', () => { const text =
+document.getElementById('messageText').value.trim(); const toId = document.getElementById('chatFriend').value; if (!toId) return alert('Select a friend to send to'); if (!text) return alert('Enter a message'); sendMessage(activePeerId, toId, text); document.getElementById('messageText').value
+= ''; }); document.getElementById('createReportBtn').addEventListener('click', () => { const target = document.getElementById('reportTarget').value; const desc = document.getElementById('reportDesc').value.trim(); createReport(activePeerId, target, desc);
+document.getElementById('reportDesc').value = ''; }); document.getElementById('sendTestMsg').addEventListener('click', () => { alert('SMS stub (not implemented)'); }); document.getElementById('syncBtn').addEventListener('click', () => { alert('Sync stub
+(not implemented)'); });
+</script>
+
+</body>
+
+</html> repDisp.textContent = 'Reputation: ' + (ap ? ap.reputation : '--'); // Update radar chart updateRadarChart(); } // -------------------- Radar Chart -------------------- let radarChartInstance = null; function updateRadarChart() { const ctx = document.getElementById('radarChart').getContext('2d');
+const labels = Object.values(peers).map(p => p.name); const data = Object.values(peers).map(p => p.reputation); const chartData = { labels: labels, datasets: [{ label: 'Peer Reputation', data: data, backgroundColor: 'rgba(54, 162, 235, 0.2)', borderColor:
+'rgba(54, 162, 235, 1)', borderWidth: 2, pointBackgroundColor: 'rgba(54, 162, 235, 1)' }] }; const config = { type: 'radar', data: chartData, options: { scales: { r: { suggestedMin: 0, suggestedMax: 100 } }, responsive: true, maintainAspectRatio: false
+} }; if (radarChartInstance) { radarChartInstance.data = chartData; radarChartInstance.update(); } else { radarChartInstance = new Chart(ctx, config); } } // -------------------- Boot -------------------- ensureDemoData(); renderUI(); // --------------------
+UI wiring -------------------- document.getElementById('createPeerBtn').addEventListener('click', () => { const name = document.getElementById('newPeerName').value.trim(); if (!name) return alert('Peer name required'); createPeer(name); document.getElementById('newPeerName').value
+= ''; }); document.getElementById('activePeer').addEventListener('change', (e) => { activePeerId = e.target.value; save('activePeerId', activePeerId); renderUI(); }); document.getElementById('sendMsgBtn').addEventListener('click', () => { const text =
+document.getElementById('messageText').value.trim(); const toId = document.getElementById('chatFriend').value; if (!toId) return alert('Select a friend to send to'); if (!text) return alert('Enter a message'); sendMessage(activePeerId, toId, text); document.getElementById('messageText').value
+= ''; }); document.getElementById('createReportBtn').addEventListener('click', () => { const target = document.getElementById('reportTarget').value; const desc = document.getElementById('reportDesc').value.trim(); createReport(activePeerId, target, desc);
+document.getElementById('reportDesc').value = ''; }); document.getElementById('sendTestMsg').addEventListener('click', () => { alert('SMS stub (not implemented)'); }); document.getElementById('syncBtn').addEventListener('click', () => { alert('Sync stub
+(not implemented)'); });
+</script>
+</body>
+
+</html> radarChartInstance = new Chart(ctx, config); } } // -------------------- Boot -------------------- ensureDemoData(); renderUI(); // -------------------- UI wiring -------------------- document.getElementById('createPeerBtn').addEventListener('click',
+() => { const name = document.getElementById('newPeerName').value.trim(); if (!name) return alert('Peer name required'); createPeer(name); document.getElementById('newPeerName').value = ''; }); document.getElementById('activePeer').addEventListener('change',
+(e) => { activePeerId = e.target.value; save('activePeerId', activePeerId); renderUI(); }); document.getElementById('sendMsgBtn').addEventListener('click', () => { const text = document.getElementById('messageText').value.trim(); const toId = document.getElementById('chatFriend').value;
+if (!toId) return alert('Select a friend to send to'); if (!text) return alert('Enter a message'); sendMessage(activePeerId, toId, text); document.getElementById('messageText').value = ''; }); document.getElementById('createReportBtn').addEventListener('click',
+() => { const target = document.getElementById('reportTarget').value; const desc = document.getElementById('reportDesc').value.trim(); createReport(activePeerId, target, desc); document.getElementById('reportDesc').value = ''; }); document.getElementById('sendTestMsg').addEventListener('click',
+() => { alert('SMS stub (not implemented)'); }); document.getElementById('syncBtn').addEventListener('click', () => { alert('Sync stub (not implemented)'); }); document.querySelector(".logout-btn").addEventListener("click", () => { // Clear user session
+(example) localStorage.removeItem("username"); alert("You have been logged out!"); window.location.href = "gosip.html"; // Redirect to login page });
+
+</script>
+<script src="auth-and-peer.js"></script>
 </body>
 
 </html>
