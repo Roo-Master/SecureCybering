@@ -1,4 +1,3 @@
-<!-- Save as gossip.html -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Gossip — Peer Interaction & Reputation</title>
     <style>
-         :root {
+        :root {
             --bg: #f6f8fa;
             --card: #fff;
             --muted: #666;
@@ -16,7 +15,7 @@
             --bad: #ef4444;
             --neutral: #f59e0b;
         }
-        
+
         body {
             font-family: Inter, Arial, Helvetica, sans-serif;
             background: var(--bg);
@@ -24,7 +23,7 @@
             padding: 20px;
             color: #111
         }
-        
+
         .wrap {
             max-width: 1100px;
             margin: 0 auto;
@@ -32,36 +31,36 @@
             grid-template-columns: 320px 1fr 360px;
             gap: 18px
         }
-        
+
         .card {
             background: var(--card);
             border-radius: 10px;
             padding: 14px;
             box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06)
         }
-        
+
         h1 {
             margin: 0 0 10px;
             font-size: 20px
         }
-        
+
         h2 {
             margin: 0 0 10px;
             font-size: 16px
         }
-        
+
         label {
             font-size: 13px;
             color: var(--muted)
         }
-        
+
         input,
         select,
         textarea,
         button {
             font-family: inherit
         }
-        
+
         input[type=text],
         select,
         textarea {
@@ -71,7 +70,7 @@
             border-radius: 6px;
             margin-top: 6px
         }
-        
+
         button {
             padding: 8px 10px;
             border-radius: 8px;
@@ -80,18 +79,18 @@
             color: white;
             cursor: pointer
         }
-        
+
         .muted {
             color: var(--muted);
             font-size: 13px
         }
-        
+
         .peer-list {
             max-height: 420px;
             overflow: auto;
             margin-top: 10px
         }
-        
+
         .peer {
             display: flex;
             align-items: center;
@@ -101,7 +100,7 @@
             border: 1px solid #f1f3f5;
             margin-bottom: 8px
         }
-        
+
         .avatar {
             width: 44px;
             height: 44px;
@@ -112,93 +111,53 @@
             color: white;
             font-weight: 700
         }
-        
+
         .badge {
             padding: 4px 8px;
             border-radius: 12px;
             font-weight: 600;
             font-size: 12px
         }
-        
+
         .badge.red {
             background: var(--bad);
             color: white
         }
-        
+
         .badge.green {
             background: var(--good);
             color: white
         }
-        
+
         .badge.gold {
             background: gold;
             color: #111
         }
-        
+
         .friend-actions {
             margin-left: auto;
             display: flex;
             gap: 6px
         }
-        
+
         .small {
             font-size: 12px;
             padding: 6px 8px
         }
-        
-        .chat-area {
-            display: flex;
-            flex-direction: column;
-            height: 520px
-        }
-        
-        .messages {
-            flex: 1;
-            overflow: auto;
-            padding: 8px;
-            border: 1px dashed #eef2ff;
-            border-radius: 8px;
-            background: #fff
-        }
-        
-        .msg {
-            margin-bottom: 10px;
-            max-width: 75%;
-        }
-        
-        .msg.me {
-            align-self: flex-end;
-            background: #eef2ff;
-            padding: 8px;
-            border-radius: 8px
-        }
-        
-        .msg.them {
-            align-self: flex-start;
-            background: #f3f4f6;
-            padding: 8px;
-            border-radius: 8px
-        }
-        
-        .controls {
-            display: flex;
-            gap: 8px;
-            margin-top: 8px
-        }
-        
+
         .reports-list {
             max-height: 280px;
             overflow: auto;
             margin-top: 8px
         }
-        
+
         .report {
             border: 1px solid #f3f4f6;
             padding: 8px;
             border-radius: 8px;
             margin-bottom: 8px
         }
-        
+
         .vote-btn {
             background: #eef2ff;
             border: 1px solid #dbeafe;
@@ -206,7 +165,7 @@
             padding: 6px 8px;
             border-radius: 6px
         }
-        
+
         .pill {
             display: inline-block;
             padding: 6px 10px;
@@ -214,40 +173,50 @@
             border: 1px solid #eee;
             background: #fafafa
         }
-        
+
         .events {
             max-height: 220px;
             overflow: auto;
             margin-top: 8px;
             font-size: 13px
         }
-        
+
         .info-row {
             display: flex;
             gap: 10px;
             align-items: center;
             margin-top: 8px
         }
-        
+
         .note {
             font-size: 12px;
             color: var(--muted)
         }
-        
+
         .danger {
             color: var(--bad)
         }
+
+        /* Dashboard chart container */
+        #radarChartContainer {
+            margin-top: 20px;
+            background: var(--card);
+            padding: 14px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+        }
     </style>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
     <div style="max-width:1100px;margin:0 auto 18px;">
-        <h1>Gossip Hub </h1>
-
+        <h1>Gossip Hub</h1>
     </div>
 
     <div class="wrap">
-        <!-- LEFT: Peers / Create / Active Peer -->
+        <!-- LEFT: Peers / Create / Active Peer / Notifications -->
         <div class="card">
             <h2>Peers & Active User</h2>
 
@@ -267,10 +236,13 @@
 
             <h2 style="margin-top:12px">Friend Requests</h2>
             <div id="requestsBox" class="muted">No requests</div>
+
+            <h2 style="margin-top:12px">Notifications</h2>
+            <div id="notificationsBox" class="events"></div>
         </div>
 
-        <!-- CENTER: Chat, Messaging, Reports -->
-        <div class="card">
+        <!-- CENTER: Chat, Messaging, Reports, Dashboard -->
+        <div class="card" style="overflow-y:auto; max-height: 95vh;">
             <div style="display:flex;align-items:center;justify-content:space-between">
                 <h2>Chat & Reports</h2>
                 <div class="pill" id="reputationDisplay">Reputation: --</div>
@@ -304,10 +276,17 @@
                 <select id="reportTarget" style="flex:1"></select>
                 <button id="createReportBtn" class="small">Create Report</button>
             </div>
-            <textarea id="reportDesc" rows="2" placeholder="Describe what happened (scam details)..." style="margin-top:8px"></textarea>
+            <textarea id="reportDesc" rows="2" placeholder="Describe what happened (scam details)..." style="margin-top:8px; width:100%;"></textarea>
 
             <h2 style="margin-top:12px">Open Reports</h2>
             <div class="reports-list" id="reportsList"></div>
+
+            <!-- Radar Chart Dashboard -->
+            <div id="radarChartContainer">
+                <h2>Reputation Dashboard</h2>
+                <canvas id="radarChart"></canvas>
+            </div>
+
         </div>
 
         <!-- RIGHT: Peer Details & Events -->
@@ -322,8 +301,8 @@
             <div class="note">
                 <ul>
                     <li>Default reputation: <strong>50</strong></li>
-                    <li>Majority "Fraud" vote → accused -10, reporter +5</li>
-                    <li>Majority "Not Fraud" vote → accused +5, reporter -5</li>
+                    <li>Majority "Fraud" vote → accused −10, reporter +5</li>
+                    <li>Majority "Not Fraud" vote → accused +5, reporter −5</li>
                     <li>Below <strong>+5</strong> → <span class="danger">Marked RED (Fraud)</span></li>
                     <li>70 and above → <span style="color:gold">Most Loyal (Loyalty Card)</span></li>
                 </ul>
@@ -333,132 +312,80 @@
     </div>
 
     <script>
-        /*
-                                                                                                                                                                                                                                                                                                Hybrid Gossip Frontend
-                                                                                                                                                                                                                                                                                                - Uses localStorage as primary store (simulate multiple peers via Active Peer select)
-                                                                                                                                                                                                                                                                                                - Provides stubbed API functions (api.sendSMS, api.sync) that call fetch to /api/... if available
-                                                                                                                                                                                                                                                                                                - Core data structures are:
-                                                                                                                                                                                                                                                                                                  peers: {id,name,color,reputation,loyalty}
-                                                                                                                                                                                                                                                                                                  friendships: { requesterId, targetId, status } status: pending/accepted/rejected
-                                                                                                                                                                                                                                                                                                  messages: {id,from,to,text,time}
-                                                                                                                                                                                                                                                                                                  reports: {id,reporterId, targetId, description, createdAt, votes: { voterId: vote('fraud'|'not') } }
-                                                                                                                                                                                                                                                                                                  events: ledger array for audit trail
-                                                                                                                                                                                                                                                                                                */
-
         // -------------------- Utility --------------------
         function uid(prefix = 'id') {
             return prefix + '_' + Math.random().toString(36).slice(2, 9)
         }
-
         function nowISO() {
             return new Date().toISOString()
         }
-
         function save(key, val) {
             localStorage.setItem(key, JSON.stringify(val))
         }
-
         function load(key, fallback) {
             return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback))
         }
 
-        // -------------------- API stubs (hybrid) --------------------
-        const api = {
-            async sendSMS(toNumber, text) {
-                // try to call a backend if available
-                try {
-                    await fetch('/api/send-sms', {
-                        method: 'POST',
-                        headers: {
-                            'content-type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            to: toNumber,
-                            text
-                        })
-                    });
-                    console.log('SMS stub called');
-                } catch (e) {
-                    console.log('SMS API not available (stubbed).');
-                }
-            },
-            async sync(payload) {
-                // placeholder for server sync (send local state)
-                try {
-                    await fetch('/api/sync', {
-                        method: 'POST',
-                        headers: {
-                            'content-type': 'application/json'
-                        },
-                        body: JSON.stringify(payload)
-                    });
-                    console.log('Sync stub success');
-                } catch (e) {
-                    console.log('Sync endpoint not available (stubbed)');
-                }
-            }
+        // -------------------- Notification logic --------------------
+        let notifications = load('notifications', []);
+        function pushNotification(message) {
+            notifications.unshift({
+                id: uid('note'),
+                text: message,
+                at: nowISO()
+            });
+            if (notifications.length > 200) notifications.pop();
+            save('notifications', notifications);
         }
 
         // -------------------- App state --------------------
         let peers = load('peers', {});
-        let friendships = load('friendships', []); // list of {id, requesterId, targetId, status}
-        let messages = load('messages', []); // messages array
-        let reports = load('reports', []); // reports array
-        let events = load('events', []); // ledger
+        let friendships = load('friendships', []);
+        let messages = load('messages', []);
+        let reports = load('reports', []);
+        let events = load('events', []);
         let activePeerId = load('activePeerId', null);
 
-        // Default configuration
         const CONF = {
             startReputation: 50,
             fraudPenalty: 10,
             reporterReward: 5,
             falseReportPenalty: 5,
             trueReportAccusedReward: 5,
-            fraudThreshold: 5, // below this -> red/fraud
+            fraudThreshold: 5,
             loyaltyThreshold: 70
         };
 
-        // -------------------- Initialization helpers --------------------
-        function ensureDemoData() {
-            if (Object.keys(peers).length === 0) {
-                // create sample peers
-                createPeer('Reagan');
-                createPeer('Bruce');
-                createPeer('Cherise');
-                createPeer('Brian');
-                createPeer('Victor');
-                saveAll();
-            }
-            if (!activePeerId) {
-                activePeerId = Object.keys(peers)[0];
-                save('activePeerId', activePeerId);
-            }
-        }
-
+        // -------------------- Initialization --------------------
         function saveAll() {
             save('peers', peers);
             save('friendships', friendships);
             save('messages', messages);
             save('reports', reports);
             save('events', events);
+            save('notifications', notifications);
         }
 
-        // -------------------- Peer management --------------------
+        function ensureDemoData() {
+            if (Object.keys(peers).length === 0) {
+                createPeer('Alice');
+                createPeer('Bob');
+                createPeer('Carol');
+                createPeer('Dave');
+                createPeer('Eve');
+            }
+            if (!activePeerId) {
+                activePeerId = Object.keys(peers)[0];
+            }
+            saveAll();
+        }
+
+        // -------------------- Peer mgmt --------------------
         function createPeer(name) {
             const id = uid('peer');
             const color = randomColorFromName(name);
-            peers[id] = {
-                id,
-                name,
-                color,
-                reputation: CONF.startReputation,
-                loyaltyCard: false
-            };
-            logEvent({
-                type: 'peer_created',
-                by: id,
-                name
-            });
+            peers[id] = { id, name, color, reputation: CONF.startReputation, loyaltyCard: false };
+            logEvent({ type: 'peer_created', by: id, name });
             saveAll();
             renderUI();
             return id;
@@ -468,134 +395,100 @@
             const p = peers[peerId];
             if (!p) return;
             p.reputation = Math.round((p.reputation || 0) + delta);
-            // enforce bounds (optional)
             if (p.reputation < -100) p.reputation = -100;
             if (p.reputation > 999) p.reputation = 999;
-            // loyalty check
             if (p.reputation >= CONF.loyaltyThreshold && !p.loyaltyCard) {
                 p.loyaltyCard = true;
-                logEvent({
-                    type: 'loyalty_awarded',
-                    peerId,
-                    at: nowISO()
-                });
+                logEvent({ type: 'loyalty_awarded', peerId, at: nowISO() });
             }
-            // flagged check
             if (p.reputation < CONF.fraudThreshold) {
-                // flagged as fraud; event logged
-                logEvent({
-                    type: 'flagged_fraud',
-                    peerId,
-                    reputation: p.reputation,
-                    at: nowISO()
-                });
+                logEvent({ type: 'flagged_fraud', peerId, reputation: p.reputation, at: nowISO() });
             }
             saveAll();
             renderUI();
+        }
+
+        function randomColorFromName(name) {
+            const colors = ['#ef4444', '#f97316', '#f59e0b', '#10b981', '#06b6d4', '#3b82f6', '#7c3aed', '#ec4899'];
+            let s = 0;
+            for (let ch of name) s += ch.charCodeAt(0);
+            return colors[s % colors.length];
+        }
+
+        function peerBadge(peer) {
+            if (peer.reputation < CONF.fraudThreshold) return { label: 'FRAUD', cls: 'red' };
+            if (peer.reputation >= CONF.loyaltyThreshold) return { label: 'LOYAL', cls: 'gold' };
+            if (peer.reputation >= 55) return { label: 'TRUSTED', cls: 'green' };
+            return { label: 'NORMAL', cls: '' };
+        }
+
+        // -------------------- Logging & Events --------------------
+        function logEvent(obj) {
+            const e = Object.assign({ id: uid('ev'), at: nowISO() }, obj);
+            events.unshift(e);
+            if (events.length > 1000) events.pop();
+            pushNotification("Event: " + obj.type + " | " + JSON.stringify(obj));
         }
 
         // -------------------- Friendship --------------------
+        function areFriends(a, b) {
+            return friendships.some(f => ((f.requesterId === a && f.targetId === b) || (f.requesterId === b && f.targetId === a)) && f.status === 'accepted');
+        }
         function sendFriendRequest(fromId, toId) {
             if (!fromId || !toId || fromId === toId) return;
-            // check existing
             const exists = friendships.find(f => (f.requesterId === fromId && f.targetId === toId) || (f.requesterId === toId && f.targetId === fromId));
             if (exists) return alert('Friend request or friendship already exists.');
-            const req = {
-                id: uid('req'),
-                requesterId: fromId,
-                targetId: toId,
-                status: 'pending',
-                createdAt: nowISO()
-            };
+            const req = { id: uid('req'), requesterId: fromId, targetId: toId, status: 'pending', createdAt: nowISO() };
             friendships.push(req);
-            logEvent({
-                type: 'friend_request',
-                from: fromId,
-                to: toId,
-                at: nowISO()
-            });
+            logEvent({ type: 'friend_request', from: fromId, to: toId, at: nowISO() });
             saveAll();
             renderUI();
         }
-
         function acceptFriendRequest(reqId) {
             const req = friendships.find(r => r.id === reqId);
             if (!req) return;
             req.status = 'accepted';
-            logEvent({
-                type: 'friend_accept',
-                reqId,
-                at: nowISO()
-            });
+            logEvent({ type: 'friend_accept', reqId, at: nowISO() });
             saveAll();
             renderUI();
         }
-
         function rejectFriendRequest(reqId) {
             const req = friendships.find(r => r.id === reqId);
             if (!req) return;
             req.status = 'rejected';
-            logEvent({
-                type: 'friend_reject',
-                reqId,
-                at: nowISO()
-            });
+            logEvent({ type: 'friend_reject', reqId, at: nowISO() });
             saveAll();
             renderUI();
-        }
-
-        function areFriends(a, b) {
-            return friendships.some(f => ((f.requesterId === a && f.targetId === b) || (f.requesterId === b && f.targetId === a)) && f.status === 'accepted');
         }
 
         // -------------------- Messaging --------------------
         function sendMessage(fromId, toId, text) {
             if (!text || !fromId || !toId) return;
-            const msg = {
-                id: uid('m'),
-                fromId,
-                toId,
-                text,
-                createdAt: nowISO()
-            };
+            const msg = { id: uid('m'), fromId, toId, text, createdAt: nowISO() };
             messages.push(msg);
-            logEvent({
-                type: 'message',
-                from: fromId,
-                to: toId,
-                text,
-                at: nowISO()
-            });
+            logEvent({ type: 'message', from: fromId, to: toId, text, at: nowISO() });
             saveAll();
             renderUI();
-
-            // Attempt backend SMS (stub)
-            api.sendSMS(toId, text).catch(e => console.log(e));
         }
 
         // -------------------- Reporting & Voting --------------------
         function createReport(reporterId, targetId, description) {
             if (!reporterId || !targetId) return alert('Select a target to report.');
             if (reporterId === targetId) return alert('You cannot report yourself.');
+
             const rpt = {
                 id: uid('rpt'),
                 reporterId,
                 targetId,
                 description: description || '',
                 createdAt: nowISO(),
-                votes: {}, // voterId -> 'fraud' | 'not'
+                votes: {},
                 resolved: false,
-                result: null // 'fraud'|'not'|null
+                result: null
             };
             reports.push(rpt);
-            logEvent({
-                type: 'report_created',
-                rptId: rpt.id,
-                reporterId,
-                targetId,
-                at: nowISO(),
-                description
-            });
+            logEvent({ type: 'report_created', rptId: rpt.id, reporterId, targetId, at: nowISO(), description });
+            pushNotification(`${peers[reporterId].name} REPORTED ${peers[targetId].name} for FRAUD.`);
             saveAll();
             renderUI();
         }
@@ -607,103 +500,51 @@
             if (rpt.votes[voterId]) return alert('You have already voted on this report.');
 
             rpt.votes[voterId] = vote; // 'fraud' or 'not'
-            logEvent({
-                type: 'vote_cast',
-                reportId,
-                voterId,
-                vote,
-                at: nowISO()
-            });
+            logEvent({ type: 'vote_cast', reportId, voterId, vote, at: nowISO() });
+            pushNotification(`${peers[voterId].name} voted "${vote.toUpperCase()}" on report against ${peers[rpt.targetId].name}.`);
             saveAll();
             evaluateReportIfReady(rpt);
             renderUI();
         }
 
         function evaluateReportIfReady(rpt) {
-            // implement simple majority rule once at least 3 votes or all friends of target have voted.
             const votes = Object.values(rpt.votes);
-            if (votes.length < 1) return; // keep open until votes come in
-            // Determine majority
+            if (votes.length < 1) return;
             const fraudCount = votes.filter(v => v === 'fraud').length;
             const notCount = votes.filter(v => v === 'not').length;
-            // For simplicity: evaluate when >=3 votes OR when votes > 50% of peers (or you can decide)
             const peersCount = Object.keys(peers).length;
             const ready = (votes.length >= 3) || (votes.length > Math.max(1, Math.floor(peersCount / 2)));
             if (!ready) return;
 
-            // Resolve
             rpt.resolved = true;
             if (fraudCount > notCount) {
                 rpt.result = 'fraud';
-                // apply reputation changes
                 updatePeerReputation(rpt.targetId, -CONF.fraudPenalty);
                 updatePeerReputation(rpt.reporterId, CONF.reporterReward);
-                logEvent({
-                    type: 'report_resolved',
-                    reportId: rpt.id,
-                    result: 'fraud',
-                    at: nowISO()
-                });
+                logEvent({ type: 'report_resolved', reportId: rpt.id, result: 'fraud', at: nowISO() });
+                pushNotification(`REPORT RESOLVED: ${peers[rpt.targetId].name} CONFIRMED as FRAUD.`);
             } else {
                 rpt.result = 'not';
-                // false report penalty
                 updatePeerReputation(rpt.targetId, CONF.trueReportAccusedReward);
                 updatePeerReputation(rpt.reporterId, -CONF.falseReportPenalty);
-                logEvent({
-                    type: 'report_resolved',
-                    reportId: rpt.id,
-                    result: 'not',
-                    at: nowISO()
-                });
+                logEvent({ type: 'report_resolved', reportId: rpt.id, result: 'not', at: nowISO() });
+                pushNotification(`REPORT RESOLVED: ${peers[rpt.targetId].name} declared NOT fraudulent.`);
             }
             saveAll();
             renderUI();
         }
 
-        // -------------------- Events Ledger --------------------
-        function logEvent(obj) {
-            const e = Object.assign({
-                id: uid('ev'),
-                at: nowISO()
-            }, obj);
-            events.unshift(e);
-            // keep limited length
-            if (events.length > 1000) events.pop();
-            saveAll();
-            // optionally attempt to sync to remote
-            api.sync({
-                event: e
-            }).catch(() => {});
+        // -------------------- UI render --------------------
+        function escapeHtml(s) {
+            return String(s || '').replace(/[&<>"']/g, m => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            })[m]);
         }
 
-        // -------------------- Helpers --------------------
-        function randomColorFromName(name) {
-            const colors = ['#ef4444', '#f97316', '#f59e0b', '#10b981', '#06b6d4', '#3b82f6', '#7c3aed', '#ec4899'];
-            let s = 0;
-            for (let ch of name) s += ch.charCodeAt(0);
-            return colors[s % colors.length];
-        }
-
-        function peerBadge(peer) {
-            if (peer.reputation < CONF.fraudThreshold) return {
-                label: 'FRAUD',
-                cls: 'red'
-            };
-            if (peer.reputation >= CONF.loyaltyThreshold) return {
-                label: 'LOYAL',
-                cls: 'gold'
-            };
-            if (peer.reputation >= 55) return {
-                label: 'TRUSTED',
-                cls: 'green'
-            };
-            return {
-                label: 'NORMAL',
-                cls: ''
-            };
-        }
-
-        // -------------------- Render UI --------------------
         function renderUI() {
             // Active peer select
             const sel = document.getElementById('activePeer');
@@ -739,6 +580,7 @@
 
                 const actions = document.createElement('div');
                 actions.className = 'friend-actions';
+
                 // Friend / request button
                 const frBtn = document.createElement('button');
                 frBtn.className = 'small';
@@ -757,9 +599,7 @@
                         }
                     } else {
                         frBtn.textContent = 'Add';
-                        frBtn.onclick = () => {
-                            sendFriendRequest(activePeerId, p.id);
-                        };
+                        frBtn.onclick = () => sendFriendRequest(activePeerId, p.id);
                     }
                 }
                 actions.appendChild(frBtn);
@@ -771,7 +611,7 @@
                 if (!areFriends(activePeerId, p.id)) msgBtn.disabled = true;
                 msgBtn.onclick = () => {
                     document.getElementById('chatFriend').value = p.id;
-                    selectChatFriend(p.id);
+                    renderUI();
                 };
                 actions.appendChild(msgBtn);
 
@@ -781,7 +621,7 @@
                 pl.appendChild(div);
             });
 
-            // Friend select for chat
+            // Chats
             const chatSel = document.getElementById('chatFriend');
             chatSel.innerHTML = '';
             const frs = Object.values(peers).filter(p => areFriends(activePeerId, p.id) && p.id !== activePeerId);
@@ -799,7 +639,7 @@
                 });
             }
 
-            // report target select
+            // Report target select
             const rSel = document.getElementById('reportTarget');
             rSel.innerHTML = '';
             Object.values(peers).filter(p => p.id !== activePeerId).forEach(p => {
@@ -809,7 +649,7 @@
                 rSel.appendChild(o);
             });
 
-            // reports list
+            // Reports list
             const rbox = document.getElementById('reportsList');
             rbox.innerHTML = '';
             reports.forEach(r => {
@@ -819,11 +659,11 @@
                 const target = peers[r.targetId] ? peers[r.targetId].name : r.targetId;
                 const votes = Object.entries(r.votes).map(([voter, v]) => `${peers[voter] ? peers[voter].name : voter}:${v}`).join(', ');
                 el.innerHTML = `
-      <div><strong>${reporter}</strong> reported <strong>${target}</strong> • <span class="muted">${new Date(r.createdAt).toLocaleString()}</span></div>
-      <div style="margin-top:6px">${escapeHtml(r.description || '')}</div>
-      <div style="margin-top:8px" class="muted">Votes: ${votes || 'none'}</div>
-      <div style="margin-top:8px">${r.resolved ? '<strong>Result:</strong> '+r.result : ''}</div>
-    `;
+            <div><strong>${reporter}</strong> reported <strong>${target}</strong> • <span class="muted">${new Date(r.createdAt).toLocaleString()}</span></div>
+            <div style="margin-top:6px">${escapeHtml(r.description || '')}</div>
+            <div style="margin-top:8px" class="muted">Votes: ${votes || 'none'}</div>
+            <div style="margin-top:8px">${r.resolved ? '<strong>Result:</strong> '+r.result : ''}</div>
+        `;
                 if (!r.resolved && activePeerId !== r.reporterId) {
                     const btnF = document.createElement('button');
                     btnF.textContent = 'Vote Fraud';
@@ -840,23 +680,24 @@
                 rbox.appendChild(el);
             });
 
-            // messages
+            // Messages
             const msgBox = document.getElementById('messages');
             msgBox.innerHTML = '';
             const partnerId = document.getElementById('chatFriend').value;
-            const convo = messages.filter(m => (m.fromId === activePeerId && m.toId === partnerId) || (m.fromId === partnerId && m.toId === activePeerId)).sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+            const convo = messages.filter(m => (m.fromId === activePeerId && m.toId === partnerId) || (m.fromId === partnerId && m.toId === activePeerId))
+                                  .sort((a,b)=> new Date(a.createdAt) - new Date(b.createdAt));
             convo.forEach(m => {
                 const d = document.createElement('div');
-                d.className = 'msg ' + (m.fromId === activePeerId ? 'me' : 'them');
+                d.className = 'msg ' + (m.fromId === activePeerId ? 'me':'them');
                 const who = peers[m.fromId] ? peers[m.fromId].name : m.fromId;
                 d.innerHTML = `<div style="font-size:12px;color:var(--muted)">${who} • ${new Date(m.createdAt).toLocaleTimeString()}</div><div style="margin-top:6px">${escapeHtml(m.text)}</div>`;
                 msgBox.appendChild(d);
             });
 
-            // active peer details
+            // Active peer details
             const ad = document.getElementById('activeDetails');
-            const ap = peers[activePeerId];
             ad.innerHTML = '';
+            const ap = peers[activePeerId];
             if (ap) {
                 const av = document.createElement('div');
                 av.style.display = 'flex';
@@ -868,14 +709,14 @@
                 a.textContent = ap.name.slice(0, 2).toUpperCase();
                 const meta = document.createElement('div');
                 meta.innerHTML = `<div><strong>${ap.name}</strong></div>
-      <div class="muted">ID: ${ap.id}</div>
-      <div style="margin-top:6px">Reputation: <strong>${ap.reputation}</strong> ${ap.loyaltyCard ? '<span class="badge gold">LOYALTY CARD</span>' : ''}</div>`;
+                <div class="muted">ID: ${ap.id}</div>
+                <div style="margin-top:6px">Reputation: <strong>${ap.reputation}</strong> ${ap.loyaltyCard ? '<span class="badge gold">LOYALTY CARD</span>' : ''}</div>`;
                 av.appendChild(a);
                 av.appendChild(meta);
                 ad.appendChild(av);
             }
 
-            // events ledger
+            // Events ledger
             const evBox = document.getElementById('eventsList');
             evBox.innerHTML = '';
             events.slice(0, 60).forEach(e => {
@@ -886,10 +727,71 @@
                 evBox.appendChild(div);
             });
 
-            // reputation display
+            // Notifications
+            const notifBox = document.getElementById('notificationsBox');
+            notifBox.innerHTML = '';
+            notifications.slice(0, 60).forEach(n => {
+                const div = document.createElement('div');
+                div.style.borderBottom = '1px dashed #ddd';
+                div.style.padding = '4px 0';
+                div.innerHTML = `<div style="font-size:12px;color:var(--muted)">${new Date(n.at).toLocaleTimeString()}</div>
+                <div>${escapeHtml(n.text)}</div>`;
+                notifBox.appendChild(div);
+            });
+
+            // Update reputation badge display for active peer
             const repDisp = document.getElementById('reputationDisplay');
             repDisp.textContent = 'Reputation: ' + (ap ? ap.reputation : '--');
+
+            // Update radar chart
+            updateRadarChart();
         }
+
+        // -------------------- Radar Chart --------------------
+        let radarChartInstance = null;
+        function updateRadarChart() {
+            const ctx = document.getElementById('radarChart').getContext('2d');
+            const labels = Object.values(peers).map(p => p.name);
+            const data = Object.values(peers).map(p => p.reputation);
+
+            const chartData = {
+                labels: labels,
+                datasets: [{
+                    label: 'Peer Reputation',
+                    data: data,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgba(54, 162, 235, 1)'
+                }]
+            };
+
+            const config = {
+                type: 'radar',
+                data: chartData,
+                options: {
+                    scales: {
+                        r: {
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            };
+
+            if (radarChartInstance) {
+                radarChartInstance.data = chartData;
+                radarChartInstance.update();
+            } else {
+                radarChartInstance = new Chart(ctx, config);
+            }
+        }
+
+        // -------------------- Boot --------------------
+        ensureDemoData();
+        renderUI();
 
         // -------------------- UI wiring --------------------
         document.getElementById('createPeerBtn').addEventListener('click', () => {
@@ -905,10 +807,6 @@
             renderUI();
         });
 
-        document.getElementById('chatFriend').addEventListener('change', (e) => {
-            renderUI();
-        });
-
         document.getElementById('sendMsgBtn').addEventListener('click', () => {
             const text = document.getElementById('messageText').value.trim();
             const toId = document.getElementById('chatFriend').value;
@@ -918,12 +816,6 @@
             document.getElementById('messageText').value = '';
         });
 
-        document.getElementById('sendTestMsg').addEventListener('click', () => {
-            // example: call api.sendSMS stub
-            api.sendSMS('simulated-phone', 'Test SMS from ' + (peers[activePeerId] ? peers[activePeerId].name : 'unknown'));
-            alert('SMS stub called (check console)');
-        });
-
         document.getElementById('createReportBtn').addEventListener('click', () => {
             const target = document.getElementById('reportTarget').value;
             const desc = document.getElementById('reportDesc').value.trim();
@@ -931,57 +823,16 @@
             document.getElementById('reportDesc').value = '';
         });
 
-        document.getElementById('syncBtn').addEventListener('click', () => {
-            api.sync({
-                peers,
-                friendships,
-                messages,
-                reports,
-                events
-            }).then(() => alert('Sync attempted (stub)')).catch(() => alert('Sync failed (stub)'));
+        document.getElementById('sendTestMsg').addEventListener('click', () => {
+            alert('SMS stub (not implemented)');
         });
 
-        // helper to pre-select friend
-        function selectChatFriend(id) {
-            document.getElementById('chatFriend').value = id;
-            renderUI();
-        }
+        document.getElementById('syncBtn').addEventListener('click', () => {
+            alert('Sync stub (not implemented)');
+        });
 
-        // XSS helper
-        function escapeHtml(s) {
-            return String(s || '').replace(/[&<>"']/g, (m) => ({
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;',
-                "'": '&#39;'
-            })[m]);
-        }
-
-        // -------------------- Boot --------------------
-        ensureDemoData();
-        renderUI();
-
-        // Expose some functions to window for console debugging
-        window._app = {
-            peers,
-            messages,
-            reports,
-            friendships,
-            events,
-            createPeer,
-            sendFriendRequest,
-            acceptFriendRequest,
-            sendMessage,
-            createReport,
-            castVote,
-            updatePeerReputation
-        };
     </script>
-
-
-    <script src="/js/script.js"></script>
-    <script src="/js/intergrator.js"></script>
+    <script src="auth-and-peer.js"></script>
 </body>
 
 </html>
