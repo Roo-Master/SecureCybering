@@ -205,6 +205,49 @@
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
         }
+        .login-title {
+    display: flex;               /* Align logo and title in a row */
+    align-items: center;         /* Vertically center them */
+    gap: 15px;                   /* Space between logo and title */
+    padding: 20px;
+    background-color: #f7f7f7;  /* Light background */
+    border-radius: 10px;         /* Rounded corners */
+      /* Subtle border */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* Soft shadow */
+}
+
+.header-logo {
+    height: 50px;    /* Set a consistent logo height */
+    width: auto;     /* Maintain aspect ratio */
+}
+
+.login-title h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #222;
+    margin: 0;       
+}
+.logout-btn {
+    padding: 10px 20px;
+    background-color: #ff4d4f; /* Red color for logout */
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.logout-btn:hover {
+    background-color: #ff7875;
+    transform: scale(1.05); /* Slight grow effect */
+}
+
+.logout-btn:active {
+    transform: scale(0.98); /* Pressed effect */
+}
+
     </style>
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -212,7 +255,14 @@
 
 <body>
     <div style="max-width:1100px;margin:0 auto 18px;">
-        <h1>Gossip Hub</h1>
+        
+         <div class="login-title">
+            <img src="securechain.png" alt="Logo" class="header-logo">
+             <h1>Gossip Hub</h1>
+         <button class="logout-btn">Logout</button>
+
+        </div>
+       
     </div>
 
     <div class="wrap">
@@ -830,6 +880,12 @@
         document.getElementById('syncBtn').addEventListener('click', () => {
             alert('Sync stub (not implemented)');
         });
+document.querySelector(".logout-btn").addEventListener("click", () => {
+    // Clear user session (example)
+    localStorage.removeItem("username");
+    alert("You have been logged out!");
+    window.location.href = "gosip.html"; // Redirect to login page
+});
 
     </script>
     <script src="auth-and-peer.js"></script>

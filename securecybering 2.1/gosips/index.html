@@ -184,6 +184,21 @@ header, main, footer {
   position: relative;
   z-index: 1;
 }
+.login-title {
+    display: flex;              /* Align items in a row */
+    justify-content: center;    /* Center horizontally */
+    align-items: center;        /* Center vertically */
+    padding: 20px;
+    background-color:#0d1b2a; /* Light background */
+    border-radius: 10px;        /* Rounded corners */
+       /* Subtle border */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* Soft shadow */
+}
+
+.header-logo {
+    height: 50px;   /* Adjust logo size */
+    width: auto;    /* Maintain aspect ratio */
+}
 
 
     </style>
@@ -199,8 +214,13 @@ header, main, footer {
     </div>
 
     <header>
-        <h1>GossipHub</h1>
-        <p>Decentralized Fraud Detection & Peer Interaction System</p>
+        
+         <div class="login-title">
+            <img src="securechain.png" alt="Logo" class="header-logo">
+            <h1>GossipHub</h1>
+       
+        </div>
+         <p>Decentralized Fraud Detection & Peer Interaction System</p>
         <a href="gosip.html" class="btn">Login / Register</a>
     </header>
 

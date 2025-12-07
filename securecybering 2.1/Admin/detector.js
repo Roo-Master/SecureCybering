@@ -187,20 +187,3 @@ function getRandomNodeColor() {
 document.addEventListener('DOMContentLoaded', () => {
     initCharts();
 });
-initCharts();
-});
-node.style.backgroundColor = online ? '#4ECDC4' : '#FF6B6B';
-node.style.transform = online ? 'scale(1.1)' : 'scale(0.9)';
-node.style.boxShadow = online ? '0 0 15px #4ECDC4' : '0 0 5px #FF6B6B';
-});
-}, 2000); // 2-second interval
-}
-
-function getRandomNodeColor() {
-    return Math.random() > 0.5 ? '#4ECDC4' : '#FF6B6B';
-}
-
-// ----- INITIALIZATION -----
-document.addEventListener('DOMContentLoaded', () => {
-    initCharts();
-});

@@ -82,13 +82,53 @@
         legend {
             color: rgb(7, 2, 20);
         }
+        .login-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #222;
+
+    padding: 15px 20px;
+    background: #f7f7f7;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.header-logo {
+    height: 40px;
+    width: auto;
+}
+
+.login-title i {
+    font-size: 1.4rem;
+    color: #0077cc;
+}
+
+/* Optional hover effect */
+.login-title:hover {
+    background: #f0f0f0;
+    border-color: #ccc;
+}
+
     </style>
 </head>
 
 <body>
 
     <div class="container" id="container">
-        <legend>Be among our customers who enjoy our services</legend>
+    
+
+         <div class="login-title">
+            <img src="securechain.png" alt="Logo" class="header-logo">
+
+            <i class="fas fa-lock"></i> Secure Login
+        </div>
+
         <!-- Registration Form -->
         <div id="registerForm">
             <h2>Register</h2>
@@ -105,7 +145,7 @@
 
         <!-- Login Form -->
         <div id="loginForm" class="hidden" style="display:none">
-            <p>Welcome back</p>
+        <p id="welcome-text">Welcome back</p>
 
             <h2>Login</h2>
             <label>Username</label>
@@ -203,6 +243,11 @@
             // Here you can redirect to gossip.html or main app
             window.location.href = 'fraud_gosip.html';
         });
+        const username = localStorage.getItem("username");
+if (username) {
+    document.getElementById("welcome-text").textContent = `Welcome back, ${username}`;
+}
+
     </script>
     <script src="js/gosip.js "></script>
     <script src="/js/intergrator.js "></script>

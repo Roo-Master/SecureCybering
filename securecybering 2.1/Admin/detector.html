@@ -97,11 +97,11 @@
         <nav class="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
             <div class="px-6 py-2">
                 <div class="flex space-x-6" id="navTabs">
-                    <button onclick="showTab('overview')" class="nav-tab active px-4 py-2 text-sm font-medium rounded-lg">Overview</button>
-                    <button onclick="showTab('monitoring')" class="nav-tab px-4 py-2 text-sm font-medium rounded-lg">Real-time Monitoring</button>
-                    <button onclick="showTab('ai-detection')" class="nav-tab px-4 py-2 text-sm font-medium rounded-lg">AI Detection</button>
-                    <button onclick="showTab('blockchain')" class="nav-tab px-4 py-2 text-sm font-medium rounded-lg">Blockchain</button>
-                    <button onclick="showTab('nodes')" class="nav-tab px-4 py-2 text-sm font-medium rounded-lg">Distributed Nodes</button>
+                    <button  id="overview" class="nav-tab active px-4 py-2 text-sm font-medium rounded-lg">Overview</button>
+                    <button id="real-time-monitoring" class="nav-tab px-4 py-2 text-sm font-medium rounded-lg">Real-time Monitoring</button>
+                    <button id="ai-detection" class="nav-tab px-4 py-2 text-sm font-medium rounded-lg">AI Detection</button>
+                    <button id="Blockchain" class="nav-tab px-4 py-2 text-sm font-medium rounded-lg">Blockchain</button>
+                    <button id="nodes" class="nav-tab px-4 py-2 text-sm font-medium rounded-lg">Distributed Nodes</button>
                     <button id="dashboardTab" class=" nav-tab px-4 py-2 text-sm font-medium rounded-lg ">Dashboard</button>
                     <script>
                         document.getElementById('dashboardTab').addEventListener('click', function(e) {
@@ -366,8 +366,8 @@
         </main>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="indexv.js"></script>
+
+    <script src="app.js"></script>
 </body>
 
 </html>
