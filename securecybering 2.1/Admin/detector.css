@@ -1,347 +1,215 @@
-/* ===========================================================
-   SECURECHAIN — ADVANCED FRAUD DETECTION SYSTEM UI STYLES
-   Compatible with TailwindCSS & Dark Mode
-   Author: ChatGPT UI Suite
-=========================================================== */
 
-
-/* ------------------------------
-   GLOBAL
------------------------------- */
-
-body,
-html {
-    scroll-behavior: smooth;
+:root {
+  --primary-color: #3b82f6; /* Example primary color, adjust as needed */
+  --pulse-duration: 2s; /* For pulse-slow animation */
 }
 
-.glow {
-    box-shadow: 0 0 25px rgba(93, 92, 222, 0.35);
+[data-theme="dark"] {
+  --bg-header: #1f2937; /* gray-800 */
+  --border-header: #374151; /* gray-700 */
+  --text-gray-600: #9ca3af; /* gray-400 */
+  --bg-gray-200: #374151; /* gray-700 */
+  --bg-gray-300: #4b5563; /* gray-600 */
 }
 
-.pulse-slow {
-    animation: pulseSlow 2s infinite ease-in-out;
+[data-theme="light"] {
+  --bg-header: #ffffff; /* white */
+  --border-header: #e5e7eb; /* gray-200 */
+  --text-gray-600: #4b5563; /* gray-600 */
+  --bg-gray-200: #e5e7eb; /* gray-200 */
+  --bg-gray-300: #d1d5db; /* gray-300 */
 }
 
-@keyframes pulseSlow {
-    0%,
-    100% {
-        opacity: 0.4;
-    }
-    50% {
-        opacity: 1;
-    }
+/* Header styles */
+header.bg-white {
+  background-color: var(--bg-header);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+  border-bottom: 1px solid var(--border-header);
 }
 
-
-/* -----------------------------------
-   SECURECHAIN SIDEBAR THEME
------------------------------------ */
-
-
-/* Sidebar Styles for SecureChain Dashboard */
-
-.sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 250px;
-    height: 100vh;
-    background-color: #ffffff;
-    border-right: 1px solid #e5e7eb;
-    padding: 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s;
-    overflow-y: auto;
-    /* Allow scrolling if content overflows */
+header .px-6.py-4 {
+  padding: 1.5rem 1.5rem; /* px-6 py-4 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.dark .sidebar {
-    background-color: #1f2937;
-    border-right: 1px solid #374151;
+header .flex.items-center.space-x-4 {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* space-x-4 */
 }
 
-
-/* Sidebar Header */
-
-.sidebar-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 30px;
+header .w-10.h-10.bg-primary.rounded-lg.flex.items-center.justify-center {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: var(--primary-color);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.sidebar-header img {
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
+header .sidebar-header img {
+  width: 100%; /* Adjust as needed, assuming logo size */
+  height: auto;
 }
 
-.sidebar-header h2 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #5d5cde;
-    margin: 0;
+header .sidebar-header h2 {
+  font-size: 1.125rem; /* Assuming similar to h1, adjust if needed */
+  font-weight: bold;
+  margin: 0;
+  color: inherit;
 }
 
-
-/* Sidebar Navigation */
-
-.sidebar-nav {
-    display: flex;
-    flex-direction: column;
+header h1.text-xl.font-bold {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0;
 }
 
-.sidebar-nav a {
-    display: flex;
-    align-items: center;
-    padding: 12px 15px;
-    text-decoration: none;
-    color: #374151;
-    border-radius: 8px;
-    margin-bottom: 8px;
-    transition: background-color 0.3s, color 0.3s;
+header p.text-sm.text-gray-600 {
+  font-size: 0.875rem;
+  color: var(--text-gray-600);
+  margin: 0;
 }
 
-.dark .sidebar-nav a {
-    color: #d1d5db;
+header a[href="decentralized.html"] {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
 }
 
-.sidebar-nav a:hover {
-    background-color: #f3f4f6;
-    color: #5d5cde;
+header .flex.items-center.space-x-4:last-child {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* space-x-4 */
 }
 
-.dark .sidebar-nav a:hover {
-    background-color: #374151;
+header .text-right {
+  text-align: right;
 }
 
-.sidebar-nav a.active {
-    background-color: #5d5cde;
-    color: white;
+header .text-sm.text-gray-600 {
+  font-size: 0.875rem;
+  color: var(--text-gray-600);
 }
 
-.sidebar-nav a i {
-    margin-right: 10px;
-    width: 20px;
-    /* Ensure consistent icon alignment */
-    text-align: center;
+header .flex.items-center.space-x-2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* space-x-2 */
 }
 
-
-/* Responsive Adjustments */
-
-@media (max-width: 768px) {
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-        padding: 15px;
-    }
-    .sidebar-header {
-        margin-bottom: 20px;
-    }
-    .sidebar-nav {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-around;
-    }
-    .sidebar-nav a {
-        flex: 1;
-        margin-bottom: 10px;
-        padding: 10px;
-        text-align: center;
-    }
-    .sidebar-nav a i {
-        margin-right: 5px;
-    }
-}
-
-
-/* ---- Push main content to the right ---- */
-
-main,
-.container,
-header,
-nav {
-    margin-left: 250px !important;
-}
-
-
-/* ------------------------------
-   HEADER
------------------------------- */
-
-header {
-    margin-left: 250px;
-    position: sticky;
-    top: 0;
-    z-index: 999;
-    backdrop-filter: blur(6px);
-}
-
-header .text-xl {
-    letter-spacing: 0.5px;
-}
-
-header .rounded-lg {
-    transition: 0.25s;
-}
-
-header .rounded-lg:hover {
-    transform: translateY(-2px);
-}
-
-
-/* ------------------------------
-   NAVIGATION TABS
------------------------------- */
-
-.nav-tab {
-    background: transparent;
-    transition: 0.25s;
-}
-
-.nav-tab.active {
-    background: #5D5CDE;
-    color: white !important;
-    font-weight: 600;
-    box-shadow: 0 3px 12px rgba(93, 92, 222, 0.4);
-}
-
-.nav-tab:hover:not(.active) {
-    background: rgba(93, 92, 222, 0.15);
-}
-
-
-/* ------------------------------
-   TABLES & PANELS
------------------------------- */
-
-.tab-content {
-    animation: fadeIn 0.4s ease;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(5px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* ------------------------------
-   CHART CARDS
------------------------------- */
-
-.card-chart {
-    transition: 0.25s ease;
-}
-
-.card-chart:hover {
-    transform: scale(1.01);
-    box-shadow: 0 0 20px rgba(93, 92, 222, 0.2);
-}
-
-
-/* ------------------------------
-   SCROLL AREAS (Feeds)
------------------------------- */
-
-#transactionFeed,
-#alertsFeed,
-#blockchainLog {
-    scrollbar-width: thin;
-    scrollbar-color: #5D5CDE #2a2a2a;
-}
-
-#transactionFeed::-webkit-scrollbar,
-#alertsFeed::-webkit-scrollbar,
-#blockchainLog::-webkit-scrollbar {
-    width: 6px;
-}
-
-#transactionFeed::-webkit-scrollbar-thumb,
-#alertsFeed::-webkit-scrollbar-thumb,
-#blockchainLog::-webkit-scrollbar-thumb {
-    background: #5D5CDE;
-    border-radius: 6px;
-}
-
-
-/* ------------------------------
-   BUTTONS
------------------------------- */
-
-button,
-.nav-tab {
-    cursor: pointer;
-}
-
-button:hover {
-    opacity: 0.9;
-}
-
-
-/* ------------------------------
-   DARK MODE OVERRIDES
------------------------------- */
-
-.dark .sidebar {
-    background: linear-gradient(180deg, #0a0a0d, #14141a);
-}
-
-.dark .sidebar-nav a:hover,
-.dark .sidebar-nav a.active {
-    background: rgba(93, 92, 222, 0.35);
-}
-
-.dark header {
-    background: rgba(20, 20, 25, 0.8);
-}
-
-
-/* ------------------------------
-   DASHBOARD CONTENT ALIGNMENT
------------------------------- */
-
-main,
-header,
-nav {
-    margin-left: 250px;
-}
-
-.nav-tab {
-    transition: 0.25s ease;
-    color: #6b7280;
-    /* gray-500 */
-}
-
-.nav-tab:hover {
-    background: rgba(93, 92, 222, 0.15);
-    color: #5D5CDE;
-}
-
-.nav-tab.active {
-    background: rgba(93, 92, 222, 0.25);
-    color: #5D5CDE;
-    font-weight: 600;
+header .w-3.h-3.bg-green-500.rounded-full.pulse-slow {
+  width: 0.75rem;
+  height: 0.75rem;
+  background-color: #10b981; /* green-500 */
+  border-radius: 9999px;
+  animation: pulse var(--pulse-duration) infinite;
 }
 
 @keyframes pulse {
-    0%,
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 15px #4ECDC4;
-    }
-    50% {
-        transform: scale(1.1);
-        box-shadow: 0 0 25px #4ECDC4;
-    }
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
-.node-online {
-    animation: pulse 1.5s infinite;
+header span.text-sm.font-medium {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+header button.px-4.py-2.bg-gray-200.rounded-lg.hover\\:bg-gray-300.transition-all {
+  padding: 0.5rem 1rem;
+  background-color: var(--bg-gray-200);
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  font-size: 0.875rem;
+}
+
+header button:hover {
+  background-color: var(--bg-gray-300);
+}
+
+/* Ensure dark mode overrides */
+[data-theme="dark"] header button {
+  background-color: var(--bg-gray-200);
+}
+
+[data-theme="dark"] header button:hover {
+  background-color: var(--bg-gray-300);
+}
+
+:root {
+  --bg-nav: #f9fafb; /* gray-50 */
+  --border-nav: #e5e7eb; /* gray-200 */
+  --text-nav: #374151; /* gray-700, assuming default text color */
+  --bg-nav-dark: #1f2937; /* gray-800 */
+  --border-nav-dark: #374151; /* gray-700 */
+  --text-nav-dark: #d1d5db; /* gray-300, assuming for dark mode */
+  --bg-active: #dbeafe; /* blue-100, example for active tab */
+  --text-active: #1e40af; /* blue-800 */
+  --bg-hover: #f3f4f6; /* gray-100 */
+  --bg-hover-dark: #374151; /* gray-700 */
+}
+
+[data-theme="dark"] {
+  --bg-nav: var(--bg-nav-dark);
+  --border-nav: var(--border-nav-dark);
+  --text-nav: var(--text-nav-dark);
+}
+
+/* Navigation styles */
+nav.bg-gray-50 {
+  background-color: var(--bg-nav);
+  border-bottom: 1px solid var(--border-nav);
+}
+
+nav .px-6.py-2 {
+  padding: 0.5rem 1.5rem; /* px-6 py-2 */
+}
+
+nav .flex.space-x-6 {
+  display: flex;
+  gap: 1.5rem; /* space-x-6 */
+}
+
+nav .nav-tab {
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500; /* font-medium */
+  border-radius: 0.5rem; /* rounded-lg */
+  border: none;
+  background-color: transparent;
+  color: var(--text-nav);
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+nav .nav-tab:hover {
+  background-color: var(--bg-hover);
+}
+
+nav .nav-tab.active {
+  background-color: var(--bg-active);
+  color: var(--text-active);
+}
+
+/* Dark mode overrides for nav-tab */
+[data-theme="dark"] nav .nav-tab:hover {
+  background-color: var(--bg-hover-dark);
+}
+
+[data-theme="dark"] nav .nav-tab.active {
+  background-color: var(--bg-active); /* Keep active background, or adjust if needed */
+  color: var(--text-active);
 }

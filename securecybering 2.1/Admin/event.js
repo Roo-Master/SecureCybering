@@ -181,3 +181,76 @@ document.addEventListener('DOMContentLoaded', () => {
         addAlert(randomMessage);
     }, 5000);
 });
+
+// This script initializes interactive charts in the placeholders.
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to create and render a chart in a placeholder
+    function createChart(placeholder, type, data, options) {
+        // Clear the placeholder content
+        placeholder.innerHTML = '';
+        
+        // Create a canvas element
+        const canvas = document.createElement('canvas');
+        canvas.width = 400;
+        canvas.height = 300;
+        placeholder.appendChild(canvas);
+        
+        // Initialize the chart
+        new Chart(canvas.getContext('2d'), {
+            type: type,
+            data: data,
+            options: options
+        });
+    }
+
+    // Fraud Detection Trends - Bar Chart
+    const fraudPlaceholder = document.querySelector('.chart-card:nth-child(1) .chart-placeholder');
+    if (fraudPlaceholder) {
+        const fraudData = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June','July', 'August', 'September', 'October', 'November','December'],
+            datasets: [{
+                label: 'Fraud Cases',
+                data: [12, 19, 3, 5, 2, 3,7, 17,8,11,2,3],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        };
+        const fraudOptions = {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        };
+        createChart(fraudPlaceholder, 'bar', fraudData, fraudOptions);
+    }
+
+    // Authentication Methods - Pie Chart
+    const authPlaceholder = document.querySelector('.chart-card:nth-child(2) .chart-placeholder');
+    if (authPlaceholder) {
+        const authData = {
+            labels: ['Password', 'Biometric', 'OTP', 'Other'],
+            datasets: [{
+                label: 'Authentication Methods',
+                data: [40, 30, 20, 10],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+        const authOptions = {};
+        createChart(authPlaceholder, 'pie', authData, authOptions);
+    }
+});

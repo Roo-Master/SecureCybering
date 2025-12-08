@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Fraud Detection System</title>
+    <title>Decentralized Fraud Detection System</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="detector.css" />
     <script>
         tailwind.config = {
@@ -31,7 +30,7 @@
     <!-- Login Modal -->
     <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-2xl max-w-md w-full mx-4 glow">
-            <h2 class="text-2xl font-bold text-center mb-6 text-primary">Fraud Detection System</h2>
+            <h2 class="text-2xl font-bold text-center mb-6 text-primary">Decentralized Fraud Detection System</h2>
             <div class="space-y-4">
                 <div>
                     <label class="block text-sm font-medium mb-2">Role</label>
@@ -52,31 +51,23 @@
     <!-- Main Dashboard -->
     <div id="dashboard" class="hidden min-h-screen">
 
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <img src="securechain.png" alt="Logo">
-                <h2>SecureChain</h2>
-            </div>
-
-            <nav class="sidebar-nav">
-                <a href="decentralized.html"><i class="fas fa-home"></i> Dashboard</a>
-                <a href="alerts.html" class="active"><i class="fas fa-bell"></i> Alerts</a>
-                <a href="analytics.html"><i class="fas fa-chart-line"></i> Analytics</a>
-                <a href="/securecybering 2.1/js/settings.html" about="_blank" id="settingsTab" class="nav-tab"><i class="fas fa-cog"></i> Settings</a>
-            </nav>
-        </aside>
         <!-- Header -->
         <header class="bg-white dark:bg-gray-800 shadow-lg border-b border-gray-200 dark:border-gray-700">
             <div class="px-6 py-4 flex justify-between items-center">
                 <div class="flex items-center space-x-4">
                     <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                        <span class="text-white font-bold">FDS</span>
+                        
+                       <div class="sidebar-header">
+                           <img src="securechain.png" alt="Logo">
+                           
+                        </div>
+                       
                     </div>
                     <div>
-                        <h1 class="text-xl font-bold">Fraud Detection System</h1>
+                        <h1 class="text-xl font-bold">Decentralized Fraud Detection System</h1>
                         <p class="text-sm text-gray-600 dark:text-gray-400" id="userRole"></p>
                     </div>
+                     <a href="decentralized.html"><i class="fas fa-home"></i> Dashboard</a>
                 </div>
                 <div class="flex items-center space-x-4">
                     <div class="text-right">
@@ -365,9 +356,10 @@
             </div>
         </main>
     </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="indexv.js"></script>
+    <script src="detector.js"></script>
 </body>
 
 </html>
