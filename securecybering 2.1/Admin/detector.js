@@ -1,3 +1,6 @@
+import Chart from 'chart.js/auto';
+
+
 // DOM References
 const loginModal = document.getElementById('loginModal');
 const dashboard = document.getElementById('dashboard');
