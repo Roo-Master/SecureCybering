@@ -1,4 +1,4 @@
-import Chart from 'chart.js/auto';
+
 
 
 // DOM References
