@@ -121,36 +121,21 @@ registerBtn.addEventListener('click', () => {
 
 // Login handler
 loginBtn.addEventListener('click', () => {
-const username = loginUsername.value.trim();
-const password = loginPassword.value;
-clearErrors();
+    const username = loginUsername.value.trim();
+    const password = loginPassword.value;
+    clearErrors();
 
-if (!username || !password) {
-    loginError.textContent = 'All fields are required';
-    return;
-}
-const user = users[username];
-if (!user || user.password !== password) {
-    loginError.textContent = 'Invalid username or password';
-    return;
-}
+    if (!username || !password) {
+        loginError.textContent = 'All fields are required';
+        return;
+    }
+    const user = users[username];
+    if (!user || user.password !== password) {
+        loginError.textContent = 'Invalid username or password';
+        return;
+    }
 
-alert(`Welcome, ${username}!`);
-// After login, redirect or load your peer system app
-window.location.href = 'gossip.html'; // modify if your main app file is different
-});
-});
-}
-const user = users[username];
-if (!user || user.password !== password) {
-    loginError.textContent = 'Invalid username or password';
-    return;
-}
-
-alert(`Welcome, ${username}!`);
-// After login, redirect or load your peer system app
-window.location.href = 'gossip.html'; // modify if your main app file is different
-});
-After login, redirect or load your peer system app
-window.location.href = 'gossip.html'; // modify if your main app file is different
+    alert(`Welcome, ${username}!`);
+    // After login, redirect or load your peer system app
+    window.location.href = 'gossip.html'; // modify if your main app file is different
 });
