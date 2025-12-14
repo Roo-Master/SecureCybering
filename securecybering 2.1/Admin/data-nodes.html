@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Node Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    body {
+      background: linear-gradient(135deg, #000000, #001100);
+      font-family: sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 20% 50%, rgba(0, 255, 65, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 255, 65, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(0, 255, 65, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .card {
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      border: 1px solid rgba(0, 255, 65, 0.2);
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 255, 65, 0.3);
+      border-color: rgba(0, 255, 65, 0.6);
+    }
+  </style>
+</head>
+
+<body class="h-full flex items-center justify-center">
+  <div class="text-center text-white relative z-10">
+    <h1 class="text-4xl font-bold mb-12">Data Node Dashboard</h1>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <a href="overview.html" class="card backdrop-blur-md rounded-xl p-8">
+        <h2 class="text-xl font-semibold mb-2">Overview</h2>
+        <p class="text-sm">View overall peer activity and network metrics.</p>
+      </a>
+
+      <a href="monitoring.html" class="card backdrop-blur-md rounded-xl p-8">
+        <h2 class="text-xl font-semibold mb-2">Real-time Monitoring</h2>
+        <p class="text-sm">Monitor peers across the network</p>
+      </a>
+
+      <a href="peer.html" class="card backdrop-blur-md rounded-xl p-8">
+        <h2 class="text-xl font-semibold mb-2"> Peer coonection</h2>
+        <p class="text-sm">.</p>
+      </a>
+
+      <a href="peer_network.html" class="card backdrop-blur-md rounded-xl p-8">
+        <h2 class="text-xl font-semibold mb-2">Network-to-network connection </h2>
+        <p class="text-sm">Peer connection across the network</p>
+      </a>
+    </div>
+  </div>
+</body>
+
+</html>

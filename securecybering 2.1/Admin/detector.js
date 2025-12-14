@@ -37,7 +37,7 @@ function animateNetwork() {
         for (let j = i + 1; j < nodes.length; j++) {
             let dx = nodes[i].x - nodes[j].x;
             let dy = nodes[i].y - nodes[j].y;
-            let dist = Math.sqrt(dx*dx + dy*dy);
+            let dist = Math.sqrt(dx * dx + dy * dy);
             if (dist < maxDistance) {
                 ctx.strokeStyle = `rgba(93, 92, 222, ${1 - dist / maxDistance})`;
                 ctx.lineWidth = 0.5;
@@ -97,12 +97,12 @@ document.addEventListener('DOMContentLoaded', function() {
 function login() {
     const roleSelect = document.getElementById('roleSelect');
     currentRole = roleSelect.value;
-    
+
     if (currentRole) {
         document.getElementById('loginModal').classList.add('hidden');
         document.getElementById('dashboard').classList.remove('hidden');
         document.getElementById('userRole').textContent = currentRole.charAt(0).toUpperCase() + currentRole.slice(1);
-        
+
         // Role-based access control (simplified)
         if (currentRole === 'admin') {
             // Admin has full access
@@ -131,23 +131,23 @@ function logout() {
 function setupTabNavigation() {
     const tabs = document.querySelectorAll('#navTabs button');
     const tabContents = document.querySelectorAll('.tab-content');
-    
+
     tabs.forEach(tab => {
         tab.addEventListener('click', function() {
             const tabId = this.id.replace('Btn', '-tab');
-            
+
             // Hide all tab contents
             tabContents.forEach(content => content.classList.add('hidden'));
-            
+
             // Show selected tab content
             document.getElementById(tabId).classList.remove('hidden');
-            
+
             // Update active tab styling
             tabs.forEach(t => t.classList.remove('active'));
             this.classList.add('active');
         });
     });
-    
+
     // Set default active tab
     document.getElementById('overviewBtn').click();
 }
@@ -233,13 +233,13 @@ function initializeCharts() {
 function setupNetworkBackground() {
     const canvas = document.getElementById('networkBg');
     const ctx = canvas.getContext('2d');
-    
+
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    
+
     const nodes = [];
     const numNodes = 50;
-    
+
     // Create nodes
     for (let i = 0; i < numNodes; i++) {
         nodes.push({
@@ -250,20 +250,20 @@ function setupNetworkBackground() {
             radius: Math.random() * 3 + 1
         });
     }
-    
+
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
+
         // Draw connections
         ctx.strokeStyle = 'rgba(93, 92, 222, 0.1)';
         ctx.lineWidth = 1;
-        
+
         for (let i = 0; i < nodes.length; i++) {
             for (let j = i + 1; j < nodes.length; j++) {
                 const dx = nodes[i].x - nodes[j].x;
                 const dy = nodes[i].y - nodes[j].y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
-                
+
                 if (distance < 150) {
                     ctx.beginPath();
                     ctx.moveTo(nodes[i].x, nodes[i].y);
@@ -272,28 +272,28 @@ function setupNetworkBackground() {
                 }
             }
         }
-        
+
         // Draw nodes
         nodes.forEach(node => {
             ctx.beginPath();
             ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
             ctx.fillStyle = '#5D5CDE';
             ctx.fill();
-            
+
             // Update position
             node.x += node.vx;
             node.y += node.vy;
-            
+
             // Bounce off edges
             if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
             if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
         });
-        
+
         requestAnimationFrame(animate);
     }
-    
+
     animate();
-    
+
     // Resize canvas on window resize
     window.addEventListener('resize', function() {
         canvas.width = window.innerWidth;
@@ -310,23 +310,23 @@ function startDataSimulation() {
         riskScore = Math.floor(Math.random() * 100);
         activeNodes = Math.floor(Math.random() * 20) + 80;
         blockHeight += Math.floor(Math.random() * 5) + 1;
-        
+
         updateMetrics();
-        
+
         // Add transaction to feed
         addTransactionToFeed();
-        
+
         // Add alert occasionally
         if (Math.random() > 0.9) {
             addAlertToFeed();
         }
-        
+
         // Update blockchain log
         addBlockchainEntry();
-        
+
         // Update nodes
         updateNodesGrid();
-        
+
         // Update charts
         updateCharts();
     }, 2000);
@@ -358,9 +358,9 @@ function addTransactionToFeed() {
             </div>
         </div>
     `;
-    
+
     feed.insertBefore(transaction, feed.firstChild);
-    
+
     // Limit feed to 20 items
     if (feed.children.length > 20) {
         feed.removeChild(feed.lastChild);
@@ -380,9 +380,9 @@ function addAlertToFeed() {
             </div>
         </div>
     `;
-    
+
     feed.insertBefore(alert, feed.firstChild);
-    
+
     // Limit feed to 10 items
     if (feed.children.length > 10) {
         feed.removeChild(feed.lastChild);
@@ -398,9 +398,9 @@ function addBlockchainEntry() {
         <span class="text-green-600">Block ${blockHeight} mined</span>
         <span class="text-gray-400">Hash: ${Math.random().toString(16).substr(2, 16)}</span>
     `;
-    
+
     log.insertBefore(entry, log.firstChild);
-    
+
     // Limit log to 20 entries
     if (log.children.length > 20) {
         log.removeChild(log.lastChild);
@@ -410,7 +410,7 @@ function addBlockchainEntry() {
 function updateNodesGrid() {
     const grid = document.getElementById('nodesGrid');
     grid.innerHTML = '';
-    
+
     for (let i = 0; i < 12; i++) {
         const node = document.createElement('div');
         node.className = 'p-4 bg-gray-50 dark:bg-gray-700 rounded-lg text-center';
@@ -431,12 +431,12 @@ function updateCharts() {
         transactionChart.data.datasets[0].data.shift();
     }
     transactionChart.update();
-    
+
     // Update fraud chart
     const fraudData = [85 + Math.floor(Math.random() * 10), 10 + Math.floor(Math.random() * 5), 5 + Math.floor(Math.random() * 3)];
     fraudChart.data.datasets[0].data = fraudData;
     fraudChart.update();
-    
+
     // Update risk chart
     riskChart.data.datasets[0].data = [
         Math.floor(Math.random() * 100),
@@ -455,45 +455,46 @@ function resetData() {
     activeNodes = 0;
     blockHeight = 0;
     updateMetrics();
-    
+
     // Clear feeds
     document.getElementById('transactionFeed').innerHTML = '';
     document.getElementById('alertsFeed').innerHTML = '';
     document.getElementById('blockchainLog').innerHTML = '';
 }
+
 function setupTabNavigation() {
     const tabs = document.querySelectorAll('#navTabs button');
     const tabContents = document.querySelectorAll('.tab-content');
-    
+
     tabs.forEach(tab => {
         // Dynamically assign data-tab attribute for role-based access (e.g., 'overview', 'monitoring', etc.)
         const tabName = tab.id.replace('Btn', '').replace('Tab', ''); // Handles 'overviewBtn' -> 'overview', 'dashboardTab' -> 'dashboard'
         tab.setAttribute('data-tab', tabName);
-        
+
         tab.addEventListener('click', function() {
             const tabId = this.id.replace('Btn', '-tab').replace('Tab', '-tab'); // Handles 'overviewBtn' -> 'overview-tab', 'dashboardTab' -> 'dashboard-tab'
-            
+
             // Hide all tab contents
             tabContents.forEach(content => content.classList.add('hidden'));
-            
+
             // Show selected tab content (if it exists)
             const targetTab = document.getElementById(tabId);
             if (targetTab) {
                 targetTab.classList.remove('hidden');
             }
-            
+
             // Update active tab styling
             tabs.forEach(t => t.classList.remove('active', 'bg-primary', 'text-white'));
             this.classList.add('active', 'bg-primary', 'text-white');
         });
     });
-    
+
     // Set default active tab (Overview)
     const defaultTab = document.getElementById('overviewBtn');
     if (defaultTab) {
         defaultTab.click();
     }
-}// Inject CSS for tab navigation if not in detector.css
+} // Inject CSS for tab navigation if not in detector.css
 const tabNavStyle = document.createElement('style');
 tabNavStyle.textContent = `
     #navTabs button {
@@ -514,3 +515,78 @@ tabNavStyle.textContent = `
     }
 `;
 document.head.appendChild(tabNavStyle);
+document.head.appendChild(tabNavStyle);
+document.head.appendChild(tabNavStyle);
+}
+}
+nodesGrid.appendChild(node);
+}
+}
+}
+}
+node.innerHTML = `
+            <div class="text-lg font-medium mb-2">Node ${i}</div>
+            <div class="w-12 h-12 rounded-full flex items-center justify-center mb-2 ${
+                status === 'active' ? 'bg-green-500' : 'bg-red-500'
+            }">
+                ${status === 'active' ? '✓' : '✗'}
+            </div>
+            <div class="text-sm">${status === 'active' ? `Load: ${load}%` : 'Offline'}</div>
+            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-2">
+                <div class="${status === 'active' ? 'bg-green-500' : 'bg-red-500'} h-1.5 rounded-full" style="width: ${status === 'active' ? load : 0}%"></div>
+            </div>
+        `;
+        
+        nodesGrid.appendChild(node);
+    }
+}           }">
+                ${status === 'active' ? '✓' : '✗'}
+            </div>
+            <div class="text-sm">${status === 'active' ? `Load: ${load}%` : 'Offline'}</div>
+            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-2">
+                <div class="${status === 'active' ? 'bg-green-500' : 'bg-red-500'} h-1.5 rounded-full" style="width: ${status === 'active' ? load : 0}%"></div>
+            </div>
+        `;
+        
+        nodesGrid.appendChild(node);
+    }
+}       
+        nodesGrid.appendChild(node);
+    }
+}       node.innerHTML = `
+            <div class="text-lg font-medium mb-2">Node ${i}</div>
+            <div class="w-12 h-12 rounded-full flex items-center justify-center mb-2 ${
+                status === 'active' ? 'bg-green-500' : 'bg-red-500'
+            }">
+                ${status === 'active' ? '✓' : '✗'}
+            </div>
+            <div class="text-sm">${status === 'active' ? `Load: ${load}%` : 'Offline'}</div>
+            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-2">
+                <div class="${status === 'active' ? 'bg-green-500' : 'bg-red-500'} h-1.5 rounded-full" style="width: ${status === 'active' ? load : 0}%"></div>
+            </div>
+        `;
+        
+        nodesGrid.appendChild(node);
+    }
+}       `;
+        
+        nodesGrid.appendChild(node);
+    }
+}       
+        nodesGrid.appendChild(node);
+    }
+}           </div>
+        `;
+        
+        nodesGrid.appendChild(node);
+    }
+}           </div>
+            <div class="text-sm">${status === 'active' ? `Load: ${load}%` : 'Offline'}</div>
+            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-2">
+                <div class="${status === 'active' ? 'bg-green-500' : 'bg-red-500'} h-1.5 rounded-full" style="width: ${status === 'active' ? load : 0}%"></div>
+            </div>
+        `;
+        
+        nodesGrid.appendChild(node);
+    }
+}

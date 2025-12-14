@@ -169,4 +169,3 @@ setInterval(() => {
     fraudCard.textContent = value;
     checkFraudLevel();
 }, 4000);
-

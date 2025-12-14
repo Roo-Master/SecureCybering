@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Nodes Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Optional: subtle node/network animation background */
+        #networkBg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -10;
+            background: radial-gradient(circle at 20% 30%, #5D5CDE33, transparent 25%),
+                        radial-gradient(circle at 80% 70%, #FF6B6B33, transparent 25%);
+            animation: moveBg 20s linear infinite;
+        }
+        @keyframes moveBg {
+            0% { background-position: 0 0, 100% 100%; }
+            50% { background-position: 100% 0, 0% 100%; }
+            100% { background-position: 0 0, 100% 100%; }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white h-full">
+
+    <!-- Animated Network Background -->
+    <canvas id="networkBg"></canvas>
+
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-lg border-b border-gray-200 dark:border-gray-700 p-6 flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-primary">Data Nodes Dashboard</h1>
+        <button onclick="location.reload()" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-opacity-90 transition-all">Refresh</button>
+    </header>
+
+    <!-- Main Content -->
+    <main class="p-6">
+        <section class="mb-6">
+            <h2 class="text-xl font-semibold mb-4">Overview of Peers Activity</h2>
+            <div id="dataNodesGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+        </section>
+
+        <section class="mt-6">
+            <h2 class="text-xl font-semibold mb-4">Network Stats</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                    <p>Total Nodes: <span id="totalNodes" class="font-mono">0</span></p>
+                    <p>Active Nodes: <span id="activeNodes" class="font-mono">0</span></p>
+                    <p>Inactive Nodes: <span id="inactiveNodes" class="font-mono">0</span></p>
+                </div>
+                <div class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                    <p>Recent Transactions:</p>
+                    <ul id="recentTxs" class="list-disc list-inside max-h-40 overflow-y-auto mt-2"></ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        // Simulated peers data
+        const peers = Array.from({ length: 12 }, (_, i) => ({
+            id: `Node-${String(i + 1).padStart(2, '0')}`,
+            status: Math.random() > 0.1 ? 'active' : 'inactive',
+            lastSeen: '0s ago',
+            txCount: Math.floor(Math.random() * 200)
+        }));
+
+        const recentTxs = [];
+
+        // Render function
+        function renderDataNodes() {
+            const container = document.getElementById('dataNodesGrid');
+            container.innerHTML = '';
+
+            let activeCount = 0;
+            let inactiveCount = 0;
+
+            peers.forEach(node => {
+                if(node.status === 'active') activeCount++;
+                else inactiveCount++;
+
+                const card = document.createElement('div');
+                card.className = `p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 
+                    ${node.status === 'active' ? 'bg-green-50 dark:bg-green-900' : 'bg-gray-100 dark:bg-gray-800'}`;
+
+                card.innerHTML = `
+                    <h3 class="font-semibold mb-2">${node.id}</h3>
+                    <p>Status: <span class="${node.status === 'active' ? 'text-green-600' : 'text-red-600'} font-medium">${node.status}</span></p>
+                    <p>Last Seen: <span class="font-mono">${node.lastSeen}</span></p>
+                    <p>Transactions: <span class="font-mono">${node.txCount}</span></p>
+                `;
+                container.appendChild(card);
+            });
+
+            document.getElementById('totalNodes').textContent = peers.length;
+            document.getElementById('activeNodes').textContent = activeCount;
+            document.getElementById('inactiveNodes').textContent = inactiveCount;
+        }
+
+        // Simulate live updates
+        setInterval(() => {
+            peers.forEach(node => {
+                // Randomly update transactions
+                const newTxs = Math.floor(Math.random() * 5);
+                node.txCount += newTxs;
+                node.lastSeen = Math.floor(Math.random() * 10) + 's ago';
+
+                // Add to recent transactions
+                if(newTxs > 0) {
+                    for(let i = 0; i < newTxs; i++) {
+                        recentTxs.unshift(`${node.id} processed TX-${Math.floor(Math.random()*10000)}`);
+                    }
+                }
+
+                // Randomly toggle status
+                node.status = Math.random() > 0.1 ? 'active' : 'inactive';
+            });
+
+            // Keep only last 20 transactions
+            if(recentTxs.length > 20) recentTxs.length = 20;
+
+            // Update recent transactions UI
+            const recentTxsEl = document.getElementById('recentTxs');
+            recentTxsEl.innerHTML = recentTxs.map(tx => `<li>${tx}</li>`).join('');
+
+            renderDataNodes();
+        }, 3000);
+
+        // Initial render
+        document.addEventListener('DOMContentLoaded', renderDataNodes);
+    </script>
+</body>
+
+</html>

@@ -172,7 +172,7 @@ menuButtons.forEach(btn => {
 
         if (btn.id === "sb-logs") {
             alert("Redirecting you to logs page");
-            window.location.href="audit-logs.html";
+            window.location.href = "audit-logs.html";
         }
     });
 });
@@ -227,4 +227,6 @@ const savedTheme = localStorage.getItem("theme");
 if (savedTheme) {
     document.documentElement.setAttribute("data-theme", savedTheme);
     themeToggle.checked = savedTheme === "dark";
+}
+hemeToggle.checked = savedTheme === "dark";
 }

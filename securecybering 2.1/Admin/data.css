@@ -320,27 +320,36 @@ body::before {
     box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
     color: #fff;
 }
+
+
 /* =========================
    MATRIX RAIN
 ========================= */
+
 #matrixCanvas {
     position: fixed;
     inset: 0;
     z-index: -3;
     pointer-events: none;
 }
+
+
 /* =========================
    PARTICLE NETWORK
 ========================= */
+
 #particleCanvas {
     position: fixed;
     inset: 0;
     z-index: -2;
     pointer-events: none;
 }
+
+
 /* =========================
    RED ALERT MODE
 ========================= */
+
 body.alert-mode {
     animation: alertPulse 1.2s infinite;
 }
@@ -357,10 +366,18 @@ body.alert-mode .nav-link i {
 }
 
 @keyframes alertPulse {
-    0% { background-color: #020617; }
-    50% { background-color: #2a0202; }
-    100% { background-color: #020617; }
+    0% {
+        background-color: #020617;
+    }
+    50% {
+        background-color: #2a0202;
+    }
+    100% {
+        background-color: #020617;
+    }
 }
+
+
 /* =========================
    CHARTS SECTION STYLING
 ========================= */
@@ -372,14 +389,16 @@ body.alert-mode .nav-link i {
     margin-top: 20px;
 }
 
+
 /* Chart card */
+
 .chart-card {
     background: rgba(2, 6, 23, 0.85);
     border: 1px solid rgba(56, 189, 248, 0.25);
     border-radius: 12px;
     padding: 14px;
     height: 300px;
-    width:500px;
+    width: 500px;
     box-shadow: 0 0 16px rgba(56, 189, 248, 0.18);
     transition: all 0.3s ease;
 }
@@ -389,7 +408,9 @@ body.alert-mode .nav-link i {
     transform: translateY(-4px);
 }
 
+
 /* Header */
+
 .chart-card .card-header {
     padding-bottom: 8px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -402,7 +423,9 @@ body.alert-mode .nav-link i {
     text-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
 }
 
+
 /* Placeholder content */
+
 .chart-placeholder {
     height: calc(100% - 40px);
     display: flex;
@@ -412,6 +435,333 @@ body.alert-mode .nav-link i {
     gap: 8px;
     text-align: center;
     opacity: 0.85;
+}
+
+
+/* Icons */
+
+.chart-placeholder i {
+    font-size: 30px;
+    color: #38bdf8;
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
+}
+
+
+/* Text */
+
+.chart-placeholder span {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+
+/* Responsive small screens */
+
+@media (max-width: 600px) {
+    .chart-card {
+        height: 160px;
+    }
+    .chart-placeholder i {
+        font-size: 24px;
+    }
+}
+
+
+/* Icons */
+
+.chart-placeholder i {
+    font-size: 30px;
+    color: #38bdf8;
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
+}
+
+
+/* Text */
+
+.chart-placeholder span {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+
+/* Responsive small screens */
+
+@media (max-width: 600px) {
+    .chart-card {
+        height: 160px;
+    }
+    .chart-placeholder i {
+        font-size: 24px;
+    }
+}
+
+
+/* Icons */
+
+.chart-placeholder i {
+    font-size: 30px;
+    color: #38bdf8;
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
+}
+
+
+/* Text */
+
+.chart-placeholder span {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+
+/* Responsive small screens */
+
+@media (max-width: 600px) {
+    .chart-card {
+        height: 160px;
+    }
+    .chart-placeholder i {
+        font-size: 24px;
+    }
+}
+
+
+/* Icons */
+
+.chart-placeholder i {
+    font-size: 30px;
+    color: #38bdf8;
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
+}
+
+
+/* Text */
+
+.chart-placeholder span {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+
+/* Responsive small screens */
+
+@media (max-width: 600px) {
+    .chart-card {
+        height: 160px;
+    }
+    .chart-placeholder i {
+        font-size: 24px;
+    }
+}
+
+
+/* Icons */
+
+.chart-placeholder i {
+    font-size: 30px;
+    color: #38bdf8;
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
+}
+
+
+/* Text */
+
+.chart-placeholder span {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+
+/* Responsive small screens */
+
+@media (max-width: 600px) {
+    .chart-card {
+        height: 160px;
+    }
+    .chart-placeholder i {
+        font-size: 24px;
+    }
+}
+
+
+/* Icons */
+
+.chart-placeholder i {
+    font-size: 30px;
+    color: #38bdf8;
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
+}
+
+
+/* Text */
+
+.chart-placeholder span {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+
+/* Responsive small screens */
+
+@media (max-width: 600px) {
+    .chart-card {
+        height: 160px;
+    }
+    .chart-placeholder i {
+        font-size: 24px;
+    }
+}
+
+
+/* Icons */
+
+.chart-placeholder i {
+    font-size: 30px;
+    color: #38bdf8;
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
+}
+
+
+/* Text */
+
+.chart-placeholder span {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+
+/* Responsive small screens */
+
+@media (max-width: 600px) {
+    .chart-card {
+        height: 160px;
+    }
+    .chart-placeholder i {
+        font-size: 24px;
+    }
+}
+
+
+/* Icons */
+
+.chart-placeholder i {
+    font-size: 30px;
+    color: #38bdf8;
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
+}
+
+
+/* Text */
+
+.chart-placeholder span {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+
+/* Responsive small screens */
+
+@media (max-width: 600px) {
+    .chart-card {
+        height: 160px;
+    }
+    .chart-placeholder i {
+        font-size: 24px;
+    }
+}
+
+
+/* Icons */
+
+.chart-placeholder i {
+    font-size: 30px;
+    color: #38bdf8;
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
+}
+
+
+/* Text */
+
+.chart-placeholder span {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+
+/* Responsive small screens */
+
+@media (max-width: 600px) {
+    .chart-card {
+        height: 160px;
+    }
+    .chart-placeholder i {
+        font-size: 24px;
+    }
+}
+
+
+/* Icons */
+
+.chart-placeholder i {
+    font-size: 30px;
+    color: #38bdf8;
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
+}
+
+
+/* Text */
+
+.chart-placeholder span {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+
+/* Responsive small screens */
+
+@media (max-width: 600px) {
+    .chart-card {
+        height: 160px;
+    }
+    .chart-placeholder i {
+        font-size: 24px;
+    }
+}
+
+justify-content: center;
+align-items: center;
+height: calc(100% - 35px);
+gap: 6px;
+opacity: 0.8;
+
+}
+
+/* Smaller icons */
+.chart-placeholder i {
+    font-size: 26px;
+    color: #38bdf8;
+    text-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
+}
+
+/* Smaller text */
+.chart-placeholder span {
+    font-size: 12px;
+    color: #94a3b8;
+    text-align: center;
+}
+
+/* Optional hover glow */
+.chart-card:hover {
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+    transform: translateY(-2px);
+    transition: 0.3s ease;
+}
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 8px;
+text-align: center;
+opacity: 0.85;
+
 }
 
 /* Icons */
@@ -425,6 +775,49 @@ body.alert-mode .nav-link i {
 .chart-placeholder span {
     font-size: 13px;
     color: #94a3b8;
+}
+
+/* Responsive small screens */
+@media (max-width: 600px) {
+    .chart-card {
+        height: 160px;
+    }
+    .chart-placeholder i {
+        font-size: 24px;
+    }
+}
+justify-content: center;
+gap: 8px;
+text-align: center;
+opacity: 0.85;
+
+}
+
+/* Icons */
+.chart-placeholder i {
+    font-size: 30px;
+    color: #38bdf8;
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
+}
+
+/* Text */
+.chart-placeholder span {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+/* Responsive small screens */
+@media (max-width: 600px) {
+    .chart-card {
+        height: 160px;
+    }
+    .chart-placeholder i {
+        font-size: 24px;
+    }
+}
+
+}
+
 }
 
 /* Responsive small screens */

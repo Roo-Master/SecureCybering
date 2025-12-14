@@ -189,13 +189,13 @@ document.addEventListener('DOMContentLoaded', function() {
     function createChart(placeholder, type, data, options) {
         // Clear the placeholder content
         placeholder.innerHTML = '';
-        
+
         // Create a canvas element
         const canvas = document.createElement('canvas');
         canvas.width = 400;
         canvas.height = 300;
         placeholder.appendChild(canvas);
-        
+
         // Initialize the chart
         new Chart(canvas.getContext('2d'), {
             type: type,
@@ -208,14 +208,33 @@ document.addEventListener('DOMContentLoaded', function() {
     const fraudPlaceholder = document.querySelector('.chart-card:nth-child(1) .chart-placeholder');
     if (fraudPlaceholder) {
         const fraudData = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June','July', 'August', 'September', 'October', 'November','December'],
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             datasets: [{
                 label: 'Fraud Cases',
-                data: [12, 19, 3, 5, 2, 3,7, 17,8,11,2,3],
-backgroundColor: 'rgba(230, 200, 40, 0.25)',
-borderColor: 'rgba(230, 200, 40, 1)',
+                data: [12, 19, 3, 5, 2, 3, 7, 17, 8, 11, 2, 3],
+                // Neon Blue
+                backgroundColor: 'rgba(0, 191, 255, 0.25)',
+                borderColor: 'rgba(0, 191, 255, 1)',
 
+                // Neon Green
+                backgroundColor: 'rgba(0, 255, 170, 0.25)',
+                borderColor: 'rgba(0, 255, 170, 1)',
 
+                // Neon Purple
+                backgroundColor: 'rgba(168, 85, 247, 0.25)',
+                borderColor: 'rgba(168, 85, 247, 1)',
+
+                // Neon Orange
+                backgroundColor: 'rgba(255, 159, 64, 0.25)',
+                borderColor: 'rgba(255, 159, 64, 1)',
+
+                // Neon Pink
+                backgroundColor: 'rgba(236, 72, 153, 0.25)',
+                borderColor: 'rgba(236, 72, 153, 1)',
+
+                // Neon Yellow
+                backgroundColor: 'rgba(250, 204, 21, 0.25)',
+                borderColor: 'rgba(250, 204, 21, 1)',
 
                 borderWidth: 1
             }]
@@ -238,23 +257,25 @@ borderColor: 'rgba(230, 200, 40, 1)',
             datasets: [{
                 label: 'Authentication Methods',
                 data: [40, 30, 20, 10],
-              backgroundColor: [
-    'rgba(239, 68, 68, 0.25)',   // Fraud / High Risk
-    'rgba(249, 115, 22, 0.25)',  // Suspicious / Warning
-    'rgba(250, 204, 21, 0.25)',  // Neutral / Review
-    'rgba(34, 197, 94, 0.25)'    // Trusted / Secure
-],
-borderColor: [
-    'rgba(239, 68, 68, 1)',      // Red
-    'rgba(249, 115, 22, 1)',     // Orange
-    'rgba(250, 204, 21, 1)',     // Yellow
-    'rgba(34, 197, 94, 1)'       // Green
-],
-
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
                 borderWidth: 1
             }]
         };
         const authOptions = {};
         createChart(authPlaceholder, 'pie', authData, authOptions);
     }
+});
+createChart(authPlaceholder, 'pie', authData, authOptions);
+}
 });
