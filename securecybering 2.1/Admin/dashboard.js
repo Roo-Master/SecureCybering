@@ -45,3 +45,128 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "login.html";
     }
 });
+
+const canvas = document.getElementById("matrixCanvas");
+const ctx = canvas.getContext("2d");
+
+function resizeMatrix() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resizeMatrix();
+window.addEventListener("resize", resizeMatrix);
+
+const letters = "010101 ABCDEF $%#@*&";
+const fontSize = 14;
+let columns = Math.floor(canvas.width / fontSize);
+let drops = Array(columns).fill(1);
+
+function drawMatrix() {
+    ctx.fillStyle = "rgba(2, 6, 23, 0.08)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#00ffcc";
+    ctx.font = fontSize + "px monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+        const text = letters.charAt(Math.floor(Math.random() * letters.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+        }
+        drops[i]++;
+    }
+}
+
+setInterval(drawMatrix, 50);
+
+const pCanvas = document.getElementById("particleCanvas");
+const pCtx = pCanvas.getContext("2d");
+
+function resizeParticles() {
+    pCanvas.width = window.innerWidth;
+    pCanvas.height = window.innerHeight;
+}
+resizeParticles();
+window.addEventListener("resize", resizeParticles);
+
+const particles = [];
+const particleCount = 80;
+
+for (let i = 0; i < particleCount; i++) {
+    particles.push({
+        x: Math.random() * pCanvas.width,
+        y: Math.random() * pCanvas.height,
+        vx: (Math.random() - 0.5) * 0.7,
+        vy: (Math.random() - 0.5) * 0.7
+    });
+}
+
+function drawParticles() {
+    pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+
+    particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > pCanvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > pCanvas.height) p.vy *= -1;
+
+        pCtx.fillStyle = "#38bdf8";
+        pCtx.beginPath();
+        pCtx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+        pCtx.fill();
+    });
+
+    for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < 120) {
+                pCtx.strokeStyle = `rgba(56,189,248,${1 - dist / 120})`;
+                pCtx.lineWidth = 0.6;
+                pCtx.beginPath();
+                pCtx.moveTo(particles[i].x, particles[i].y);
+                pCtx.lineTo(particles[j].x, particles[j].y);
+                pCtx.stroke();
+            }
+        }
+    }
+
+    requestAnimationFrame(drawParticles);
+}
+drawParticles();
+
+
+
+let fraudThreshold = 60;
+
+function checkFraudLevel() {
+    const fraudCard = document.querySelectorAll(".stat-value")[1];
+    let fraudValue = parseInt(fraudCard.textContent);
+
+    if (fraudValue >= fraudThreshold) {
+        document.body.classList.add("alert-mode");
+
+        if (!window.alertTriggered) {
+            alert("🚨 CRITICAL ALERT 🚨\nFraud spike detected! System is in RED ALERT MODE.");
+            window.alertTriggered = true;
+        }
+    } else {
+        document.body.classList.remove("alert-mode");
+        window.alertTriggered = false;
+    }
+}
+
+// Simulate fraud increase
+setInterval(() => {
+    const fraudCard = document.querySelectorAll(".stat-value")[1];
+    let value = parseInt(fraudCard.textContent);
+    value += Math.floor(Math.random() * 3);
+    fraudCard.textContent = value;
+    checkFraudLevel();
+}, 4000);
+
