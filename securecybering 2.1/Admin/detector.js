@@ -441,46 +441,35 @@ function resetData() {
 }
 const overviewBtn = document.getElementById('overviewBtn');
 const monitoringBtn = document.getElementById('monitoringBtn');
-const  detectionBtn= document.getElementById(' detectionBtn');
+const detectionBtn = document.getElementById('detectionBtn');
 const blockchainBtn = document.getElementById('blockchainBtn');
 const nodesBtn = document.getElementById('nodesBtn');
 
-overviewBtn.addEventListener('click', function(e){
-document.getElementById('overview-tab').remove(hidden);
-document.getElementById('monitoring-tab').add(hidden);
-document.getElementById('ai-detection-tab').add(hidden);
-document.getElementById('blockchain-tab').add(hidden);
-document.getElementById('nodes-tab').add(hidden);
-});
-monitoringBtn.addEventListener('click', function(e){
-document.getElementById('overview-tab').add(hidden);
-document.getElementById('monitoring-tab').remove(hidden);
-document.getElementById('ai-detection-tab').add(hidden);
-document.getElementById('blockchain-tab').add(hidden);
-document.getElementById('nodes-tab').add(hidden);
-});
-detectionBtn.addEventListener('click', function(e){
-document.getElementById('overview-tab').add(hidden);
-document.getElementById('monitoring-tab').add(hidden);
-document.getElementById('ai-detection-tab').remove(hidden);
-document.getElementById('blockchain-tab').add(hidden);
-document.getElementById('nodes-tab').add(hidden);
-});
-blockchainBtn.addEventListener('click', function(e){
-document.getElementById('overview-tab').add(hidden);
-document.getElementById('monitoring-tab').add(hidden);
-document.getElementById('ai-detection-tab').add(hidden);
-document.getElementById('blockchain-tab').remove(hidden);
-document.getElementById('nodes-tab').add(hidden);
-});
+const tabs = {
+  overview: document.getElementById('overview-tab'),
+  monitoring: document.getElementById('monitoring-tab'),
+  detection: document.getElementById('ai-detection-tab'),
+  blockchain: document.getElementById('blockchain-tab'),
+  nodes: document.getElementById('nodes-tab')
+};
 
-nodesBtn.addEventListener('click', function(e){
-document.getElementById('overview-tab').add(hidden);
-document.getElementById('monitoring-tab').add(hidden);
-document.getElementById('ai-detection-tab').add(hidden);
-document.getElementById('blockchain-tab').add(hidden);
-document.getElementById('nodes-tab').remove(hidden);
-});
+function showTab(tabName) {
+  for (let key in tabs) {
+    if (key === tabName) {
+      tabs[key].classList.remove('hidden');
+    } else {
+      tabs[key].classList.add('hidden');
+    }
+  }
+}
+
+// Event listeners
+overviewBtn.addEventListener('click', () => showTab('overview'));
+monitoringBtn.addEventListener('click', () => showTab('monitoring'));
+detectionBtn.addEventListener('click', () => showTab('detection'));
+blockchainBtn.addEventListener('click', () => showTab('blockchain'));
+nodesBtn.addEventListener('click', () => showTab('nodes'));
+
 
 const tabNavStyle = document.createElement('style');
 tabNavStyle.textContent = `
