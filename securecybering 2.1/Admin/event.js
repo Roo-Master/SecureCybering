@@ -212,8 +212,11 @@ document.addEventListener('DOMContentLoaded', function() {
             datasets: [{
                 label: 'Fraud Cases',
                 data: [12, 19, 3, 5, 2, 3,7, 17,8,11,2,3],
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
+backgroundColor: 'rgba(230, 200, 40, 0.25)',
+borderColor: 'rgba(230, 200, 40, 1)',
+
+
+
                 borderWidth: 1
             }]
         };
@@ -235,18 +238,19 @@ document.addEventListener('DOMContentLoaded', function() {
             datasets: [{
                 label: 'Authentication Methods',
                 data: [40, 30, 20, 10],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)'
-                ],
+              backgroundColor: [
+    'rgba(239, 68, 68, 0.25)',   // Fraud / High Risk
+    'rgba(249, 115, 22, 0.25)',  // Suspicious / Warning
+    'rgba(250, 204, 21, 0.25)',  // Neutral / Review
+    'rgba(34, 197, 94, 0.25)'    // Trusted / Secure
+],
+borderColor: [
+    'rgba(239, 68, 68, 1)',      // Red
+    'rgba(249, 115, 22, 1)',     // Orange
+    'rgba(250, 204, 21, 1)',     // Yellow
+    'rgba(34, 197, 94, 1)'       // Green
+],
+
                 borderWidth: 1
             }]
         };
