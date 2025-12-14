@@ -171,7 +171,8 @@ menuButtons.forEach(btn => {
         }
 
         if (btn.id === "sb-logs") {
-            alert("Logs page can be added here!");
+            alert("Redirecting you to logs page");
+            window.location.href="audit-logs.html";
         }
     });
 });
