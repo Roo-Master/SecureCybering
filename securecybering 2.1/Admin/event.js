@@ -277,5 +277,3 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 createChart(authPlaceholder, 'pie', authData, authOptions);
-}
-});

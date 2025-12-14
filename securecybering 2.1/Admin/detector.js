@@ -127,30 +127,8 @@ function logout() {
     resetData();
 }
 
-// Tab navigation
-function setupTabNavigation() {
-    const tabs = document.querySelectorAll('#navTabs button');
-    const tabContents = document.querySelectorAll('.tab-content');
 
-    tabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            const tabId = this.id.replace('Btn', '-tab');
 
-            // Hide all tab contents
-            tabContents.forEach(content => content.classList.add('hidden'));
-
-            // Show selected tab content
-            document.getElementById(tabId).classList.remove('hidden');
-
-            // Update active tab styling
-            tabs.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
-
-    // Set default active tab
-    document.getElementById('overviewBtn').click();
-}
 
 // Initialize charts
 function initializeCharts() {
@@ -461,40 +439,49 @@ function resetData() {
     document.getElementById('alertsFeed').innerHTML = '';
     document.getElementById('blockchainLog').innerHTML = '';
 }
+const overviewBtn = document.getElementById('overviewBtn');
+const monitoringBtn = document.getElementById('monitoringBtn');
+const  detectionBtn= document.getElementById(' detectionBtn');
+const blockchainBtn = document.getElementById('blockchainBtn');
+const nodesBtn = document.getElementById('nodesBtn');
 
-function setupTabNavigation() {
-    const tabs = document.querySelectorAll('#navTabs button');
-    const tabContents = document.querySelectorAll('.tab-content');
+overviewBtn.addEventListener('click', function(e){
+document.getElementById('overview-tab').remove(hidden);
+document.getElementById('monitoring-tab').add(hidden);
+document.getElementById('ai-detection-tab').add(hidden);
+document.getElementById('blockchain-tab').add(hidden);
+document.getElementById('nodes-tab').add(hidden);
+});
+monitoringBtn.addEventListener('click', function(e){
+document.getElementById('overview-tab').add(hidden);
+document.getElementById('monitoring-tab').remove(hidden);
+document.getElementById('ai-detection-tab').add(hidden);
+document.getElementById('blockchain-tab').add(hidden);
+document.getElementById('nodes-tab').add(hidden);
+});
+detectionBtn.addEventListener('click', function(e){
+document.getElementById('overview-tab').add(hidden);
+document.getElementById('monitoring-tab').add(hidden);
+document.getElementById('ai-detection-tab').remove(hidden);
+document.getElementById('blockchain-tab').add(hidden);
+document.getElementById('nodes-tab').add(hidden);
+});
+blockchainBtn.addEventListener('click', function(e){
+document.getElementById('overview-tab').add(hidden);
+document.getElementById('monitoring-tab').add(hidden);
+document.getElementById('ai-detection-tab').add(hidden);
+document.getElementById('blockchain-tab').remove(hidden);
+document.getElementById('nodes-tab').add(hidden);
+});
 
-    tabs.forEach(tab => {
-        // Dynamically assign data-tab attribute for role-based access (e.g., 'overview', 'monitoring', etc.)
-        const tabName = tab.id.replace('Btn', '').replace('Tab', ''); // Handles 'overviewBtn' -> 'overview', 'dashboardTab' -> 'dashboard'
-        tab.setAttribute('data-tab', tabName);
+nodesBtn.addEventListener('click', function(e){
+document.getElementById('overview-tab').add(hidden);
+document.getElementById('monitoring-tab').add(hidden);
+document.getElementById('ai-detection-tab').add(hidden);
+document.getElementById('blockchain-tab').add(hidden);
+document.getElementById('nodes-tab').remove(hidden);
+});
 
-        tab.addEventListener('click', function() {
-            const tabId = this.id.replace('Btn', '-tab').replace('Tab', '-tab'); // Handles 'overviewBtn' -> 'overview-tab', 'dashboardTab' -> 'dashboard-tab'
-
-            // Hide all tab contents
-            tabContents.forEach(content => content.classList.add('hidden'));
-
-            // Show selected tab content (if it exists)
-            const targetTab = document.getElementById(tabId);
-            if (targetTab) {
-                targetTab.classList.remove('hidden');
-            }
-
-            // Update active tab styling
-            tabs.forEach(t => t.classList.remove('active', 'bg-primary', 'text-white'));
-            this.classList.add('active', 'bg-primary', 'text-white');
-        });
-    });
-
-    // Set default active tab (Overview)
-    const defaultTab = document.getElementById('overviewBtn');
-    if (defaultTab) {
-        defaultTab.click();
-    }
-} // Inject CSS for tab navigation if not in detector.css
 const tabNavStyle = document.createElement('style');
 tabNavStyle.textContent = `
     #navTabs button {
@@ -517,76 +504,3 @@ tabNavStyle.textContent = `
 document.head.appendChild(tabNavStyle);
 document.head.appendChild(tabNavStyle);
 document.head.appendChild(tabNavStyle);
-}
-}
-nodesGrid.appendChild(node);
-}
-}
-}
-}
-node.innerHTML = `
-            <div class="text-lg font-medium mb-2">Node ${i}</div>
-            <div class="w-12 h-12 rounded-full flex items-center justify-center mb-2 ${
-                status === 'active' ? 'bg-green-500' : 'bg-red-500'
-            }">
-                ${status === 'active' ? '✓' : '✗'}
-            </div>
-            <div class="text-sm">${status === 'active' ? `Load: ${load}%` : 'Offline'}</div>
-            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-2">
-                <div class="${status === 'active' ? 'bg-green-500' : 'bg-red-500'} h-1.5 rounded-full" style="width: ${status === 'active' ? load : 0}%"></div>
-            </div>
-        `;
-        
-        nodesGrid.appendChild(node);
-    }
-}           }">
-                ${status === 'active' ? '✓' : '✗'}
-            </div>
-            <div class="text-sm">${status === 'active' ? `Load: ${load}%` : 'Offline'}</div>
-            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-2">
-                <div class="${status === 'active' ? 'bg-green-500' : 'bg-red-500'} h-1.5 rounded-full" style="width: ${status === 'active' ? load : 0}%"></div>
-            </div>
-        `;
-        
-        nodesGrid.appendChild(node);
-    }
-}       
-        nodesGrid.appendChild(node);
-    }
-}       node.innerHTML = `
-            <div class="text-lg font-medium mb-2">Node ${i}</div>
-            <div class="w-12 h-12 rounded-full flex items-center justify-center mb-2 ${
-                status === 'active' ? 'bg-green-500' : 'bg-red-500'
-            }">
-                ${status === 'active' ? '✓' : '✗'}
-            </div>
-            <div class="text-sm">${status === 'active' ? `Load: ${load}%` : 'Offline'}</div>
-            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-2">
-                <div class="${status === 'active' ? 'bg-green-500' : 'bg-red-500'} h-1.5 rounded-full" style="width: ${status === 'active' ? load : 0}%"></div>
-            </div>
-        `;
-        
-        nodesGrid.appendChild(node);
-    }
-}       `;
-        
-        nodesGrid.appendChild(node);
-    }
-}       
-        nodesGrid.appendChild(node);
-    }
-}           </div>
-        `;
-        
-        nodesGrid.appendChild(node);
-    }
-}           </div>
-            <div class="text-sm">${status === 'active' ? `Load: ${load}%` : 'Offline'}</div>
-            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-2">
-                <div class="${status === 'active' ? 'bg-green-500' : 'bg-red-500'} h-1.5 rounded-full" style="width: ${status === 'active' ? load : 0}%"></div>
-            </div>
-        `;
-        
-        nodesGrid.appendChild(node);
-    }
-}
