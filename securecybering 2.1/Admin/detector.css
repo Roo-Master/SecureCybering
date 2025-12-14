@@ -1,215 +1,188 @@
-
-:root {
-  --primary-color: #3b82f6; /* Example primary color, adjust as needed */
-  --pulse-duration: 2s; /* For pulse-slow animation */
+/* ===============================
+   GLOBAL DARK ENHANCEMENTS
+================================ */
+html.dark {
+    background: radial-gradient(circle at top, #0b1220, #020617 70%);
 }
 
-[data-theme="dark"] {
-  --bg-header: #1f2937; /* gray-800 */
-  --border-header: #374151; /* gray-700 */
-  --text-gray-600: #9ca3af; /* gray-400 */
-  --bg-gray-200: #374151; /* gray-700 */
-  --bg-gray-300: #4b5563; /* gray-600 */
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-[data-theme="light"] {
-  --bg-header: #ffffff; /* white */
-  --border-header: #e5e7eb; /* gray-200 */
-  --text-gray-600: #4b5563; /* gray-600 */
-  --bg-gray-200: #e5e7eb; /* gray-200 */
-  --bg-gray-300: #d1d5db; /* gray-300 */
+/* ===============================
+   GLOW EFFECTS
+================================ */
+.glow {
+    box-shadow:
+        0 0 25px rgba(93, 92, 222, 0.35),
+        inset 0 0 12px rgba(93, 92, 222, 0.15);
 }
 
-/* Header styles */
-header.bg-white {
-  background-color: var(--bg-header);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
-  border-bottom: 1px solid var(--border-header);
-}
-
-header .px-6.py-4 {
-  padding: 1.5rem 1.5rem; /* px-6 py-4 */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-header .flex.items-center.space-x-4 {
-  display: flex;
-  align-items: center;
-  gap: 1rem; /* space-x-4 */
-}
-
-header .w-10.h-10.bg-primary.rounded-lg.flex.items-center.justify-center {
-  width: 2.5rem;
-  height: 2.5rem;
-  background-color: var(--primary-color);
-  border-radius: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-header .sidebar-header img {
-  width: 100%; /* Adjust as needed, assuming logo size */
-  height: auto;
-}
-
-header .sidebar-header h2 {
-  font-size: 1.125rem; /* Assuming similar to h1, adjust if needed */
-  font-weight: bold;
-  margin: 0;
-  color: inherit;
-}
-
-header h1.text-xl.font-bold {
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin: 0;
-}
-
-header p.text-sm.text-gray-600 {
-  font-size: 0.875rem;
-  color: var(--text-gray-600);
-  margin: 0;
-}
-
-header a[href="decentralized.html"] {
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-}
-
-header .flex.items-center.space-x-4:last-child {
-  display: flex;
-  align-items: center;
-  gap: 1rem; /* space-x-4 */
-}
-
-header .text-right {
-  text-align: right;
-}
-
-header .text-sm.text-gray-600 {
-  font-size: 0.875rem;
-  color: var(--text-gray-600);
-}
-
-header .flex.items-center.space-x-2 {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem; /* space-x-2 */
-}
-
-header .w-3.h-3.bg-green-500.rounded-full.pulse-slow {
-  width: 0.75rem;
-  height: 0.75rem;
-  background-color: #10b981; /* green-500 */
-  border-radius: 9999px;
-  animation: pulse var(--pulse-duration) infinite;
+.pulse-slow {
+    animation: pulse 2.5s infinite;
 }
 
 @keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
+    0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
+    70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
 }
 
-header span.text-sm.font-medium {
-  font-size: 0.875rem;
-  font-weight: 500;
+/* ===============================
+   NAVIGATION TABS
+================================ */
+.nav-tab {
+    color: #9ca3af;
+    background: transparent;
+    transition: all 0.25s ease;
 }
 
-header button.px-4.py-2.bg-gray-200.rounded-lg.hover\\:bg-gray-300.transition-all {
-  padding: 0.5rem 1rem;
-  background-color: var(--bg-gray-200);
-  border-radius: 0.5rem;
-  border: none;
-  cursor: pointer;
-  transition: all 0.15s ease-in-out;
-  font-size: 0.875rem;
+.nav-tab:hover {
+    background: rgba(93, 92, 222, 0.15);
+    color: #c7d2fe;
 }
 
-header button:hover {
-  background-color: var(--bg-gray-300);
+.nav-tab.active {
+    background: linear-gradient(135deg, #5D5CDE, #4f46e5);
+    color: white;
+    box-shadow: 0 0 18px rgba(93, 92, 222, 0.6);
 }
 
-/* Ensure dark mode overrides */
-[data-theme="dark"] header button {
-  background-color: var(--bg-gray-200);
+/* ===============================
+   HEADER & SIDEBAR LOGO
+================================ */
+.sidebar-header img {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    box-shadow: 0 0 12px rgba(93, 92, 222, 0.7);
 }
 
-[data-theme="dark"] header button:hover {
-  background-color: var(--bg-gray-300);
+/* ===============================
+   CARDS (DASHBOARD PANELS)
+================================ */
+.dark .bg-white {
+    background-color: rgba(20, 28, 47, 0.95) !important;
 }
 
-:root {
-  --bg-nav: #f9fafb; /* gray-50 */
-  --border-nav: #e5e7eb; /* gray-200 */
-  --text-nav: #374151; /* gray-700, assuming default text color */
-  --bg-nav-dark: #1f2937; /* gray-800 */
-  --border-nav-dark: #374151; /* gray-700 */
-  --text-nav-dark: #d1d5db; /* gray-300, assuming for dark mode */
-  --bg-active: #dbeafe; /* blue-100, example for active tab */
-  --text-active: #1e40af; /* blue-800 */
-  --bg-hover: #f3f4f6; /* gray-100 */
-  --bg-hover-dark: #374151; /* gray-700 */
+.dark .shadow-lg {
+    box-shadow:
+        0 0 20px rgba(79, 193, 255, 0.12),
+        inset 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
-[data-theme="dark"] {
-  --bg-nav: var(--bg-nav-dark);
-  --border-nav: var(--border-nav-dark);
-  --text-nav: var(--text-nav-dark);
+.dark .border-gray-700 {
+    border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
-/* Navigation styles */
-nav.bg-gray-50 {
-  background-color: var(--bg-nav);
-  border-bottom: 1px solid var(--border-nav);
+/* ===============================
+   METRIC CARDS HOVER
+================================ */
+.dark .rounded-xl:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px rgba(79, 193, 255, 0.25);
+    transition: all 0.25s ease;
 }
 
-nav .px-6.py-2 {
-  padding: 0.5rem 1.5rem; /* px-6 py-2 */
+/* ===============================
+   LIVE FEEDS & LOGS
+================================ */
+#transactionFeed div,
+#alertsFeed div,
+#blockchainLog div {
+    background: rgba(255, 255, 255, 0.04);
+    padding: 8px 10px;
+    border-radius: 8px;
+    border-left: 3px solid #5D5CDE;
 }
 
-nav .flex.space-x-6 {
-  display: flex;
-  gap: 1.5rem; /* space-x-6 */
+#alertsFeed div {
+    border-left-color: #ef4444;
+    background: rgba(239, 68, 68, 0.12);
 }
 
-nav .nav-tab {
-  padding: 0.5rem 1rem; /* px-4 py-2 */
-  font-size: 0.875rem; /* text-sm */
-  font-weight: 500; /* font-medium */
-  border-radius: 0.5rem; /* rounded-lg */
-  border: none;
-  background-color: transparent;
-  color: var(--text-nav);
-  cursor: pointer;
-  transition: all 0.15s ease-in-out;
+/* ===============================
+   FRAUD ALERT (CRITICAL)
+================================ */
+.alert-critical {
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.6);
+    color: #fecaca;
+    box-shadow: 0 0 18px rgba(239, 68, 68, 0.6);
 }
 
-nav .nav-tab:hover {
-  background-color: var(--bg-hover);
+/* ===============================
+   PROGRESS BARS
+================================ */
+.dark .bg-primary {
+    box-shadow: 0 0 10px rgba(93, 92, 222, 0.7);
 }
 
-nav .nav-tab.active {
-  background-color: var(--bg-active);
-  color: var(--text-active);
+.dark .bg-success {
+    box-shadow: 0 0 10px rgba(78, 205, 196, 0.7);
 }
 
-/* Dark mode overrides for nav-tab */
-[data-theme="dark"] nav .nav-tab:hover {
-  background-color: var(--bg-hover-dark);
+.dark .bg-warning {
+    box-shadow: 0 0 10px rgba(255, 230, 109, 0.7);
 }
 
-[data-theme="dark"] nav .nav-tab.active {
-  background-color: var(--bg-active); /* Keep active background, or adjust if needed */
-  color: var(--text-active);
+/* ===============================
+   CHART CANVAS POLISH
+================================ */
+canvas {
+    filter: drop-shadow(0 0 8px rgba(79, 193, 255, 0.25));
+}
+
+/* ===============================
+   SCROLLBARS (CYBER STYLE)
+================================ */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #020617;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #5D5CDE, #38bdf8);
+    border-radius: 8px;
+}
+
+/* ===============================
+   LOADER OVERLAY DARK FIX
+================================ */
+#loaderOverlay {
+    background: radial-gradient(circle, #0b1220, #020617) !important;
+}
+
+#loaderOverlay p {
+    color: #c7d2fe !important;
+}
+#networkBg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+    background: radial-gradient(circle at center, #0b1220, #020617 80%);
+}
+#navTabs button {
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background-color: transparent;
+    color: #6b7280; /* gray-500 */
+}
+
+#navTabs button.active {
+    background-color: #5D5CDE; /* primary color */
+    color: white;
+    box-shadow: 0 0 10px rgba(93, 92, 222, 0.3);
+}
+
+#navTabs button:hover {
+    background-color: rgba(93, 92, 222, 0.1);
+    color: #5D5CDE;
 }

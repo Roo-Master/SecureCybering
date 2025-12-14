@@ -27,6 +27,8 @@
 </head>
 
 <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white h-full">
+    <canvas id="networkBg" class="fixed top-0 left-0 w-full h-full -z-10"></canvas>
+
     <!-- Login Modal -->
     <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-2xl max-w-md w-full mx-4 glow">
@@ -88,11 +90,11 @@
         <nav class="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
             <div class="px-6 py-2">
                 <div class="flex space-x-6" id="navTabs">
-                    <button onclick="showTab('overview')" class="nav-tab active px-4 py-2 text-sm font-medium rounded-lg">Overview</button>
-                    <button onclick="showTab('monitoring')" class="nav-tab px-4 py-2 text-sm font-medium rounded-lg">Real-time Monitoring</button>
-                    <button onclick="showTab('ai-detection')" class="nav-tab px-4 py-2 text-sm font-medium rounded-lg">AI Detection</button>
-                    <button onclick="showTab('blockchain')" class="nav-tab px-4 py-2 text-sm font-medium rounded-lg">Blockchain</button>
-                    <button onclick="showTab('nodes')" class="nav-tab px-4 py-2 text-sm font-medium rounded-lg">Distributed Nodes</button>
+                    <button id="overviewBtn">Overview</button>
+                    <button id="monitoringBtn">Real-time Monitoring</button>
+                    <button id="detectionBtn">AI Detection</button>
+                    <button id="blockchainBtn">Blockchain</button>
+                    <button id="nodesBtn">Distributed Nodes</button>
                     <button id="dashboardTab" class=" nav-tab px-4 py-2 text-sm font-medium rounded-lg ">Dashboard</button>
                     <script>
                         document.getElementById('dashboardTab').addEventListener('click', function(e) {
@@ -356,9 +358,8 @@
             </div>
         </main>
     </div>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>ss
     <script src="detector.js"></script>
 </body>
 
