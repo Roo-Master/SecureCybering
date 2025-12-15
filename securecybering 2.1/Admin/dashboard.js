@@ -169,3 +169,109 @@ setInterval(() => {
     fraudCard.textContent = value;
     checkFraudLevel();
 }, 4000);
+
+        const canvas = document.getElementById("cyberCanvas");
+       const ctx = canvas.getContext("2d");
+         
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+
+// Create particles
+const particles = [];
+const particleCount = Math.floor((canvas.width * canvas.height) / 15000);
+
+for (let i = 0; i < particleCount; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vx: (Math.random() - 0.5) * 1.2,
+    vy: (Math.random() - 0.5) * 1.2
+  });
+}
+
+function draw() {
+  ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+    ctx.fillStyle = "#00ffcc";
+    ctx.fill();
+  });
+
+  particles.forEach((p1, idx) => {
+    for (let j = idx + 1; j < particles.length; j++) {
+      const p2 = particles[j];
+      const dx = p1.x - p2.x;
+      const dy = p1.y - p2.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < 150) {
+        ctx.strokeStyle = `rgba(0, 255, 204, ${1 - dist / 150})`;
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.stroke();
+      }
+    }
+  });
+
+  particles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+  });
+
+  requestAnimationFrame(draw);
+}
+
+draw();
+
+
+// Function to handle search
+function performSearch(query) {
+    // Placeholder: Replace with actual search logic (e.g., filter alerts, API call)
+    if (query.trim()) {
+        console.log('Searching for:', query);
+        alert(`Searching for alerts: "${query}"`);
+        // Example: If you have a list of alerts, filter them here
+         const alerts = document.querySelectorAll('.alert-item');
+         alerts.forEach(alert => {
+            if (alert.textContent.toLowerCase().includes(query.toLowerCase())) {
+                alert.style.display = 'block';
+         } else {
+                 alert.style.display = 'none';
+             }
+           });
+    } else {
+        alert('Please enter a search term.');
+    }
+}
+
+// Setup event listeners for the search bar
+function setupSearchBar() {
+    const searchInput = document.querySelector('.search-bar input');
+    const searchButton = document.querySelector('.search-bar .btn');
+    
+    // On button click
+    searchButton.addEventListener('click', () => {
+        performSearch(searchInput.value);
+    });
+    
+    // On Enter key press in input
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            performSearch(searchInput.value);
+        }
+    });
+}
+
+// Initialize on DOM load
+document.addEventListener('DOMContentLoaded', setupSearchBar);

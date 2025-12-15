@@ -213,28 +213,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 label: 'Fraud Cases',
                 data: [12, 19, 3, 5, 2, 3, 7, 17, 8, 11, 2, 3],
                 // Neon Blue
-                backgroundColor: 'rgba(0, 191, 255, 0.25)',
+                backgroundColor: 'rgba(200, 20, 20, 1)',
                 borderColor: 'rgba(0, 191, 255, 1)',
-
-                // Neon Green
-                backgroundColor: 'rgba(0, 255, 170, 0.25)',
-                borderColor: 'rgba(0, 255, 170, 1)',
-
-                // Neon Purple
-                backgroundColor: 'rgba(168, 85, 247, 0.25)',
-                borderColor: 'rgba(168, 85, 247, 1)',
-
-                // Neon Orange
-                backgroundColor: 'rgba(255, 159, 64, 0.25)',
-                borderColor: 'rgba(255, 159, 64, 1)',
-
-                // Neon Pink
-                backgroundColor: 'rgba(236, 72, 153, 0.25)',
-                borderColor: 'rgba(236, 72, 153, 1)',
-
-                // Neon Yellow
-                backgroundColor: 'rgba(250, 204, 21, 0.25)',
-                borderColor: 'rgba(250, 204, 21, 1)',
 
                 borderWidth: 1
             }]
@@ -258,10 +238,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 label: 'Authentication Methods',
                 data: [40, 30, 20, 10],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)'
+                    'rgba(255, 30, 20, 0.2)',
+                    'rgba(40, 30, 235, 0.2)',
+                    'rgba(20, 206, 50, 0.2)',
+                    'rgba(192, 192, 192, 0.2)'
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',

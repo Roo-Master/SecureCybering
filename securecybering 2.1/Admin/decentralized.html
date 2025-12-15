@@ -12,8 +12,9 @@
 
 
 <body>
-    <canvas id="matrixCanvas"></canvas>
-    <canvas id="particleCanvas"></canvas>
+    
+    <canvas id="cyberCanvas"></canvas>
+
     <div class="container">
         <!-- Sidebar -->
         <aside class="sidebar">
@@ -32,7 +33,7 @@
                 <script>
                     document.getElementById("logoutBtn").addEventListener("click", () => {
                         localStorage.removeItem("loggedInUser");
-                        window.location.href = "login.html";
+                        window.location.href = "index.html";
                     });
                 </script>
             </div>
@@ -352,7 +353,7 @@
             <div class="header ">
                 <div class="page-title ">
                     <h2>Fraud Detection Dashboard</h2>
-                    <p>Monitor and prevent fraudulent activities in real-time</p>
+                    
                 </div>
                 <div class="header-actions ">
                     <button class="btn btn-outline ">
@@ -589,6 +590,8 @@
             const current = parseInt(transactions.textContent.replace(/,/g, ''));
             transactions.textContent = (current + Math.floor(Math.random() * 10)).toLocaleString();
         }, 5000);
+
+
     </script>
 </body>
 

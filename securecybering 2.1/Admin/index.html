@@ -248,6 +248,16 @@
             border-radius: 8px;
             backdrop-filter: blur(4px);
         }
+        #matrix {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -3;
+    background: #020617;
+}
+
     </style>
 </head>
 
@@ -378,6 +388,8 @@
             document.getElementById('errorMessage').style.display = 'none';
         });
     </script>
+    <canvas id="matrix"></canvas>
+
 </body>
 
 </html>

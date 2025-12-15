@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="server.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        .role-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .role-title i {
+            margin-right: 10px;
+            color: #007bff;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-group input {
+            width: 10%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+        .login-btn,.resend-btn {
+            width: 30%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none; 
+            align-items:center;
+    
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .login-btn:hover {
+            background-color: #0056b3;
+        }
+        #otpInfo {
+            text-align: center;
+        }
+        .btn{
+            align-items:center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="otpSection" style="display:block; margin-top:25px;">
+            <div class="role-title">
+                <i class="fas fa-shield-alt"></i> OTP Verification
+            </div>
+
+            <div class="form-group">
+                <label for="otpInput">Enter 6-Digit OTP</label>
+                <input type="text" id="otp1" maxlength="1" >
+                <input type="text" id="otp2" maxlength="1" >
+                <input type="text" id="otp3" maxlength="1" >
+                <input type="text" id="otp4" maxlength="1" >
+                <input type="text" id="otp5" maxlength="1" >
+                <input type="text" id="otp6" maxlength="1" s>
+            </div>
+
+            <div id="otpInfo" style="font-size:14px; color:#94a3b8; margin-bottom:10px;">
+                OTP expires in <span id="otpTimer">60</span>s
+            </div>
+          <div  class="btn">
+            <button class="login-btn" onclick="verifyOTP()">Verify OTP</button>
+            <button class="resend-btn" onclick="resendOTP()">Resend OTP</button>
+          </div>
+           
+        </div>
+    </div>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', setupOTPInputs);
+      /* ---------------- CONFIG ---------------- */
+      const API_BASE = "http://localhost:5000/api";
+
+        // OTP Timer Countdown
+        let timer = 60;
+        const timerElement = document.getElementById('otpTimer');
+        const interval = setInterval(() => {
+            timer--;
+            timerElement.textContent = timer;
+            if (timer <= 0) {
+                clearInterval(interval);
+                alert('OTP expired! Please request a new one.');
+                // Optionally hide the section or disable the button
+            }
+        }, 1000);
+// Function to handle OTP input navigation
+function setupOTPInputs() {
+    const otpInputs = document.querySelectorAll('#otp1, #otp2, #otp3, #otp4, #otp5, #otp6');
+    
+    otpInputs.forEach((input, index) => {
+        input.addEventListener('input', (e) => {
+            // Allow only digits
+            if (!/^\d$/.test(e.target.value)) {
+                e.target.value = '';
+                return;
+            }
+            // Move to next input if not the last one
+            if (index < otpInputs.length - 1) {
+                otpInputs[index + 1].focus();
+            }
+        });
+        
+        input.addEventListener('keydown', (e) => {
+            // On backspace, move to previous input if current is empty
+            if (e.key === 'Backspace' && e.target.value === '' && index > 0) {
+                otpInputs[index - 1].focus();
+            }
+        });
+        
+        input.addEventListener('paste', (e) => {
+            e.preventDefault();
+            const pasteData = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
+            pasteData.split('').forEach((char, i) => {
+                if (otpInputs[i]) {
+                    otpInputs[i].value = char;
+                }
+            });
+            // Focus the next empty input or the last one
+            const nextIndex = Math.min(pasteData.length, otpInputs.length - 1);
+            otpInputs[nextIndex].focus();
+        });
+    });
+}
+
+
+
+/* ---------------- VERIFY OTP ---------------- */
+async function verifyOTP() {
+    const otp = getOTPValue();
+    const sessionId = sessionStorage.getItem("sessionId");
+    const username = sessionStorage.getItem("username");
+
+    if (otp.length !== 6) {
+        alert("Please enter the complete 6-digit OTP.");
+        return;
+    }
+
+    try {
+        const res = await fetch(`${API_BASE}/verify-otp`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                sessionId,
+                username,
+                otp
+            })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+            alert("OTP verified successfully. Access granted.");
+            window.location.href = "decentralized.html";
+        } else {
+            alert(data.error || "OTP verification failed.");
+        }
+    } catch (err) {
+        console.error(err);
+        alert("Server error. Try again.");
+    }
+}
+
+/* ---------------- RESEND OTP ---------------- */
+async function resendOTP() {
+    const sessionId = sessionStorage.getItem("sessionId");
+    const username = sessionStorage.getItem("username");
+    const method = sessionStorage.getItem("otpMethod"); // email | sms
+
+    let endpoint = "";
+    let payload = { sessionId, username };
+
+    if (method === "email") {
+        endpoint = "send-email-otp";
+        payload.email = "admin@securechain.com"; // replace dynamically
+    } else {
+        endpoint = "send-sms-otp";
+        payload.phone = "+254712345678"; // replace dynamically
+    }
+
+    try {
+        const res = await fetch(`${API_BASE}/${endpoint}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+            alert("OTP resent successfully.");
+            clearOTPInputs();
+            startTimer();
+        } else {
+            alert("Failed to resend OTP.");
+        }
+    } catch (err) {
+        console.error(err);
+        alert("Server error while resending OTP.");
+    }
+}
+
+/* ---------------- CLEAR INPUTS ---------------- */
+function clearOTPInputs() {
+    for (let i = 1; i <= 6; i++) {
+        document.getElementById(`otp${i}`).value = "";
+    }
+    document.getElementById("otp1").focus();
+}function setupOTPInputs() {
+    const otpInputs = [
+        document.getElementById("otp1"),
+        document.getElementById("otp2"),
+        document.getElementById("otp3"),
+        document.getElementById("otp4"),
+        document.getElementById("otp5"),
+        document.getElementById("otp6")
+    ];
+
+    otpInputs.forEach((input, index) => {
+        input.addEventListener("input", (e) => {
+            // Allow only digits
+            if (!/^\d$/.test(e.target.value)) {
+                e.target.value = "";
+                return;
+            }
+
+            // Move focus to next input
+            if (index < otpInputs.length - 1) {
+                otpInputs[index + 1].focus();
+            }
+
+            // Auto-submit when last digit entered
+            if (index === otpInputs.length - 1 && e.target.value) {
+                verifyOTP();
+            }
+        });
+
+        input.addEventListener("keydown", (e) => {
+            if (e.key === "Backspace" && e.target.value === "" && index > 0) {
+                otpInputs[index - 1].focus();
+            }
+        });
+
+        input.addEventListener("paste", (e) => {
+            e.preventDefault();
+            const pasteData = e.clipboardData
+                .getData("text")
+                .replace(/\D/g, "")
+                .slice(0, 6);
+
+            pasteData.split("").forEach((char, i) => {
+                if (otpInputs[i]) {
+                    otpInputs[i].value = char;
+                }
+            });
+
+            // Auto-submit if all 6 pasted
+            if (pasteData.length === 6) {
+                verifyOTP();
+            } else {
+                otpInputs[Math.min(pasteData.length, otpInputs.length - 1)].focus();
+            }
+        });
+    });
+}
+
+document.addEventListener("DOMContentLoaded", setupOTPInputs);
+    </script>
+</body>
+</html>
