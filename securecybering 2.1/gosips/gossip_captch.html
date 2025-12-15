@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gosip Hub CAPTCHA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0d1117; /* Very dark background */
+            color: #c0c0c0; /* Light gray text */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h2 {
+            color: #00ffff; /* Cyan title */
+        }
+
+        canvas {
+            border: 2px solid #00ffff;
+            margin-bottom: 10px;
+            background-color: #1a1a1a; /* Dark canvas background */
+        }
+
+        input {
+            padding: 8px;
+            font-size: 16px;
+            border: 2px solid #00ffff;
+            border-radius: 5px;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        input::placeholder {
+            color: #888888;
+        }
+
+        button {
+            padding: 8px 16px;
+            font-size: 16px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #00ffff;
+            color: #0d1117;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #00cccc; /* Darker cyan on hover */
+        }
+
+        #message {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Gosip Hub CAPTCHA</h2>
+<canvas id="captchaCanvas" width="200" height="70"></canvas>
+<input type="text" id="captchaInput" placeholder="Enter CAPTCHA">
+<button onclick="checkCaptcha()">Submit</button>
+<div id="message"></div>
+<button onclick="generateCaptcha()">Reload CAPTCHA</button>
+
+<script>
+let captchaText = "";
+
+// Function to generate random CAPTCHA
+function generateCaptcha() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    captchaText = '';
+    for (let i = 0; i < 6; i++) {
+        captchaText += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+
+    const canvas = document.getElementById('captchaCanvas');
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Background
+    ctx.fillStyle = "#1a1a1a";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Random lines
+    for (let i = 0; i < 8; i++) {
+        ctx.strokeStyle = `rgb(${Math.random()*0+0},${Math.random()*255},${Math.random()*255})`; // Cyan shades
+        ctx.beginPath();
+        ctx.moveTo(Math.random()*canvas.width, Math.random()*canvas.height);
+        ctx.lineTo(Math.random()*canvas.width, Math.random()*canvas.height);
+        ctx.stroke();
+    }
+
+    // Draw CAPTCHA text
+    ctx.font = "40px Arial";
+    for (let i = 0; i < captchaText.length; i++) {
+        ctx.fillStyle = `rgb(${Math.random()*0},${Math.random()*255},${Math.random()*255})`; // Cyan text
+        let x = 20 + i * 30 + Math.random()*5;
+        let y = 40 + Math.random()*10;
+        ctx.fillText(captchaText[i], x, y);
+    }
+
+    // Random dots
+    for (let i = 0; i < 100; i++) {
+        ctx.fillStyle = `rgb(${Math.random()*0},${Math.random()*255},${Math.random()*255})`;
+        ctx.fillRect(Math.random()*canvas.width, Math.random()*canvas.height, 1, 1);
+    }
+
+    document.getElementById('captchaInput').value = '';
+    document.getElementById('message').innerText = '';
+}
+
+// Function to check CAPTCHA
+function checkCaptcha() {
+    const input = document.getElementById('captchaInput').value.toUpperCase();
+    if (input === captchaText) {
+        document.getElementById('message').style.color = '#00ff99';
+        document.getElementById('message').innerText = 'CAPTCHA correct!';
+        window.location.href = 'fraud_gosip.html';
+    } else {
+        document.getElementById('message').style.color = 'red';
+        document.getElementById('message').innerText = 'Incorrect, try again.';
+        generateCaptcha();
+    }
+}
+
+// Generate initial CAPTCHA
+generateCaptcha();
+</script>
+
+</body>
+</html>
