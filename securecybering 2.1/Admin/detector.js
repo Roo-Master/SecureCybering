@@ -1,495 +1,126 @@
-// ==============================
-// NETWORK BACKGROUND ANIMATION
-// ==============================
-const canvas = document.getElementById('networkBg');
+
+// Cyber animated binary background
+const canvas = document.getElementById('cyberCanvas');
 const ctx = canvas.getContext('2d');
+let width = canvas.width = window.innerWidth;
+let height = canvas.height = window.innerHeight;
 
-let nodes = [];
-const nodeCount = 50;
-const maxDistance = 150;
+const binaryChars = '01';
+const fontSize = 16;
+const columns = Math.floor(width / fontSize);
+const drops = Array(columns).fill(0);
 
-// Resize canvas
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
+function draw() {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+    ctx.fillRect(0, 0, width, height);
 
-// Create nodes
-for (let i = 0; i < nodeCount; i++) {
-    nodes.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        radius: Math.random() * 2 + 1,
-        color: 'rgba(93, 92, 222, 0.8)' // glowing node color
-    });
-}
+    ctx.fillStyle = '#00ffea'; // Neon cyan
+    ctx.font = `${fontSize}px monospace`;
 
-// Animation loop
-function animateNetwork() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = 0; i < drops.length; i++) {
+        const text = binaryChars.charAt(Math.floor(Math.random() * binaryChars.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-    // Draw lines
-    for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-            let dx = nodes[i].x - nodes[j].x;
-            let dy = nodes[i].y - nodes[j].y;
-            let dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < maxDistance) {
-                ctx.strokeStyle = `rgba(93, 92, 222, ${1 - dist / maxDistance})`;
-                ctx.lineWidth = 0.5;
-                ctx.beginPath();
-                ctx.moveTo(nodes[i].x, nodes[i].y);
-                ctx.lineTo(nodes[j].x, nodes[j].y);
-                ctx.stroke();
-            }
+        if (drops[i] * fontSize > height && Math.random() > 0.975) {
+            drops[i] = 0;
         }
+        drops[i]++;
     }
 
-    // Draw nodes
-    nodes.forEach(node => {
-        ctx.beginPath();
-        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-        ctx.fillStyle = node.color;
-        ctx.fill();
-
-        // Move nodes
-        node.x += node.vx;
-        node.y += node.vy;
-
-        // Bounce off edges
-        if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
-        if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
-    });
-
-    requestAnimationFrame(animateNetwork);
+    requestAnimationFrame(draw);
 }
 
-animateNetwork();
+draw();
 
-// detector.js
-
-// Global variables
-let currentRole = '';
-let transactionCount = 0;
-let fraudCount = 0;
-let riskScore = 0;
-let activeNodes = 0;
-let blockHeight = 0;
-
-// Chart instances
-let transactionChart;
-let fraudChart;
-let riskChart;
-
-// Initialize the application
-document.addEventListener('DOMContentLoaded', function() {
-    initializeCharts();
-    setupTabNavigation();
-    setupNetworkBackground();
-    startDataSimulation();
+// Resize canvas on window resize
+window.addEventListener('resize', () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
 });
+// syncDashboard.js
 
-// Login functionality
-function login() {
-    const roleSelect = document.getElementById('roleSelect');
-    currentRole = roleSelect.value;
+// ====== Utility Functions ======
 
-    if (currentRole) {
-        document.getElementById('loginModal').classList.add('hidden');
-        document.getElementById('dashboard').classList.remove('hidden');
-        document.getElementById('userRole').textContent = currentRole.charAt(0).toUpperCase() + currentRole.slice(1);
-
-        // Role-based access control (simplified)
-        if (currentRole === 'admin') {
-            // Admin has full access
-        } else if (currentRole === 'manager') {
-            // Manager can access monitoring and detection
-            document.querySelector('[data-tab="blockchain"]').style.display = 'none';
-        } else if (currentRole === 'ceo') {
-            // CEO has overview access
-            document.querySelector('[data-tab="monitoring"]').style.display = 'none';
-            document.querySelector('[data-tab="ai-detection"]').style.display = 'none';
-            document.querySelector('[data-tab="blockchain"]').style.display = 'none';
-            document.querySelector('[data-tab="nodes"]').style.display = 'none';
-        }
-    }
-}
-
-// Logout functionality
-function logout() {
-    document.getElementById('dashboard').classList.add('hidden');
-    document.getElementById('loginModal').classList.remove('hidden');
-    currentRole = '';
-    resetData();
-}
-
-
-
-
-// Initialize charts
-function initializeCharts() {
-    // Transaction Volume Chart
-    const transactionCtx = document.getElementById('transactionChart').getContext('2d');
-    transactionChart = new Chart(transactionCtx, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-            datasets: [{
-                label: 'Transactions',
-                data: [1200, 1900, 3000, 5000, 2000, 3000],
-                borderColor: '#5D5CDE',
-                backgroundColor: 'rgba(93, 92, 222, 0.1)',
-                tension: 0.4
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-
-    // Fraud Detection Rate Chart
-    const fraudCtx = document.getElementById('fraudChart').getContext('2d');
-    fraudChart = new Chart(fraudCtx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Legitimate', 'Suspicious', 'Fraudulent'],
-            datasets: [{
-                data: [85, 10, 5],
-                backgroundColor: ['#4ECDC4', '#FFE66D', '#FF6B6B']
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'bottom'
-                }
-            }
-        }
-    });
-
-    // Risk Scoring Chart
-    const riskCtx = document.getElementById('riskChart').getContext('2d');
-    riskChart = new Chart(riskCtx, {
-        type: 'radar',
-        data: {
-            labels: ['Velocity', 'Amount', 'Location', 'Device', 'Behavior'],
-            datasets: [{
-                label: 'Risk Factors',
-                data: [20, 40, 60, 30, 80],
-                borderColor: '#FF6B6B',
-                backgroundColor: 'rgba(255, 107, 107, 0.2)'
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                r: {
-                    beginAtZero: true,
-                    max: 100
-                }
-            }
-        }
-    });
-}
-
-// Network background animation
-function setupNetworkBackground() {
-    const canvas = document.getElementById('networkBg');
-    const ctx = canvas.getContext('2d');
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const nodes = [];
-    const numNodes = 50;
-
-    // Create nodes
-    for (let i = 0; i < numNodes; i++) {
-        nodes.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            vx: (Math.random() - 0.5) * 2,
-            vy: (Math.random() - 0.5) * 2,
-            radius: Math.random() * 3 + 1
+// Convert peer table rows to peer objects
+function getPeers() {
+    const peers = [];
+    const rows = document.querySelectorAll("#peerTable tbody tr");
+    rows.forEach(row => {
+        const cells = row.cells;
+        peers.push({
+            name: cells[0].innerText,
+            role: cells[1].innerText,
+            addedAt: cells[2].innerText
         });
-    }
-
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Draw connections
-        ctx.strokeStyle = 'rgba(93, 92, 222, 0.1)';
-        ctx.lineWidth = 1;
-
-        for (let i = 0; i < nodes.length; i++) {
-            for (let j = i + 1; j < nodes.length; j++) {
-                const dx = nodes[i].x - nodes[j].x;
-                const dy = nodes[i].y - nodes[j].y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < 150) {
-                    ctx.beginPath();
-                    ctx.moveTo(nodes[i].x, nodes[i].y);
-                    ctx.lineTo(nodes[j].x, nodes[j].y);
-                    ctx.stroke();
-                }
-            }
-        }
-
-        // Draw nodes
-        nodes.forEach(node => {
-            ctx.beginPath();
-            ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-            ctx.fillStyle = '#5D5CDE';
-            ctx.fill();
-
-            // Update position
-            node.x += node.vx;
-            node.y += node.vy;
-
-            // Bounce off edges
-            if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
-            if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
-        });
-
-        requestAnimationFrame(animate);
-    }
-
-    animate();
-
-    // Resize canvas on window resize
-    window.addEventListener('resize', function() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
     });
+    return peers;
 }
 
-// Simulate real-time data
-function startDataSimulation() {
-    setInterval(() => {
-        // Update metrics
-        transactionCount += Math.floor(Math.random() * 10) + 1;
-        fraudCount += Math.random() > 0.95 ? 1 : 0;
-        riskScore = Math.floor(Math.random() * 100);
-        activeNodes = Math.floor(Math.random() * 20) + 80;
-        blockHeight += Math.floor(Math.random() * 5) + 1;
-
-        updateMetrics();
-
-        // Add transaction to feed
-        addTransactionToFeed();
-
-        // Add alert occasionally
-        if (Math.random() > 0.9) {
-            addAlertToFeed();
-        }
-
-        // Update blockchain log
-        addBlockchainEntry();
-
-        // Update nodes
-        updateNodesGrid();
-
-        // Update charts
-        updateCharts();
-    }, 2000);
+// Convert auth log table rows to log objects
+function getAuthLogs() {
+    const logs = [];
+    const rows = document.querySelectorAll("#logTable tbody tr");
+    rows.forEach(row => {
+        const cells = row.cells;
+        logs.push({
+            user: cells[0].innerText,
+            method: cells[1].innerText,
+            status: cells[2].innerText,
+            time: cells[3].innerText
+        });
+    });
+    return logs;
 }
 
-function updateMetrics() {
-    document.getElementById('totalTransactions').textContent = transactionCount.toLocaleString();
-    document.getElementById('fraudDetected').textContent = fraudCount;
-    document.getElementById('riskScore').textContent = riskScore;
-    document.getElementById('activeNodes').textContent = activeNodes;
-    document.getElementById('blockHeight').textContent = blockHeight.toLocaleString();
+// ====== API Simulations ======
+
+// Add peers to Gossip hub
+function addPeersToGossipHub(peers) {
+    // Replace this with your actual API call
+    console.log("Adding peers to Gossip hub:", peers);
+    // Example using fetch:
+
+    fetch('/api/gossip/addPeers', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(peers)
+    })
+    .then(res => res.json())
+    .then(data => console.log("Gossip hub updated:", data))
+    .catch(err => console.error(err));
+
 }
 
-function addTransactionToFeed() {
-    const feed = document.getElementById('transactionFeed');
-    const transaction = document.createElement('div');
-    transaction.className = 'p-3 bg-gray-50 dark:bg-gray-700 rounded-lg';
-    transaction.innerHTML = `
-        <div class="flex justify-between items-center">
-            <div>
-                <span class="font-medium">TX-${Math.random().toString(36).substr(2, 9).toUpperCase()}</span>
-                <span class="text-sm text-gray-600 dark:text-gray-400 ml-2">$${Math.floor(Math.random() * 10000) + 100}</span>
-            </div>
-            <div class="flex items-center space-x-2">
-                <span class="text-xs px-2 py-1 rounded-full ${Math.random() > 0.9 ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}">
-                    ${Math.random() > 0.9 ? 'High Risk' : 'Low Risk'}
-                </span>
-                <span class="text-xs text-gray-500">${new Date().toLocaleTimeString()}</span>
-            </div>
-        </div>
-    `;
-
-    feed.insertBefore(transaction, feed.firstChild);
-
-    // Limit feed to 20 items
-    if (feed.children.length > 20) {
-        feed.removeChild(feed.lastChild);
-    }
+// Add auth logs to audit logs
+function addLogsToAudit(logs) {
+    // Replace this with your actual API call
+    console.log("Adding auth logs to audit:", logs);
+    // Example using fetch:
+  
+    fetch('/api/audit/addLogs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(logs)
+    })
+    .then(res => res.json())
+    .then(data => console.log("Audit logs updated:", data))
+    .catch(err => console.error(err));
+  
 }
 
-function addAlertToFeed() {
-    const feed = document.getElementById('alertsFeed');
-    const alert = document.createElement('div');
-    alert.className = 'p-3 bg-red-50 dark:bg-red-900 rounded-lg border-l-4 border-red-500';
-    alert.innerHTML = `
-        <div class="flex items-center space-x-2">
-            <span class="text-red-600">⚠️</span>
-            <div>
-                <p class="font-medium text-red-800 dark:text-red-200">Suspicious Activity Detected</p>
-                <p class="text-sm text-red-600 dark:text-red-400">Unusual transaction pattern from IP: ${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}</p>
-            </div>
-        </div>
-    `;
+// ====== Main Sync Function ======
+function syncDashboardData() {
+    const peers = getPeers();
+    const logs = getAuthLogs();
 
-    feed.insertBefore(alert, feed.firstChild);
-
-    // Limit feed to 10 items
-    if (feed.children.length > 10) {
-        feed.removeChild(feed.lastChild);
-    }
+    if (peers.length > 0) addPeersToGossipHub(peers);
+    if (logs.length > 0) addLogsToAudit(logs);
 }
 
-function addBlockchainEntry() {
-    const log = document.getElementById('blockchainLog');
-    const entry = document.createElement('div');
-    entry.className = 'text-xs';
-    entry.innerHTML = `
-        <span class="text-gray-500">[${new Date().toISOString()}]</span>
-        <span class="text-green-600">Block ${blockHeight} mined</span>
-        <span class="text-gray-400">Hash: ${Math.random().toString(16).substr(2, 16)}</span>
-    `;
+// ====== Optional: Auto-sync every 5 minutes ======
+setInterval(syncDashboardData, 5 * 60 * 1000); // 5 minutes
 
-    log.insertBefore(entry, log.firstChild);
-
-    // Limit log to 20 entries
-    if (log.children.length > 20) {
-        log.removeChild(log.lastChild);
-    }
-}
-
-function updateNodesGrid() {
-    const grid = document.getElementById('nodesGrid');
-    grid.innerHTML = '';
-
-    for (let i = 0; i < 12; i++) {
-        const node = document.createElement('div');
-        node.className = 'p-4 bg-gray-50 dark:bg-gray-700 rounded-lg text-center';
-        const status = Math.random() > 0.1 ? 'Active' : 'Inactive';
-        node.innerHTML = `
-            <div class="w-8 h-8 mx-auto mb-2 rounded-full ${status === 'Active' ? 'bg-green-500' : 'bg-red-500'}"></div>
-            <p class="text-sm font-medium">Node ${i + 1}</p>
-            <p class="text-xs text-gray-600 dark:text-gray-400">${status}</p>
-        `;
-        grid.appendChild(node);
-    }
-}
-
-function updateCharts() {
-    // Update transaction chart with new data
-    transactionChart.data.datasets[0].data.push(Math.floor(Math.random() * 5000) + 1000);
-    if (transactionChart.data.datasets[0].data.length > 6) {
-        transactionChart.data.datasets[0].data.shift();
-    }
-    transactionChart.update();
-
-    // Update fraud chart
-    const fraudData = [85 + Math.floor(Math.random() * 10), 10 + Math.floor(Math.random() * 5), 5 + Math.floor(Math.random() * 3)];
-    fraudChart.data.datasets[0].data = fraudData;
-    fraudChart.update();
-
-    // Update risk chart
-    riskChart.data.datasets[0].data = [
-        Math.floor(Math.random() * 100),
-        Math.floor(Math.random() * 100),
-        Math.floor(Math.random() * 100),
-        Math.floor(Math.random() * 100),
-        Math.floor(Math.random() * 100)
-    ];
-    riskChart.update();
-}
-
-function resetData() {
-    transactionCount = 0;
-    fraudCount = 0;
-    riskScore = 0;
-    activeNodes = 0;
-    blockHeight = 0;
-    updateMetrics();
-
-    // Clear feeds
-    document.getElementById('transactionFeed').innerHTML = '';
-    document.getElementById('alertsFeed').innerHTML = '';
-    document.getElementById('blockchainLog').innerHTML = '';
-}
-const overviewBtn = document.getElementById('overviewBtn');
-const monitoringBtn = document.getElementById('monitoringBtn');
-const detectionBtn = document.getElementById('detectionBtn');
-const blockchainBtn = document.getElementById('blockchainBtn');
-const nodesBtn = document.getElementById('nodesBtn');
-
-const tabs = {
-  overview: document.getElementById('overview-tab'),
-  monitoring: document.getElementById('monitoring-tab'),
-  detection: document.getElementById('ai-detection-tab'),
-  blockchain: document.getElementById('blockchain-tab'),
-  nodes: document.getElementById('nodes-tab')
-};
-
-function showTab(tabName) {
-  for (let key in tabs) {
-    if (key === tabName) {
-      tabs[key].classList.remove('hidden');
-    } else {
-      tabs[key].classList.add('hidden');
-    }
-  }
-}
-
-// Event listeners
-overviewBtn.addEventListener('click', () => showTab('overview'));
-monitoringBtn.addEventListener('click', () => showTab('monitoring'));
-detectionBtn.addEventListener('click', () => showTab('detection'));
-blockchainBtn.addEventListener('click', () => showTab('blockchain'));
-nodesBtn.addEventListener('click', () => showTab('nodes'));
-
-
-const tabNavStyle = document.createElement('style');
-tabNavStyle.textContent = `
-    #navTabs button {
-        transition: all 0.3s ease;
-        padding: 0.5rem 1rem;
-        border-radius: 0.5rem;
-        background-color: transparent;
-        color: #6b7280;
-    }
-    #navTabs button.active {
-        background-color: #5D5CDE;
-        color: white;
-        box-shadow: 0 0 10px rgba(93, 92, 222, 0.3);
-    }
-    #navTabs button:hover {
-        background-color: rgba(93, 92, 222, 0.1);
-        color: #5D5CDE;
-    }
-`;
-document.head.appendChild(tabNavStyle);
-document.head.appendChild(tabNavStyle);
-document.head.appendChild(tabNavStyle);
+// ====== Optional: Sync on page load ======
+document.addEventListener("DOMContentLoaded", () => {
+    syncDashboardData();
+});

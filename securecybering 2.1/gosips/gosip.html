@@ -1,253 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peer Registration & Login</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f7fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            width: 320px;
-        }
-        
-        h2 {
-            margin-top: 0;
-            text-align: center;
-            color: #2563eb;
-        }
-        
-        label {
-            font-size: 14px;
-            display: block;
-            margin-top: 12px;
-        }
-        
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-top: 4px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-        }
-        
-        button {
-            width: 100%;
-            margin-top: 16px;
-            padding: 10px;
-            background: #2563eb;
-            color: white;
-            font-weight: bold;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        button:hover {
-            background: #1e40af;
-        }
-        
-        .toggle {
-            text-align: center;
-            margin-top: 12px;
-            color: #2563eb;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        
-        .error {
-            color: red;
-            font-size: 13px;
-            margin-top: 8px;
-        }
-        
-        p {
-            color: rgb(7, 2, 20);
-        }
-        
-        legend {
-            color: rgb(7, 2, 20);
-        }
-        
-        .login-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.6rem;
-            font-weight: 600;
-            color: #222;
-            padding: 15px 20px;
-            background: #f7f7f7;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-        }
-        
-        .header-logo {
-            height: 40px;
-            width: auto;
-        }
-        
-        .login-title i {
-            font-size: 1.4rem;
-            color: #0077cc;
-        }
-        /* Optional hover effect */
-        
-        .login-title:hover {
-            background: #f0f0f0;
-            border-color: #ccc;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peer Registration & Login</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f5f7fa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    .container {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        width: 300px;
+        text-align: center;
+    }
+    h2 { color: #2563eb; margin-bottom: 15px; }
+    input { width: 100%; padding: 8px; margin: 8px 0; border-radius: 6px; border: 1px solid #ccc; }
+    button { width: 100%; padding: 10px; background: #2563eb; color: white; border: none; border-radius: 6px; cursor: pointer; }
+    button:hover { background: #1e40af; }
+    .toggle { margin-top: 10px; cursor: pointer; color: #2563eb; font-size: 14px; }
+    .error { color: red; font-size: 13px; margin-top: 5px; }
+    .hidden { display: none; }
+</style>
 </head>
-
 <body>
 
-    <div class="container" id="container">
-
-
-        <div class="login-title">
-            <img src="securechain.png" alt="Logo" class="header-logo">
-
-            <i class="fas fa-lock"></i> Secure Login
-        </div>
-
-        <!-- Registration Form -->
-        <div id="registerForm">
-            <h2>Register</h2>
-            <label>Username</label>
-            <input type="text" id="regUsername" placeholder="Enter username">
-            <label>Password</label>
-            <input type="password" id="regPassword" placeholder="Enter password">
-            <label>Confirm Password</label>
-            <input type="password" id="regConfirmPassword" placeholder="Confirm password">
-            <button id="registerBtn">Register</button>
-            <div class="error" id="regError"></div>
-            <div class="toggle" id="toLogin">Already have an account? Login</div>
-        </div>
-
-        <!-- Login Form -->
-        <div id="loginForm" class="hidden" style="display:none">
-            <p id="welcome-text">Welcome back</p>
-
-            <h2>Login</h2>
-            <label>Username</label>
-            <input type="text" id="loginUsername" placeholder="Enter username">
-            <label>Password</label>
-            <input type="password" id="loginPassword" placeholder="Enter password">
-            <button id="loginBtn">Login</button>
-            <div class="error" id="loginError"></div>
-            <div class="toggle" id="toRegister">Don't have an account? Register</div>
-
-            <a href="https://accounts.google.com/o/oauth2/v2/auth?
-  client_id=YOUR_CLIENT_ID
-  &redirect_uri=YOUR_REDIRECT_URI
-  &response_type=code
-  &scope=email%20profile
-  &access_type=offline
-  &prompt=consent">
-                <button id="cntn_with_google"><i class="fa fa-google-plus-official" aria-hidden="true"></i> Continue with Google</button>
-            </a>
-            <a href=" https://www.linkedin.com/oauth/v2/authorization? response_type=code &client_id=YOUR_CLIENT_ID &redirect_uri=YOUR_REDIRECT_URI &scope=r_liteprofile%20r_emailaddress ">
-                <button id="cntn_with_linkedin "><i class="fab fa-linkedin fa-2x fa-fw "></i> Continue with Linkedin</button>
-            </a>
-        </div>
+<div class="container">
+    <!-- Registration Form -->
+    <div id="registerForm">
+        <h2>Register</h2>
+        <input type="text" id="regUsername" placeholder="Username">
+        <input type="password" id="regPassword" placeholder="Password">
+        <input type="password" id="regConfirmPassword" placeholder="Confirm Password">
+        <button id="registerBtn">Register</button>
+        <div class="error" id="regError"></div>
+        <div class="toggle" id="toLogin">Already have an account? Login</div>
     </div>
 
-    <script>
-        // ---------------- Local Storage Users ----------------
-        let users = JSON.parse(localStorage.getItem('peers') || '{}');
+    <!-- Login Form -->
+    <div id="loginForm" class="hidden">
+        <h2>Login</h2>
+        <input type="text" id="loginUsername" placeholder="Username">
+        <input type="password" id="loginPassword" placeholder="Password">
+        <button id="loginBtn">Login</button>
+        <div class="error" id="loginError"></div>
+        <div class="toggle" id="toRegister">Don't have an account? Register</div>
+    </div>
+</div>
 
-        // ---------------- Form Toggle ----------------
-        const registerForm = document.getElementById('registerForm');
-        const loginForm = document.getElementById('loginForm');
-        document.getElementById('toLogin').addEventListener('click', () => {
-            registerForm.classList.add('hidden');
-            loginForm.classList.remove('hidden');
-        });
-        document.getElementById('toRegister').addEventListener('click', () => {
-            loginForm.classList.add('hidden');
-            registerForm.classList.remove('hidden');
-        });
+<script>
+let users = JSON.parse(localStorage.getItem('peers') || '{}');
 
-        // ---------------- Registration ----------------
-        document.getElementById('registerBtn').addEventListener('click', () => {
-            const username = document.getElementById('regUsername').value.trim();
-            const password = document.getElementById('regPassword').value.trim();
-            const confirm = document.getElementById('regConfirmPassword').value.trim();
-            const error = document.getElementById('regError');
-            error.textContent = '';
+// Form toggle
+document.getElementById('toLogin').addEventListener('click', () => {
+    document.getElementById('registerForm').classList.add('hidden');
+    document.getElementById('loginForm').classList.remove('hidden');
+});
+document.getElementById('toRegister').addEventListener('click', () => {
+    document.getElementById('loginForm').classList.add('hidden');
+    document.getElementById('registerForm').classList.remove('hidden');
+});
 
-            if (!username || !password || !confirm) {
-                error.textContent = 'All fields are required';
-                return;
-            }
-            if (password !== confirm) {
-                error.textContent = 'Passwords do not match';
-                return;
-            }
-            if (users[username]) {
-                error.textContent = 'Username already exists';
-                return;
-            }
+// Registration
+document.getElementById('registerBtn').addEventListener('click', () => {
+    const username = document.getElementById('regUsername').value.trim();
+    const password = document.getElementById('regPassword').value.trim();
+    const confirm = document.getElementById('regConfirmPassword').value.trim();
+    const error = document.getElementById('regError');
+    error.textContent = '';
 
-            // Save user
-            users[username] = {
-                password
-            };
-            localStorage.setItem('peers', JSON.stringify(users));
-            alert('Registration successful! You can now login.');
-            document.getElementById('regUsername').value = '';
-            document.getElementById('regPassword').value = '';
-            document.getElementById('regConfirmPassword').value = '';
-            registerForm.classList.add('hidden');
-            loginForm.classList.remove('hidden');
-        });
+    if (!username || !password || !confirm) { error.textContent = 'All fields required'; return; }
+    if (password !== confirm) { error.textContent = 'Passwords do not match'; return; }
+    if (users[username]) { error.textContent = 'Username exists'; return; }
 
-        // ---------------- Login ----------------
-        document.getElementById('loginBtn').addEventListener('click', () => {
-            const username = document.getElementById('loginUsername').value.trim();
-            const password = document.getElementById('loginPassword').value.trim();
-            const error = document.getElementById('loginError');
-            error.textContent = '';
+    users[username] = { password };
+    localStorage.setItem('peers', JSON.stringify(users));
+    alert('Registration successful! Login now.');
+    document.getElementById('regUsername').value = '';
+    document.getElementById('regPassword').value = '';
+    document.getElementById('regConfirmPassword').value = '';
+    document.getElementById('registerForm').classList.add('hidden');
+    document.getElementById('loginForm').classList.remove('hidden');
+});
+// intergrator.js (or any JS file you include in your login page)
 
-            if (!username || !password) {
-                error.textContent = 'All fields are required';
-                return;
-            }
+// Get currently logged-in user from localStorage
+const username = localStorage.getItem('username');
 
-            const user = users[username];
-            if (!user || user.password !== password) {
-                error.textContent = 'Invalid username or password';
-                return;
-            }
+// Get peers list from localStorage (default to empty object)
+let peers = JSON.parse(localStorage.getItem('peers') || '{}');
 
-            alert(`Welcome, ${username}! You are now logged in.`);
-            // Here you can redirect to gossip.html or main app
-            window.location.href = 'fraud_gosip.html';
-        });
-        const username = localStorage.getItem("username");
-        if (username) {
-            document.getElementById("welcome-text").textContent = `Welcome back, ${username}`;
-        }
-    </script>
-    <script src="js/gosip.js "></script>
-    <script src="/js/intergrator.js "></script>
-  
+// Function to send new user to detector.html for authentication
+function sendToDetector(user) {
+    // Store user info in localStorage for detector.html to read
+    localStorage.setItem('detectorUser', JSON.stringify(user));
+
+    // Redirect to detector.html
+    window.location.href = 'detector.html';
+}
+
+// Check if user exists in peers
+if (username) {
+    if (!peers[username]) {
+        // User not found in peers, prepare user info
+        const userInfo = {
+            username: username,
+            timestamp: new Date().toISOString()
+        };
+        console.log('User not in peers, sending to detector.html:', userInfo);
+
+        // Send to detector page for authentication
+        sendToDetector(userInfo);
+    } else {
+        console.log('User exists in peers:', username);
+    }
+} else {
+    console.log('No user logged in');
+}
+
+
+// Login
+document.getElementById('loginBtn').addEventListener('click', () => {
+    const username = document.getElementById('loginUsername').value.trim();
+    const password = document.getElementById('loginPassword').value.trim();
+    const error = document.getElementById('loginError');
+    error.textContent = '';
+
+    if (!username || !password) { error.textContent = 'All fields required'; return; }
+
+    const user = users[username];
+    if (!user || user.password !== password) { error.textContent = 'Invalid credentials'; return; }
+
+    localStorage.setItem('username', username);
+    alert(`Welcome, ${username}!`);
+    window.location.href = 'fraud_gosip.html';
+});
+
+</script>
+
 </body>
-
 </html>

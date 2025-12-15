@@ -1008,7 +1008,7 @@
             createPeer(name);
             document.getElementById('newPeerName').value = '';
         });
-
+          
         document.getElementById('activePeer').addEventListener('change', (e) => {
             activePeerId = e.target.value;
             save('activePeerId', activePeerId);
@@ -1045,7 +1045,7 @@
             window.location.href = "gosip.html"; // Redirect to login page
         });
     </script>
-    <script src="auth-and-peer.js"></script>
+    <script src="js/auth-and-peer.js"></script>
 </body>
 
 </html>

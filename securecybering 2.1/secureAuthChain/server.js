@@ -57,7 +57,7 @@ app.post("/api/login", (req, res) => {
 });
 
 /* ---------------- EMAIL OTP ---------------- */
-app.post("/api/send-email-otp", async (req, res) => {
+app.post("/api/send-email-otp", async(req, res) => {
     const { email, sessionId, username } = req.body;
     const record = otpStore[sessionId];
 
@@ -75,7 +75,7 @@ app.post("/api/send-email-otp", async (req, res) => {
 });
 
 /* ---------------- SMS OTP ---------------- */
-app.post("/api/send-sms-otp", async (req, res) => {
+app.post("/api/send-sms-otp", async(req, res) => {
     const { phone, sessionId, username } = req.body;
     const record = otpStore[sessionId];
 
