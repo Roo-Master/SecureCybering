@@ -6,7 +6,7 @@ const router = Router()
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-const uiDir = path.join(__dirname, "../ui")
+const uiDir = path.join(__dirname, "../../ui")
 
 router.use("/", express.static(uiDir))
 
