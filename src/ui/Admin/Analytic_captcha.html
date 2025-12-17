@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Login with CAPTCHA</title>
+       <link rel="icon" type="image/png" sizes="32x32" href="securechain.png">
+<link rel="icon" type="image/png" sizes="16x16" href="securechain.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1b2330;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 20px;
+        }
+        
+        .login-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+        
+        .header-logo {
+            width: 50px;
+            height: 50px;
+        }
+        
+        a {
+            color: #4ec9b0;
+            text-decoration: none;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .captcha-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        #captcha {
+            border: 2px solid #4ec9b0;
+            border-radius: 5px;
+            background: #1b2330;
+        }
+        
+        #captcha-input {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #4ec9b0;
+            width: 150px;
+            text-align: center;
+            color: #fff;
+            background: #2a3345;
+        }
+        
+        button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 5px;
+            background: #4ec9b0;
+            color: #1b2330;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        button:hover {
+            background: #72ffd8;
+        }
+        
+        #captcha-result {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Login Header -->
+    <div class="login-title">
+        <img src="securechain.png" alt="Logo" class="header-logo">
+        <i class="fas fa-lock"></i> Secure Login
+    </div>
+
+    <!-- Admin Dashboard Link -->
+    <a href="admin-panel.html">View Analytics Dashboard</a>
+
+    <!-- CAPTCHA -->
+    <div class="captcha-container">
+        <canvas id="captcha" width="150" height="50"></canvas>
+        <input type="text" id="captcha-input" placeholder="Enter CAPTCHA">
+        <div>
+            <button id="refresh-captcha">🔄 Refresh</button>
+            <button id="verify-captcha">Verify</button>
+        </div>
+        <p id="captcha-result"></p>
+    </div>
+
+    <script>
+        let captchaCode = "";
+
+        function generateCaptcha() {
+            const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789";
+            captchaCode = "";
+            for (let i = 0; i < 6; i++) {
+                captchaCode += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            drawCaptcha();
+        }
+
+        function drawCaptcha() {
+            const canvas = document.getElementById("captcha");
+            const ctx = canvas.getContext("2d");
+
+            // Background
+            ctx.fillStyle = "#1b2330";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Add noise
+            for (let i = 0; i < 20; i++) {
+                ctx.fillStyle = `rgba(255,255,255,${Math.random()})`;
+                ctx.beginPath();
+                ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, 1 + Math.random() * 3, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+
+            // Text
+            ctx.font = "25px Arial";
+            ctx.fillStyle = "#4ec9b0";
+            ctx.textBaseline = "middle";
+            ctx.textAlign = "center";
+            ctx.fillText(captchaCode, canvas.width / 2, canvas.height / 2);
+        }
+
+        document.getElementById("refresh-captcha").addEventListener("click", generateCaptcha);
+
+        document.getElementById("verify-captcha").addEventListener("click", () => {
+            const input = document.getElementById("captcha-input").value;
+            const result = document.getElementById("captcha-result");
+            if (input === captchaCode) {
+                result.style.color = "#4ec9b0";
+                result.textContent = "✅  Verified!";
+                alert("Loading Analytics");
+                window.location.href = "driveralerts.html";
+            } else {
+                result.style.color = "#ff5555";
+                result.textContent = "❌ Incorrect, try again.";
+                generateCaptcha();
+            }
+        });
+
+        // Generate initial CAPTCHA
+        generateCaptcha();
+    </script>
+
+</body>
+
+</html>
+
+</html>
